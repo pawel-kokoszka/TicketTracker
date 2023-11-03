@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TicketTracker.Application\TicketTracker.Application.csproj" />
+  </ItemGroup>
+
 </Project>

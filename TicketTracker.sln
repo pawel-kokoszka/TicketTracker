@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketTracker", "TicketTracker\TicketTracker.csproj", "{CCD15187-249A-4566-86E9-4E914DAAF1B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketTracker.MVC", "TicketTracker\TicketTracker.MVC.csproj", "{CCD15187-249A-4566-86E9-4E914DAAF1B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTracker.Domain", "TicketTracker.Domain\TicketTracker.Domain.csproj", "{90016238-EB92-48A0-8382-59EB2544397D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTracker.Application", "TicketTracker.Application\TicketTracker.Application.csproj", "{110B0F5E-85F6-49E3-918B-AC9C4368A445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTracker.Infrastructure", "TicketTracker.Infrastructure\TicketTracker.Infrastructure.csproj", "{D2780E09-325E-4587-B9CF-AB622E5F241E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{CCD15187-249A-4566-86E9-4E914DAAF1B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCD15187-249A-4566-86E9-4E914DAAF1B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCD15187-249A-4566-86E9-4E914DAAF1B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90016238-EB92-48A0-8382-59EB2544397D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90016238-EB92-48A0-8382-59EB2544397D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90016238-EB92-48A0-8382-59EB2544397D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90016238-EB92-48A0-8382-59EB2544397D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{110B0F5E-85F6-49E3-918B-AC9C4368A445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110B0F5E-85F6-49E3-918B-AC9C4368A445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110B0F5E-85F6-49E3-918B-AC9C4368A445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110B0F5E-85F6-49E3-918B-AC9C4368A445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2780E09-325E-4587-B9CF-AB622E5F241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2780E09-325E-4587-B9CF-AB622E5F241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2780E09-325E-4587-B9CF-AB622E5F241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2780E09-325E-4587-B9CF-AB622E5F241E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
