@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Domain.Interfaces;
 using TicketTracker.Infrastructure.DataBaseContext;
+using TicketTracker.Infrastructure.Repositories;
 using TicketTracker.Infrastructure.Seeders;
 
 namespace TicketTracker.Infrastructure.Extensions
@@ -19,6 +21,9 @@ namespace TicketTracker.Infrastructure.Extensions
                 configuration.GetConnectionString("TicketTrackerDev")));
 
             services.AddScoped<TicketTrackerSeeder>(); 
+
+            services.AddScoped<ITicketRepository, TicketRepository>();
         }
+
     }
 }
