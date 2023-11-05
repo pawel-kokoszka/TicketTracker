@@ -12,8 +12,8 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TrackerDbContext))]
-    [Migration("20231105115443_TTDB_init")]
-    partial class TTDB_init
+    [Migration("20231105150037_Init_DB_Migration")]
+    partial class Init_DB_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

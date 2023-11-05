@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TicketTracker.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class TTDB_init : Migration
+    public partial class Init_DB_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,12 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using TicketTracker.Infrastructure.DataBaseContext;
+using TicketTracker.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<TrackerDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("TicketTrackerDev")    )    );
+
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
