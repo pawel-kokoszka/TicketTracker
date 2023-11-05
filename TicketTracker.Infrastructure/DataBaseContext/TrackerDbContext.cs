@@ -16,10 +16,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = DESKTOP - FGUCUTG\\SQLSERVERDEV1; Integrated Security = True; Connect Timeout = 30; Encrypt = False; Trust Server Certificate=False; Application Intent = ReadWrite; Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Data Source = .\\SQLSERVERDEV1;Database=TicketTracker; Integrated Security = True; Trust Server Certificate = True;");
         }
+
+
     }
 }
-
-
-
