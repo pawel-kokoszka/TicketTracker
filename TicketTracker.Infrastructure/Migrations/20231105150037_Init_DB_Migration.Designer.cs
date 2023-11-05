@@ -11,7 +11,7 @@ using TicketTracker.Infrastructure.DataBaseContext;
 
 namespace TicketTracker.Infrastructure.Migrations
 {
-    [DbContext(typeof(TrackerDbContext))]
+    [DbContext(typeof(TicketTrackerDbContext))]
     [Migration("20231105150037_Init_DB_Migration")]
     partial class Init_DB_Migration
     {

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TicketTracker.Infrastructure.DataBaseContext;
 using TicketTracker.Infrastructure.Extensions;
+using TicketTracker.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,17 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+#region Seeder - to delete on prod !
+
+var scope = app.Services.CreateScope();
+
+var seeder = scope.ServiceProvider.GetRequiredService<TicketTrackerSeeder>(); 
+
+await seeder.Seed(); //inserts first records to DB 
+
+#endregion 
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

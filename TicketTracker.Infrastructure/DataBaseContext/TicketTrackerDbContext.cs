@@ -10,9 +10,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
 {
-    public class TrackerDbContext : DbContext
+    public class TicketTrackerDbContext : DbContext
     {
-        public TrackerDbContext(DbContextOptions<TrackerDbContext> options) : base(options)
+        public TicketTrackerDbContext(DbContextOptions<TicketTrackerDbContext> options) : base(options)
         {
 
         }

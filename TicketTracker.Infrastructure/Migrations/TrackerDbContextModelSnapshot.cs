@@ -10,7 +10,7 @@ using TicketTracker.Infrastructure.DataBaseContext;
 
 namespace TicketTracker.Infrastructure.Migrations
 {
-    [DbContext(typeof(TrackerDbContext))]
+    [DbContext(typeof(TicketTrackerDbContext))]
     partial class TrackerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

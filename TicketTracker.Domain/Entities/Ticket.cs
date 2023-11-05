@@ -8,7 +8,7 @@ namespace TicketTracker.Domain.Entities
 {
     public class Ticket
     {
-        public required int Id { get; set; }    
+        public int Id { get; set; }    
 
         public int  TypeId { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;

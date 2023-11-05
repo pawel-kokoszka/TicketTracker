@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Infrastructure.DataBaseContext;
+using TicketTracker.Infrastructure.Seeders;
 
 namespace TicketTracker.Infrastructure.Extensions
 {
@@ -14,8 +15,10 @@ namespace TicketTracker.Infrastructure.Extensions
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<TrackerDbContext>(options => options.UseSqlServer(
+            services.AddDbContext<TicketTrackerDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("TicketTrackerDev")));
+
+            services.AddScoped<TicketTrackerSeeder>(); 
         }
     }
 }
