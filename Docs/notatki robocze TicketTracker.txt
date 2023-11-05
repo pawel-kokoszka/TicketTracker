@@ -1,0 +1,5 @@
+notatki do Ticket Tracker
+
+1.czy każdy rodzaj ticketu powiniein mieć numer(ID) i guid, czy tylko numer(ID) ? 
++ PK mógłby być założony na GUID
++ każdy rodzaj biletu mógłby mieć oddzielną numerację 
