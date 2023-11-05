@@ -12,13 +12,13 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 {
     public class TrackerDbContext : DbContext
     {
-        public DbSet<Ticket> Tickets { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public TrackerDbContext(DbContextOptions<TrackerDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Data Source = .\\SQLSERVERDEV1;Database=TicketTracker; Integrated Security = True; Trust Server Certificate = True;");
+
         }
 
+        public DbSet<Ticket> Tickets { get; set; }
+                
 
     }
 }
