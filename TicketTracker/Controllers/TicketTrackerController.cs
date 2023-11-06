@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicketTracker.Application.Services;
+using TicketTracker.Application.Ticket;
 using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.MVC.Controllers
@@ -18,7 +19,7 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Ticket ticket)
+        public async Task<IActionResult> Create(TicketDto ticket)
         {
             await _ticketService.Create(ticket); 
 

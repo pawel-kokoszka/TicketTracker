@@ -1,9 +1,10 @@
-﻿using TicketTracker.Domain.Entities;
+﻿using TicketTracker.Application.Ticket;
+using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Application.Services
 {
     public interface ITicketService
     {
-        Task Create(Ticket ticket);
+        Task Create(TicketDto ticket);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Application.Mappings;
 using TicketTracker.Application.Services;
 
 namespace TicketTracker.Application.Extensions
@@ -14,6 +15,7 @@ namespace TicketTracker.Application.Extensions
         {
             services.AddScoped<ITicketService, TicketService>();
 
+            services.AddAutoMapper(typeof(TicketMappingProfile));
         }
     }
 }
