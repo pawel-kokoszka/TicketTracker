@@ -12,6 +12,11 @@ namespace TicketTracker.MVC.Controllers
             _ticketService = ticketService;
         }
 
+        public IActionResult Create() 
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(Ticket ticket)
         {

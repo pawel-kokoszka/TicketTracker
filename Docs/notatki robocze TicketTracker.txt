@@ -3,3 +3,138 @@ notatki do Ticket Tracker
 1.czy każdy rodzaj ticketu powiniein mieć numer(ID) i guid, czy tylko numer(ID) ? 
 + PK mógłby być założony na GUID
 + każdy rodzaj biletu mógłby mieć oddzielną numerację 
+
++ TicketTrackerController(ITicketService ticketService)
+
+Create(Ticket ticket)
+
+ITicketService
+
+Task Create(Ticket ticket)
+
+class TicketService : ITicketService
+
+ITicketRepository _ticketRpository
+
+TicketService(ITicketRepository ticketRepository)
+        {
+            _ticketRpository = ticketRepository;
+        }
+		
+Task Create(Ticket ticket)
+        {
+            await _ticketRpository.Create(ticket);
+        }		
+		
+		
+interface ITicketRepository
+    {
+        Task Create(Ticket ticket);
+    }
+	
+
+class TicketRepository : ITicketRepository
+
+
+TicketTrackerDbContext _dbContext;
+        public TicketRepository(TicketTrackerDbContext dbContext) 
+        {
+            _dbContext = dbContext;
+        }
+        public async Task Create(Ticket ticket)
+        {
+            _dbContext.Add(ticket);
+            await _dbContext.SaveChangesAsync();  
+        }
+
+
+private readonly ITicketService _ticketService;
+        public TicketTrackerController(ITicketService ticketService)
+        {
+            _ticketService = ticketService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Ticket ticket)
+        {
+            await _ticketService.Create(ticket); 
+
+            return RedirectToAction(nameof(Create)); //todo refactor
+        }
+
+
+
+
+public static class ServiceCollectionExtension
+    {
+        public static void AddApplication(this IServiceCollection services)
+        {
+            services.AddScoped<ITicketService, TicketService>();
+
+        }
+    }
+
+
+
+builder.Services.AddApplication();
+
+public static class ServiceCollectionExtension
+    {
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<TicketTrackerDbContext>(options => options.UseSqlServer(
+                configuration.GetConnectionString("TicketTrackerDev")));
+
+            services.AddScoped<TicketTrackerSeeder>(); 
+
+            services.AddScoped<ITicketRepository, TicketRepository>();
+        }
+
+    }
+builder.Services.AddInfrastructure(builder.Configuration);
+
+
+wiele wierszy
+wiele wierszy
+wiele wierszy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
