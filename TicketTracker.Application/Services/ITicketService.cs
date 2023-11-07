@@ -1,4 +1,4 @@
-﻿using TicketTracker.Application.Ticket;
+﻿using TicketTracker.Application.DTO.Ticket;
 using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Application.Services

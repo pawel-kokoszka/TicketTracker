@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TicketTracker.Application.Ticket;
+using TicketTracker.Application.DTO.Ticket;
 using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Application.Mappings
