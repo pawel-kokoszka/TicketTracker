@@ -11,7 +11,7 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; }    
 
         public int  TypeId { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.Now;
+        public DateTime DateCreated { get; set; } = DateTime.Now.ToUniversalTime();
 
         public int EnvId { get; set; }
 
