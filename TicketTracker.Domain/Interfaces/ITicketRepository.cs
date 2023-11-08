@@ -10,5 +10,7 @@ namespace TicketTracker.Domain.Interfaces
     public interface ITicketRepository
     {
         Task Create(Ticket ticket);
+
+        Task<IEnumerable<Ticket>> GetAll();
     }
 }

@@ -25,5 +25,15 @@ namespace TicketTracker.Application.Services
 
             await _ticketRpository.Create(ticket);
         }
+
+        public async Task<IEnumerable<TicketDto>> GetAll()
+        {
+            var tickets = await _ticketRpository.GetAll();
+            var ticketDtos = _mapper.Map<IEnumerable<TicketDto>>(tickets);
+
+
+            return ticketDtos;
+
+        }
     }
 }

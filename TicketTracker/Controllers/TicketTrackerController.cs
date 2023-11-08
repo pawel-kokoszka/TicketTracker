@@ -13,6 +13,13 @@ namespace TicketTracker.MVC.Controllers
             _ticketService = ticketService;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var tickets = await _ticketService.GetAll();
+
+            return View(tickets);
+        }
+
         public IActionResult Create() 
         {
             return View();
@@ -28,7 +35,7 @@ namespace TicketTracker.MVC.Controllers
 
             await _ticketService.Create(ticket); 
 
-            return RedirectToAction(nameof(Create)); //todo refactor
+            return RedirectToAction(nameof(Index)); //todo refactor
         }
     }
 }

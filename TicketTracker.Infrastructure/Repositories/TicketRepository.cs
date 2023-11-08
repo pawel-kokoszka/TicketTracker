@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,8 @@ namespace TicketTracker.Infrastructure.Repositories
             _dbContext.Add(ticket);
             await _dbContext.SaveChangesAsync();  
         }
+
+        public async Task<IEnumerable<Ticket>> GetAll()
+            => await _dbContext.Tickets.ToListAsync();
     }
 }
