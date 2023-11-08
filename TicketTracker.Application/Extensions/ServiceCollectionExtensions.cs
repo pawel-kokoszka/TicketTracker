@@ -1,14 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketTracker.Application.DTO.Ticket;
+using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Mappings;
-using TicketTracker.Application.Services;
+using MediatR;
+
 
 namespace TicketTracker.Application.Extensions
 {
@@ -16,13 +12,14 @@ namespace TicketTracker.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<ITicketService, TicketService>();
+            services.AddMediatR(typeof(CreateTicketCommand)); //registerd type acts for registration for entire assmebly
 
             services.AddAutoMapper(typeof(TicketMappingProfile));
 
-            services.AddValidatorsFromAssemblyContaining<TicketDtoValidator>() //registerd type acts for registration for entire assmebly
+            services.AddValidatorsFromAssemblyContaining<CreateTicketCommandValidator>() //registerd type acts for registration for entire assmebly
                 .AddFluentValidationAutoValidation()                           //switches default ASP.net validaton to FluentValidation
                 .AddFluentValidationClientsideAdapters();                      //Enables FluentValidation on client side
+            
         }
     }
 }

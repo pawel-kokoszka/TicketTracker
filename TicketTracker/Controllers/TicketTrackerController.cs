@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TicketTracker.Application.DTO.Ticket;
-using TicketTracker.Application.Services;
+using TicketTracker.Application.Tickets;
 using TicketTracker.Domain.Entities;
+using MediatR;
+using TicketTracker.Application.Tickets.Queries.GetAllTickets;
+using TicketTracker.Application.Tickets.Commands.CreateTicket;
 
 namespace TicketTracker.MVC.Controllers
 {
     public class TicketTrackerController : Controller
     {
-        private readonly ITicketService _ticketService;
-        public TicketTrackerController(ITicketService ticketService)
+        private readonly IMediator _mediator;
+        public TicketTrackerController(IMediator mediator)
         {
-            _ticketService = ticketService;
+            _mediator = mediator;
         }
 
         public async Task<IActionResult> Index()
         {
-            var tickets = await _ticketService.GetAll();
+            var tickets = await _mediator.Send(new GetAllTicketsQuery());
 
             return View(tickets);
         }
@@ -26,14 +28,14 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TicketDto ticket)
+        public async Task<IActionResult> Create(CreateTicketCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(command);
             }
 
-            await _ticketService.Create(ticket); 
+            await _mediator.Send(command);
 
             return RedirectToAction(nameof(Index)); //todo refactor
         }

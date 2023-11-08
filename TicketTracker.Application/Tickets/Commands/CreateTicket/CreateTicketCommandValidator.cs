@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Application.Tickets.Commands.CreateTicket;
 
-namespace TicketTracker.Application.DTO.Ticket
+namespace TicketTracker.Application.Tickets.Commands.CreateTicket
 {
-    public class TicketDtoValidator : AbstractValidator<TicketDto>
+    public class CreateTicketCommandValidator : AbstractValidator<CreateTicketCommand>
     {
-        public TicketDtoValidator() 
+        public CreateTicketCommandValidator()
         {
             RuleFor(t => t.Description)
                 .NotEmpty()
