@@ -37,7 +37,7 @@ namespace TicketTracker.MVC.Controllers
 
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(Index)); //todo refactor
+            return RedirectToAction(nameof(Index)); 
         }
     }
 }

@@ -9,7 +9,7 @@ using TicketTracker.Application.Tickets;
 namespace TicketTracker.Application.Tickets.Commands.CreateTicket
 //TicketTracker.Application.Tickets.Commands.CreateTicket
 {
-    public class CreateTicketCommand : TicketDto, IRequest
+    public class CreateTicketCommand : TicketCreateDto, IRequest
     {
 
 
