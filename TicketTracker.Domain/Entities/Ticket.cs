@@ -26,6 +26,7 @@ namespace TicketTracker.Domain.Entities
         public int PriorityId { get; set; }
 
         public string? Description { get; set; } 
+        public string? ShortDescription { get; set; } 
 
 
     }
