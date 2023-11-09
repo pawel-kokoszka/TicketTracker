@@ -8,7 +8,7 @@ using TicketTracker.Application.Tickets;
 
 namespace TicketTracker.Application.Tickets.Queries.GetAllTickets
 {
-    public class GetAllTicketsQuery : IRequest<IEnumerable<TicketDto>>
+    public class GetAllTicketsQuery : IRequest<IEnumerable<TicketDetailsDto>>
     {
 
     }

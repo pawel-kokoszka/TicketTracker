@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TicketTracker.Application.Tickets.TicketDto>
+﻿@model IEnumerable<TicketTracker.Application.Tickets.TicketDetailsDto>
 
 @{
     ViewData["Title"] = "Tickets";
@@ -13,10 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TypeId)
+                Number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Type
+            </th>
+            <th>
+                Priority
+            </th>
+            <th>
+                Short Description
+            </th>
+            <th>
+                Created
             </th>
             <th></th>
         </tr>
@@ -25,11 +34,20 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeId)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.TypeId)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriorityId)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortDescription)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
             <td>
                 @* <a href="#" class="btn btn-secondary">Details</a> *@
 
