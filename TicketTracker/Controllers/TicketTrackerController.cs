@@ -4,6 +4,7 @@ using TicketTracker.Domain.Entities;
 using MediatR;
 using TicketTracker.Application.Tickets.Queries.GetAllTickets;
 using TicketTracker.Application.Tickets.Commands.CreateTicket;
+using TicketTracker.Application.Tickets.Queries.GetTicketById;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -20,6 +21,14 @@ namespace TicketTracker.MVC.Controllers
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
 
             return View(tickets);
+        }
+
+        [Route("TicketTracker/{ticketId}/Details")]
+        public async Task<IActionResult> Details(int ticketId) 
+        {
+            var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+
+            return View(ticketDetailsDto);
         }
 
         public IActionResult Create() 

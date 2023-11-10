@@ -12,5 +12,7 @@ namespace TicketTracker.Domain.Interfaces
         Task Create(Ticket ticket);
 
         Task<IEnumerable<Ticket>> GetAll();
+
+        Task<Ticket> GetTicketById(int ticketId);
     }
 }
