@@ -23,7 +23,7 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
-        [Route("TicketTracker/{ticketId}/Details")]
+        [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
