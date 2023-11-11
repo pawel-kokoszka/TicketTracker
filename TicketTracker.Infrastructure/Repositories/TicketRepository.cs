@@ -28,5 +28,8 @@ namespace TicketTracker.Infrastructure.Repositories
 
         public async Task<Ticket> GetTicketById(int ticketId)
             => await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
+
+        public async Task SaveToDb()
+            => await _dbContext.SaveChangesAsync();
     }
 }

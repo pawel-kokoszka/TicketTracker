@@ -14,5 +14,11 @@ namespace TicketTracker.Domain.Interfaces
         Task<IEnumerable<Ticket>> GetAll();
 
         Task<Ticket> GetTicketById(int ticketId);
+        /// <summary>
+        /// wrap for dbContext.SaveChanges
+        /// in JK lesson it was named Commit()
+        /// </summary>
+        /// <returns></returns>
+        Task SaveToDb();
     }
 }

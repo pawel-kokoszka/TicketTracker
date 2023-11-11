@@ -15,3 +15,10 @@ MVC
 video zawiera informacje jak walidować nazwę warsztatu poprzez sprawdzenie czy taka nazwa już istnieje w bazie
 - może okazać się przydatne
 
+4.30 wyświetlanie zasobów listy
+
+Video Pokazuje tworzenie profilu mapowania z DTO do CarWorkshop z ręcznym mapowaniem do właściwości które są obiektem wewnątrz CarWorkshop a w DTO są prostymi właściowośćiami/polami.
+
+4.33
+
+zmiana konfiguracji w DI żeby projekt nie zwracał błędów walidacji dla właściwości (z encji) które nie są nullable

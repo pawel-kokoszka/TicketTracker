@@ -5,15 +5,20 @@ using MediatR;
 using TicketTracker.Application.Tickets.Queries.GetAllTickets;
 using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Tickets.Queries.GetTicketById;
+using AutoMapper;
+using TicketTracker.Application.Tickets.Commands.EditTicket;
 
 namespace TicketTracker.MVC.Controllers
 {
     public class TicketTrackerController : Controller
     {
         private readonly IMediator _mediator;
-        public TicketTrackerController(IMediator mediator)
+        private readonly IMapper _mapper;
+
+        public TicketTrackerController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -30,6 +35,31 @@ namespace TicketTracker.MVC.Controllers
 
             return View(ticketDetailsDto);
         }
+
+        [Route("TicketTracker/Edit/{ticketId}")]
+        public async Task<IActionResult> Edit(int ticketId)
+        {
+            var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+
+            EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
+
+            return View(command);
+        }
+
+        [HttpPost]
+        [Route("TicketTracker/Edit/{ticketId}")]
+        public async Task<IActionResult> Edit(int ticketId, EditTicketCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+                       
+            await _mediator.Send(command);
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         public IActionResult Create() 
         {

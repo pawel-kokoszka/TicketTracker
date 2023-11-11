@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Application.Tickets;
+using TicketTracker.Application.Tickets.Commands.EditTicket;
 using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Application.Mappings
@@ -18,6 +19,8 @@ namespace TicketTracker.Application.Mappings
             CreateMap<Domain.Entities.Ticket, TicketCreateDto>();
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>();
+
+            CreateMap<TicketDetailsDto,EditTicketCommand>();
         }
 
 
