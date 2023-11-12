@@ -7,9 +7,11 @@ using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Tickets.Queries.GetTicketById;
 using AutoMapper;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TicketTracker.MVC.Controllers
 {
+    [Authorize]
     public class TicketTrackerController : Controller
     {
         private readonly IMediator _mediator;
