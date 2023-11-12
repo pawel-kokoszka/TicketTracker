@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
 {
-    public class TicketTrackerDbContext : DbContext
+    public class TicketTrackerDbContext : IdentityDbContext
     {
         public TicketTrackerDbContext(DbContextOptions<TicketTrackerDbContext> options) : base(options)
         {
@@ -18,7 +19,10 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         }
 
         public DbSet<Ticket> Tickets { get; set; }
-                
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }

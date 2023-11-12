@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -19,6 +20,9 @@ namespace TicketTracker.Infrastructure.Extensions
         {
             services.AddDbContext<TicketTrackerDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("TicketTrackerDev")));
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<TicketTrackerDbContext>();
 
             services.AddScoped<TicketTrackerSeeder>(); 
 
