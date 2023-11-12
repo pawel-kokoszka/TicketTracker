@@ -48,7 +48,7 @@ namespace TicketTracker.MVC.Controllers
 
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
-        public async Task<IActionResult> Edit(int ticketId, EditTicketCommand command)
+        public async Task<IActionResult> Edit( EditTicketCommand command)
         {
             if (!ModelState.IsValid)
             {
