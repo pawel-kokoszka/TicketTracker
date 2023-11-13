@@ -30,6 +30,7 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
+        //[Authorize(Roles = "Ticket Viewer,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
@@ -38,6 +39,7 @@ namespace TicketTracker.MVC.Controllers
             return View(ticketDetailsDto);
         }
 
+        //[Authorize(Roles = "Ticket Maker,Admin")]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
@@ -48,6 +50,7 @@ namespace TicketTracker.MVC.Controllers
             return View(command);
         }
 
+        //[Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit( EditTicketCommand command)
@@ -62,7 +65,7 @@ namespace TicketTracker.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
+        //[Authorize(Roles = "Ticket Maker,Admin")]
         public IActionResult Create() 
         {
             return View();

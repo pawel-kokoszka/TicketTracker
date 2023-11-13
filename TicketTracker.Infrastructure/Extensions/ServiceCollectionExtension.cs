@@ -22,6 +22,7 @@ namespace TicketTracker.Infrastructure.Extensions
                 configuration.GetConnectionString("TicketTrackerDev")));
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TicketTrackerDbContext>();
 
             services.AddScoped<TicketTrackerSeeder>(); 

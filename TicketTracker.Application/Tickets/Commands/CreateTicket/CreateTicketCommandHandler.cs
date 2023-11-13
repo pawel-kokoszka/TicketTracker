@@ -20,10 +20,18 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
         }
         public async Task<Unit> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
         {
+            var currentUser = _userContext.GetCurrentUser();
+            if (currentUser == null  || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("Ticket Maker")) )
+            {
+                return Unit.Value;
+            }
+
+            //|| !currentUser.IsInRole("Ticket Maker")
+
             var ticket = _mapper.Map<Domain.Entities.Ticket>(request);
 
-            ticket.CreatedByUserId = _userContext.GetCurrentUser().Id;    
-            ticket.CreatedByUserName = _userContext.GetCurrentUser().Email;    
+            ticket.CreatedByUserId = currentUser.Id;    
+            ticket.CreatedByUserName = currentUser.Email;    
 
             await _ticketRepository.Create(ticket);
 
