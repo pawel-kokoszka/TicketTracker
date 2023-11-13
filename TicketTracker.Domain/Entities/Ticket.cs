@@ -19,7 +19,8 @@ namespace TicketTracker.Domain.Entities
 
         public int AssignedTo { get; set; }
 
-        public int CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedByUserName { get; set; }
 
         public bool IsDeleted { get; set; }
 
