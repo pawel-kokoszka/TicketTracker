@@ -235,7 +235,7 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Property<int>("AssignedTo")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CreatedByUserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedByUserName")

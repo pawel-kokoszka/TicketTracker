@@ -12,8 +12,8 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    [Migration("20231113112330_Entity_Ticket.CreatedBy_Changed_To_StringType")]
-    partial class Entity_TicketCreatedBy_Changed_To_StringType
+    [Migration("20231113140630_UserContext_Changes")]
+    partial class UserContext_Changes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -238,7 +238,7 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Property<int>("AssignedTo")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedBy")
+                    b.Property<string>("CreatedByUserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedByUserName")

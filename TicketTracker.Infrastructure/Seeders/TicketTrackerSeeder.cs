@@ -30,7 +30,7 @@ namespace TicketTracker.Infrastructure.Seeders
                         EnvId = 1,
                         StatusId = 1,
                         AssignedTo = 1,
-                        CreatedBy = "1",
+                        CreatedByUserId = "1",
                         IsDeleted = false,
                         PriorityId = 1,
                         Description = "Test ticket"
