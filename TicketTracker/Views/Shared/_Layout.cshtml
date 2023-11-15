@@ -1,6 +1,11 @@
-﻿@{
+﻿@using Newtonsoft.Json;
+@using TicketTracker.MVC.Models;
+@{
     var action = ViewContext.RouteData.Values["Action"]?.ToString();
     var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var notification = TempData["Notification"] != null 
+            ? (Notification)JsonConvert.DeserializeObject<Notification>(TempData["Notification"]!.ToString()!)! : null;
+
 }
 
 <!DOCTYPE html>
@@ -12,6 +17,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TicketTracker.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
 </head>
 <body>
     <header>
@@ -56,6 +62,21 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    @if (notification != null)
+    {
+        <script>
+            @* toastr.options.timeOut = 0;
+            toastr.options.extendedTimeOut = 0; *@
+            toastr.options.progressBar = true;
+            toastr.options.positionClass = "toast-top-full-width";
+
+            toastr["@notification.Type"]("@notification.Message")
+            
+        </script>
+        
+    }
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

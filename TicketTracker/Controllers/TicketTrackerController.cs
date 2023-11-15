@@ -8,6 +8,9 @@ using TicketTracker.Application.Tickets.Queries.GetTicketById;
 using AutoMapper;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
 using Microsoft.AspNetCore.Authorization;
+using TicketTracker.MVC.Models;
+using Newtonsoft.Json;
+using TicketTracker.MVC.Extensions;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -30,7 +33,7 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
-        //[Authorize(Roles = "Ticket Viewer,Admin")]
+        [Authorize(Roles = "Ticket Viewer,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
@@ -39,7 +42,7 @@ namespace TicketTracker.MVC.Controllers
             return View(ticketDetailsDto);
         }
 
-        //[Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "Ticket Maker,Admin")]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
@@ -50,7 +53,7 @@ namespace TicketTracker.MVC.Controllers
             return View(command);
         }
 
-        //[Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit( EditTicketCommand command)
@@ -65,12 +68,13 @@ namespace TicketTracker.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "Ticket Maker,Admin")]
         public IActionResult Create() 
         {
             return View();
         }
 
+        [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateTicketCommand command)
         {
@@ -80,6 +84,8 @@ namespace TicketTracker.MVC.Controllers
             }
 
             await _mediator.Send(command);
+
+            this.SetNotification("success", $"Created Ticket: {command.ShortDescription}");
 
             return RedirectToAction(nameof(Index)); 
         }
