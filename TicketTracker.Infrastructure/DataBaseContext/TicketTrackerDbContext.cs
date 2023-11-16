@@ -19,10 +19,19 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         }
 
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<Ticket>()
+                .HasMany(t => t.Comments)
+                .WithOne(c => c.Ticket)
+                .HasForeignKey(t => t.Id)
+                .OnDelete(DeleteBehavior.NoAction);
+
+           
         }
     }
 }
