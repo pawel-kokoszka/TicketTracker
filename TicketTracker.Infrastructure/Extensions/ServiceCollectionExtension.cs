@@ -28,6 +28,7 @@ namespace TicketTracker.Infrastructure.Extensions
             services.AddScoped<TicketTrackerSeeder>(); 
 
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
         }
 
     }
