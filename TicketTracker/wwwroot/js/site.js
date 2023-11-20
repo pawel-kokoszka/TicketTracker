@@ -3,15 +3,18 @@
 
     for (const comment of comments) {
         container.append(
-            `<div class="card border-primary mb-3" style="max-width: 18rem;">
-                    <div class="card-header">${comment.id}</div>
-                    <div class="card-body">
-                    
-
-                        <p class="card-text">${comment.message}</p>
+            `<div class="card text-bg-primary mb-2" style="">
+                <div class="row card-header pt-2 pb-1 ">
+                    <label class="col text-sm">#${comment.id} 2023-11-23 11:23</label>
+      
+                    <label class="col text-sm-end">user: pawel.kokoszka@test.pl</label>
         
-                    </div>
-                </div>`)
+                </div>
+             
+                <div class="card-body">
+                    <p class="card-text">${comment.message}</p>
+                </div>
+             </div>`)
     }
 }
 
