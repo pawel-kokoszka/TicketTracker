@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using TicketTracker.MVC.Models;
 using Newtonsoft.Json;
 using TicketTracker.MVC.Extensions;
+using TicketTracker.Application.Comments.Commands;
+using TicketTracker.Application.Comments.Queries.GetTicketComments;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -89,5 +91,30 @@ namespace TicketTracker.MVC.Controllers
 
             return RedirectToAction(nameof(Index)); 
         }
+        
+        [HttpPost]
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Route("TicketTracker/Comment")]
+        public async Task<IActionResult> CreateComment(CreateCommentCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            await _mediator.Send(command);
+            
+            return Ok();    
+        }
+
+        [HttpGet]
+        [Route("TicketTracker/Comments/{ticketId}")]
+        public async Task<IActionResult> GetTicketComments(int ticketId)
+        {
+            var commentsData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId });
+
+            return Ok(commentsData);
+        }
+        
     }
 }

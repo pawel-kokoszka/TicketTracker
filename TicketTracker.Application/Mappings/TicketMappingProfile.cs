@@ -25,7 +25,12 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<EditTicketCommand, Domain.Entities.Ticket>();
 
+
             CreateMap<CreateCommentDto, Domain.Entities.Comment>();
+
+            CreateMap<Domain.Entities.Comment, CommentDetailsDto>();
+
+
         }
 
 

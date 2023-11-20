@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 using TicketTracker.Infrastructure.DataBaseContext;
@@ -24,6 +19,11 @@ namespace TicketTracker.Infrastructure.Repositories
             _dbContext.Add(comment);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<Comment>> GetCommmentsByTicketId(int TicketId)
+            => await _dbContext.Comments.Where(c => c.TicketId == TicketId).ToListAsync();
+
+
 
     }
 }

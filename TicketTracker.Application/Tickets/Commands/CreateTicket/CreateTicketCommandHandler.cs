@@ -8,15 +8,15 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
     public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand>
     {
         private readonly ITicketRepository _ticketRepository;
-        private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
+        private readonly IMapper _mapper;
 
 
-        public CreateTicketCommandHandler(ITicketRepository ticketRepository, IMapper mapper, IUserContext userContext)
+        public CreateTicketCommandHandler(ITicketRepository ticketRepository, IUserContext userContext, IMapper mapper)
         {
-            _mapper = mapper;
-            _ticketRepository = ticketRepository;
             _userContext = userContext; 
+            _ticketRepository = ticketRepository;
+            _mapper = mapper;
         }
         public async Task<Unit> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
         {
@@ -25,8 +25,6 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
             {
                 return Unit.Value;
             }
-
-            //|| !currentUser.IsInRole("Ticket Maker")
 
             var ticket = _mapper.Map<Domain.Entities.Ticket>(request);
 

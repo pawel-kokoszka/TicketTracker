@@ -54,3 +54,13 @@
     <a class="btn btn-secondary " asp-controller="TicketTracker" asp-action="Index">Back to List</a>
     
 </div>
+
+<hr />
+<h3>Comments:</h3>
+
+<div id="comments" class="row" data-id="@Model.Id"></div>
+
+@section Scripts {
+    <script src="~/js/tickettracker/details.js"></script>
+    
+}

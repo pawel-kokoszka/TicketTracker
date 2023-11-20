@@ -10,5 +10,7 @@ namespace TicketTracker.Domain.Interfaces
     public interface ICommentRepository
     {
         Task Create(Comment comment);
+        Task<IEnumerable<Comment>> GetCommmentsByTicketId(int TicketId);
+
     }
 }

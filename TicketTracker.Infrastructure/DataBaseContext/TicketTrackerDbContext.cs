@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketTracker.Domain.Entities;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
 {
@@ -17,7 +10,6 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         {
 
         }
-
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
@@ -28,7 +20,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
             builder.Entity<Ticket>()
                 .HasMany(t => t.Comments)
                 .WithOne(c => c.Ticket)
-                .HasForeignKey(t => t.Id)
+                .HasForeignKey(t => t.TicketId)
                 .OnDelete(DeleteBehavior.NoAction);
 
            

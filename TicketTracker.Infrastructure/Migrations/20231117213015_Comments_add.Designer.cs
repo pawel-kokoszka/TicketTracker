@@ -12,8 +12,8 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    [Migration("20231116152912_Ticket_Comments_Added_v5")]
-    partial class Ticket_Comments_Added_v5
+    [Migration("20231117213015_Comments_add")]
+    partial class Comments_add
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,7 +230,10 @@ namespace TicketTracker.Infrastructure.Migrations
             modelBuilder.Entity("TicketTracker.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -245,6 +248,8 @@ namespace TicketTracker.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
 
                     b.ToTable("Comments");
                 });
@@ -350,7 +355,7 @@ namespace TicketTracker.Infrastructure.Migrations
                 {
                     b.HasOne("TicketTracker.Domain.Entities.Ticket", "Ticket")
                         .WithMany("Comments")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

@@ -1,0 +1,49 @@
+﻿@model TicketTracker.Application.Comments.Commands.CreateCommentCommand
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">
+    Add Comment
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="CreateComment">
+                
+                
+                
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="CreateCommentModalLabel">Create new comment</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <input asp-for="TicketId" class="form-control" type="hidden" />
+
+                    <div class="form-group">
+                        <label asp-for="Message" class="control-label"></label>
+                        <input asp-for="Message" class="form-control" />
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Create">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+                    
