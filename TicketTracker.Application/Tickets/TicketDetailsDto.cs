@@ -11,7 +11,7 @@ namespace TicketTracker.Application.Tickets
         public int Id { get; set; }
 
         public int TypeId { get; set; }
-        public DateTime DateCreated { get; set; } 
+        public string? DateCreated { get; set; } 
 
         public int PriorityId { get; set; }
 
