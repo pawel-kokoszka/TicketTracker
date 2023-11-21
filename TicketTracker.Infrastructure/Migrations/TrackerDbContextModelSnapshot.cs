@@ -251,7 +251,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -297,7 +297,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

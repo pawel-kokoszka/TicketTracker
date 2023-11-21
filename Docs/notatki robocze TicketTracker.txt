@@ -22,3 +22,48 @@ Video Pokazuje tworzenie profilu mapowania z DTO do CarWorkshop z ręcznym mapo
 4.33
 
 zmiana konfiguracji w DI żeby projekt nie zwracał błędów walidacji dla właściwości (z encji) które nie są nullable
+
+---------------------------------------------------------------
+done:
+
+todo: 
+-dodawanie nazwy usera w komentarzach 
+
+-formatowanie daty w komentarzach 
+-formatowanie daty w ticketach 
+	- precyzja
+	- konwertowanie na czas lokalny 
+-numerowanie komentarzy 
+-partialView do dodwania nowych komentarzy
+-możliwość edytowania istniejących komentarzy
+-dodanie do ticketów osoby przypisanej do wykonania pracy 
+-usunięcie z encji ticketu - datetimenow
+
+-implementacja zachowywania historii komentarzy
+-imp. konfiguracji/flow dla projektów/środowisk/zespołów
+	-imp. historii ticketów 
+	-imp. różnych projektów
+	-imp. różnych środowisk 
+	-imp. zespołów 
+	-imp. child ticketów dla różnych zespołów/linii 
+-imp. podstawowych itemów w ticketach 
+	-priorytet
+	-typ
+	-sla
+	-usług itsm 
+	
+-imp. pasków postępu
+-imp. breadcrumbs do łatwego pokazania userowi gdzie się znajduje
+-imp. kasowania/oznacznia ticketów jako usunęte/zarchiwizowane 
+-imp. relacji pomiędzy różnymi typami ticketów np. chg -> prb -> issue 
+-imp. blokowania/rezerwacji ticketów do edycji dla innych userów 
+-imp. nazw userów i ich danych do posługiwania się w różnych miejscach w aplikacji
+-imp. wysyłania wiadomości do userów z kontekstem ticketu 
+-imp.
+-imp.
+-imp.
+-imp.
+-imp.
+
+
+ 

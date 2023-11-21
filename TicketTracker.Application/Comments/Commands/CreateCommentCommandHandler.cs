@@ -31,22 +31,12 @@ namespace TicketTracker.Application.Comments.Commands
                 return Unit.Value;
             }
 
-            //var comment = new Comment();
-            //{
-            //    Message = request.Message,
-            //    UserId = currentUser.Id,
-            //    CreatedDate = DateTime.UtcNow,
-            //    TicketId = 1
-            //};
-
             var comment = _mapper.Map<Comment>(request);
 
             comment.TicketId = request.TicketId;
-            comment.CreatedDate = DateTime.Now; 
+            comment.CreatedDate = DateTime.UtcNow; 
             comment.UserId = currentUser.Id;
-            
-
-
+            comment.UserName = currentUser.Email;
 
             await _commentRepository.Create(comment);
 
