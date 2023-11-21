@@ -15,6 +15,8 @@ namespace TicketTracker.Application.Comments
         
         public string? UserId { get; set; }
 
+        public string? UserName { get; set; }
+
         public DateTime CreatedDate { get; set; }
 
         public string? Message { get; set; }

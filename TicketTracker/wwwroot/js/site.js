@@ -5,9 +5,9 @@
         container.append(
             `<div class="card text-bg-primary mb-2" style="">
                 <div class="row card-header pt-2 pb-1 ">
-                    <label class="col text-sm">#${comment.id} 2023-11-23 11:23</label>
+                    <label class="col text-sm">#${comment.id} ${comment.createdDate}</label>
       
-                    <label class="col text-sm-end">user: pawel.kokoszka@test.pl</label>
+                    <label class="col text-sm-end">user: ${comment.userName}</label>
         
                 </div>
              
