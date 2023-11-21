@@ -28,7 +28,8 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<CreateCommentDto, Domain.Entities.Comment>();
 
-            CreateMap<Domain.Entities.Comment, CommentDetailsDto>();
+            CreateMap<Domain.Entities.Comment, CommentDetailsDto>()
+                .ForMember(dto => dto.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm")) );
 
 
         }
