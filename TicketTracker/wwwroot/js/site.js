@@ -1,11 +1,13 @@
 ﻿const RenderComments = (comments, container) => {
     container.empty();
+    let commentNumber = 1;
 
     for (const comment of comments) {
         container.append(
+            
             `<div class="card text-bg-primary mb-2" style="">
                 <div class="row card-header pt-2 pb-1 ">
-                    <label class="col text-sm">#${comment.id} ${comment.createdDate}</label>
+                    <label class="col text-sm">#${commentNumber}    ${comment.createdDate}</label>
       
                     <label class="col text-sm-end">user: ${comment.userName}</label>
         
@@ -15,6 +17,7 @@
                     <p class="card-text">${comment.message}</p>
                 </div>
              </div>`)
+        commentNumber++; 
     }
 }
 

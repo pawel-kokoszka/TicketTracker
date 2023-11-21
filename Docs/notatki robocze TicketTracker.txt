@@ -25,19 +25,18 @@ zmiana konfiguracji w DI żeby projekt nie zwracał błędów walidacji dla wła
 
 ---------------------------------------------------------------
 done:
-
-todo: 
 -dodawanie nazwy usera w komentarzach 
-
 -formatowanie daty w komentarzach 
 -formatowanie daty w ticketach 
 	- precyzja
-	- konwertowanie na czas lokalny 
+-usunięcie z encji ticketu - datetimenow
 -numerowanie komentarzy 
+
+todo: 
+-dodanie daty ostatniej edycji w ticketów
 -partialView do dodwania nowych komentarzy
 -możliwość edytowania istniejących komentarzy
 -dodanie do ticketów osoby przypisanej do wykonania pracy 
--usunięcie z encji ticketu - datetimenow
 
 -implementacja zachowywania historii komentarzy
 -imp. konfiguracji/flow dla projektów/środowisk/zespołów
@@ -51,7 +50,10 @@ todo:
 	-typ
 	-sla
 	-usług itsm 
+
 	
+-formatowanie daty w ticketach 
+	- konwertowanie na czas lokalny 
 -imp. pasków postępu
 -imp. breadcrumbs do łatwego pokazania userowi gdzie się znajduje
 -imp. kasowania/oznacznia ticketów jako usunęte/zarchiwizowane 
