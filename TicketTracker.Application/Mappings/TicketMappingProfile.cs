@@ -20,7 +20,8 @@ namespace TicketTracker.Application.Mappings
             CreateMap<Domain.Entities.Ticket, TicketCreateDto>();
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
-                .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm"))); ;
+                .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm")))
+                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")));
 
             CreateMap<TicketDetailsDto,EditTicketCommand>();
 
@@ -32,7 +33,7 @@ namespace TicketTracker.Application.Mappings
             CreateMap<Domain.Entities.Comment, CommentDetailsDto>()
                 .ForMember(dto => dto.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm")) );
 
-            
+            //CreateMap<>
         }
 
 

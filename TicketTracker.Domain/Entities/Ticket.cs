@@ -13,6 +13,7 @@ namespace TicketTracker.Domain.Entities
 
         public int  TypeId { get; set; }
         public DateTime DateCreated { get; set; }
+        public DateTime DateEdited { get; set; }
 
         public int EnvId { get; set; }
 
@@ -22,12 +23,11 @@ namespace TicketTracker.Domain.Entities
 
         public string? CreatedByUserId { get; set; }
 
-        public string? CreatedByUserName { get; set; }
-
+        public string? CreatedByUserName { get; set; }     
+        public string? EditedByUserId { get; set; }
+        public string? EditedByUserName { get; set; }
         public bool IsDeleted { get; set; }
-
         public int PriorityId { get; set; }
-
         public string? Description { get; set; } 
         public string? ShortDescription { get; set; }
 

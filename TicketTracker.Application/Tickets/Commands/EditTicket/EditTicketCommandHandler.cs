@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using TicketTracker.Application.ApplicationUser;
 using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.Tickets.Commands.EditTicket
@@ -7,27 +8,33 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
     public class EditTicketCommandHandler : IRequestHandler<EditTicketCommand>
     {
         private readonly ITicketRepository _ticketRepository;
+        private readonly IUserContext _userContext;
         private readonly IMapper _mapper;
 
-        public EditTicketCommandHandler(ITicketRepository ticketRepository, IMapper mapper)
+        public EditTicketCommandHandler(ITicketRepository ticketRepository, IUserContext userContext, IMapper mapper)
         {
             _ticketRepository = ticketRepository;
+            _userContext = userContext;
             _mapper = mapper;
         }
         public async Task<Unit> Handle(EditTicketCommand request, CancellationToken cancellationToken)
         {
+            var currentUser = _userContext.GetCurrentUser();
+            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("Ticket Maker")))
+            {
+                return Unit.Value;
+            }
+
             var ticket = await _ticketRepository.GetTicketById(request.Id);
 
             //_mapper.Map<Domain.Entities.Ticket>(request);
+            //_mapper.Map<Domain.Entities.Ticket>(request);
             _mapper.Map(request,ticket);
+            ticket.EditedByUserId = currentUser.Id;
+            ticket.EditedByUserName = currentUser.Email;
+            ticket.DateEdited = DateTime.UtcNow;
 
-            //ticket.ShortDescription = request.ShortDescription;
-            //ticket.Description = request.Description;
-            //ticket.Id = request.Id;
-            //ticket.TypeId = request.TypeId;
-            //ticket.DateCreated = request.DateCreated;
-            //ticket.PriorityId = request.PriorityId;
-            //todo to experiment if this is doable only with auto mapper 
+
 
             await _ticketRepository.SaveToDb();
 

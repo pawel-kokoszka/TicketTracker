@@ -14,8 +14,8 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
 
         public CreateTicketCommandHandler(ITicketRepository ticketRepository, IUserContext userContext, IMapper mapper)
         {
-            _userContext = userContext; 
             _ticketRepository = ticketRepository;
+            _userContext = userContext; 
             _mapper = mapper;
         }
         public async Task<Unit> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
@@ -31,6 +31,9 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
             ticket.CreatedByUserId = currentUser.Id;    
             ticket.CreatedByUserName = currentUser.Email;  
             ticket.DateCreated = DateTime.UtcNow;
+            ticket.EditedByUserId = currentUser.Id;
+            ticket.EditedByUserName = currentUser.Email;
+            ticket.DateEdited = DateTime.UtcNow;
 
             await _ticketRepository.Create(ticket);
 
