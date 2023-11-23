@@ -32,9 +32,11 @@ done:
 -usunięcie z encji ticketu - datetimenow
 -numerowanie komentarzy 
 -dodanie daty ostatniej edycji w ticketów
+-partialView do dodwania nowych komentarzy
 
 todo: 
--partialView do dodwania nowych komentarzy
+do sprawdzenia czy z _AddNewComment można przekierować z powrotem do details view 
+
 -możliwość edytowania istniejących komentarzy
 -dodanie do ticketów osoby przypisanej do wykonania pracy 
 
