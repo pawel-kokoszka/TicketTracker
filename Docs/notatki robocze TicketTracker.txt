@@ -31,9 +31,9 @@ done:
 	- precyzja
 -usunięcie z encji ticketu - datetimenow
 -numerowanie komentarzy 
+-dodanie daty ostatniej edycji w ticketów
 
 todo: 
--dodanie daty ostatniej edycji w ticketów
 -partialView do dodwania nowych komentarzy
 -możliwość edytowania istniejących komentarzy
 -dodanie do ticketów osoby przypisanej do wykonania pracy 

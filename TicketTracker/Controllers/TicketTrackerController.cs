@@ -92,6 +92,7 @@ namespace TicketTracker.MVC.Controllers
             return RedirectToAction(nameof(Index)); 
         }
         
+
         [HttpPost]
         [Authorize(Roles = "Ticket Maker,Admin")]
         [Route("TicketTracker/Comment")]

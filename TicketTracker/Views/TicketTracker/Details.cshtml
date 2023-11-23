@@ -1,4 +1,5 @@
-﻿@model TicketTracker.Application.Tickets.TicketDetailsDto
+﻿@using TicketTracker.Application.Comments.Commands;
+@model TicketTracker.Application.Tickets.TicketDetailsDto
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +8,7 @@
 <h1>@Model.Id Details</h1>
 
 <div>
-    <h4>TicketDetailsDto</h4>
+
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -51,15 +52,26 @@
 <div>
     
     <a class="btn btn-primary " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit">Edit</a>
-    <a class="btn btn-secondary " asp-controller="TicketTracker" asp-action="Index">Back to List</a>
+    
     
 </div>
 
 <hr />
 <h3>Comments:</h3>
 
-<div id="comments" class="row" data-id="@Model.Id"></div>
+<div class="">
+    <partial name="_AddNewComment"
+             model="new CreateCommentCommand() {TicketId = Model.Id}" />
 
+    
+</div>
+
+<h3>Comments:</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div id="comments" class="row" data-id="@Model.Id"></div>
+    </div>
+</div>
 @section Scripts {
     <script src="~/js/tickettracker/details.js"></script>
     

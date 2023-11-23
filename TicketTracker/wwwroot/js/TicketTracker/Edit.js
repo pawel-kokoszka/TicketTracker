@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
-    
-    LoadCommentsForTicketId()
 
-    $("#CreateCommentModal form").submit(function (event) {
+    LoadCommentsForTicketId();
+
+    $("#AddCommentCollapse form").submit(function (event) {
         event.preventDefault();
 
         $.ajax({
@@ -11,9 +11,12 @@ $(document).ready(function () {
             type: $(this).attr('method'),
             data: $(this).serialize(),
             success: function (data) {
-                
+
                 LoadCommentsForTicketId()
                 toastr["success"]("Comment - added")
+                HideCollapse()
+
+
             },
             error: function () {
                 toastr["error"]("Something went wrong")

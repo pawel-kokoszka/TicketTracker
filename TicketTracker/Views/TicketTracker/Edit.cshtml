@@ -106,11 +106,13 @@
 
         </form>
         <div class="m-3">
-            <partial name="_CreateComment" 
+            <partial name="_AddNewComment"
                      model="new CreateCommentCommand() {TicketId = Model.Id}" />
 
-            <a asp-action="Index" class="btn btn-secondary" >Back to List</a>
+
         </div>
+
+
     </div>
 </div>
 

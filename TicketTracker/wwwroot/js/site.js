@@ -13,8 +13,8 @@
         
                 </div>
              
-                <div class="card-body">
-                    <p class="card-text">${comment.message}</p>
+                <div class="card-body text-wrap text-break">
+                    <p class="card-text">${comment.message.replace(/[\r]/g, '<br>') }</p>
                 </div>
              </div>`)
         commentNumber++; 
@@ -44,3 +44,15 @@ const LoadCommentsForTicketId = () => {
     })
 
 }
+
+const HideCollapse = () => {
+    const collapse = $("#newcommentcollapse");
+
+    collapse.collapse('hide');
+
+    const messagetext = $("#messagetext");
+
+    messagetext.val('');
+
+}
+
