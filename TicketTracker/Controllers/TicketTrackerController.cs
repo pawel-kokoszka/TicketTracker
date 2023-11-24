@@ -109,6 +109,7 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Ticket Maker,Admin")]
         [Route("TicketTracker/Comments/{ticketId}")]
         public async Task<IActionResult> GetTicketComments(int ticketId)
         {
