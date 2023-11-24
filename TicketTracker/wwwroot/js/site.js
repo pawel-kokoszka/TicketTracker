@@ -3,7 +3,7 @@
     let commentNumber = 1;
 
     for (const comment of comments) {
-        container.append(
+        container.prepend(
             
             `<div class="card text-bg-primary mb-2" style="">
                 <div class="row card-header pt-2 pb-1 ">
