@@ -12,6 +12,8 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<TicketPriority> TicketPriorities { get; set; }
+        public DbSet<TicketType> TicketTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
