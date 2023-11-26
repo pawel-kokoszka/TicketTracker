@@ -1,6 +1,9 @@
 ﻿@using TicketTracker.Application.Tickets.Commands.CreateTicket
+@using TicketTracker.Application.Tickets;
 
 @model CreateTicketCommand
+
+
 
 
 <h3>Create New Ticket</h3>
@@ -24,21 +27,25 @@
             </div>
 
             <div class="form-floating mb-3">
-                <select class="form-select" id="TypeId" name="TypeId" aria-label="Floating label select example">
-                    <option value="1">Issue</option>
-                    <option value="2">Problem</option>
-                    <option value="3">Change</option>
-                    <option value="4" selected>Service</option>
+                <select class="form-select" id="TypeId" name="TypeId" >
+                    
+                        @foreach (var prio in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
+                        {
+                            <option value="@prio.Id">@prio.TypeName</option>
+                        }
+                    
+                    
+                    
                 </select>
                 <label for="TypeId">Ticket type</label>
             </div>
 
             <div class="form-floating mb-3">
-                <select class="form-select" id="PriorityId" name="PriorityId" aria-label="Floating label select example">
-                    <option value="1">Prio 1</option>
-                    <option value="2">Prio 2</option>
-                    <option value="3">Prio 3</option>
-                    <option value="4" selected>Prio 4</option>
+                <select class="form-select" id="PriorityId" name="PriorityId" >
+                    @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketPriorityDto>)
+                        {
+                            <option value="@prio.Id">@prio.PriorityValue</option>
+                        }
                 </select>
                 <label for="PriorityId">Priority Level</label>
             </div>

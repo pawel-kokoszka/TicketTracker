@@ -13,6 +13,8 @@ using Newtonsoft.Json;
 using TicketTracker.MVC.Extensions;
 using TicketTracker.Application.Comments.Commands;
 using TicketTracker.Application.Comments.Queries.GetTicketComments;
+using TicketTracker.Application.Tickets.Queries.GetTicketPriorities;
+using TicketTracker.Application.Tickets.Queries.GetTicketTypes;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -71,8 +73,14 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
-        public IActionResult Create() 
+        public async Task<IActionResult> Create() 
         {
+            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery ());
+            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
+
+            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+
             return View();
         }
 
