@@ -1,58 +1,58 @@
-﻿@using TicketTracker.Application.Tickets.Commands.CreateTicket
+﻿@model TicketTracker.Application.Tickets.CreateTicketViewRequiredDto
 
-@model CreateTicketCommand
-
-
-<h3>Create New Ticket</h3>
-
-<hr />
-
-<div class="row">
-    <div class="col-md-4">
-        <form action="/TicketTracker/Create" method="post">
-            
-            <div class="form-floating mb-3">
-                <textarea class="form-control" style="height: 100px" asp-for="ShortDescription"></textarea>
-                <label asp-for="ShortDescription">ShortDescription</label>
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
-            </div>
-            
-            <div class="form-floating mb-3">
-                <textarea class="form-control" style="height: 100px" asp-for="Description"></textarea>
-                <label asp-for="Description">Description</label>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="form-floating mb-3">
-                <select class="form-select" id="TypeId" name="TypeId" aria-label="Floating label select example">
-                    <option value="1">Issue</option>
-                    <option value="2">Problem</option>
-                    <option value="3">Change</option>
-                    <option value="4" selected>Service</option>
-                </select>
-                <label for="TypeId">Ticket type</label>
-            </div>
-
-            <div class="form-floating mb-3">
-                <select class="form-select" id="PriorityId" name="PriorityId" aria-label="Floating label select example">
-                    <option value="1">Prio 1</option>
-                    <option value="2">Prio 2</option>
-                    <option value="3">Prio 3</option>
-                    <option value="4" selected>Prio 4</option>
-                </select>
-                <label for="PriorityId">Priority Level</label>
-            </div>
-
-            <div class="form-group mb-3">
-                <input class="btn btn-primary" type="submit" value="Create">
-            </div>
-
-        </form>
-    </div>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@{
+    // //Model.CreateDto = new TicketTracker.Application.Tickets.TicketCreateDto();
 }
+
+<h1>Create2</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form action="/TicketTracker/Create" method="post">
+
+                <div class="form-floating mb-3">
+                <textarea class="form-control" style="height: 100px" asp-for="CreateDto.ShortDescription"></textarea>
+                    <label asp-for="CreateDto.ShortDescription">ShortDescription</label>
+                <span asp-validation-for="CreateDto.ShortDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                <textarea class="form-control" style="height: 100px" asp-for="CreateDto.Description"></textarea>
+                <label asp-for="CreateDto.Description">Description</label>
+                <span asp-validation-for="@Model.CreateDto.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <select class="form-select" id="TypeId" name="CreateDto.TypeId" aria-label="Floating label select example">
+                        @foreach (var type in Model.TicketTypes)
+                        {
+                            <option value="@type.Id">@type.TypeName</option>
+                        }
+
+                    </select>
+                    <label for="CreateDto.TypeId">Ticket type</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                <select class="form-select" id="PriorityId" name="CreateDto.PriorityId" aria-label="Floating label select example">
+                        @foreach (var prio in Model.TicketPriorities)
+                        {
+                        <option value="@prio.Id">@prio.PriorityValue</option>
+                        }
+                    </select>
+                    <label for="PriorityId">Priority Level</label>
+                </div>
+
+                <div class="form-group mb-3">
+                    <input class="btn btn-primary" type="submit" value="Create">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }

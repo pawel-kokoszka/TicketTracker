@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using TicketTracker.MVC.Extensions;
 using TicketTracker.Application.Comments.Commands;
 using TicketTracker.Application.Comments.Queries.GetTicketComments;
+using TicketTracker.Application.Tickets.Queries.GetCreateTicketRequiredData;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -71,15 +72,30 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
-        public IActionResult Create() 
+        public async Task<IActionResult> Create() 
         {
-            return View();
+            var createTicketViewRequiredData = await _mediator.Send( new GetCreateTicketRequiredDataQuery());   
+
+            return View(createTicketViewRequiredData);
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTicketCommand command)
+        public async Task<IActionResult> Create(CreateTicketViewRequiredDto newTicket)
         {
+            if (newTicket.CreateDto == null )
+            {
+                return View(newTicket);
+            }
+            
+            var command = new CreateTicketCommand();
+
+            command.ShortDescription = newTicket.CreateDto.ShortDescription;
+            command.Description = newTicket.CreateDto.Description;
+            command.TypeId = newTicket.CreateDto.TypeId;
+            command.PriorityId = newTicket.CreateDto.PriorityId;
+
+
             if (!ModelState.IsValid)
             {
                 return View(command);
