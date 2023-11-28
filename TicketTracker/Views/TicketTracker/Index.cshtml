@@ -28,13 +28,13 @@
                 Created
             </th>
             <th>
-                Last Edited
-            </th>
-            <th>
                 Created By
             </th>
             <th>
-                Edited By
+                Last Edited
+            </th>
+            <th>
+                Last Edited By
             </th>
             <th></th>
         </tr>
@@ -46,10 +46,10 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeId)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PriorityId)
+                    @Html.DisplayFor(modelItem => item.PriorityValue)
                 </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ShortDescription)
@@ -58,10 +58,10 @@
                     @Html.DisplayFor(modelItem => item.DateCreated)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateEdited)
+                    @Html.DisplayFor(modelItem => item.CreatedByUserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedByUserName)
+                    @Html.DisplayFor(modelItem => item.DateEdited)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EditedByUserName)
