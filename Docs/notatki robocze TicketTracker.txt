@@ -35,24 +35,24 @@ done:
 -partialView do dodwania nowych komentarzy
 
 todo: 
-do sprawdzenia czy z _AddNewComment można przekierować z powrotem do details view 
-
--możliwość edytowania istniejących komentarzy
--dodanie do ticketów osoby przypisanej do wykonania pracy 
-
--implementacja zachowywania historii komentarzy
 -imp. konfiguracji/flow dla projektów/środowisk/zespołów
 	-imp. historii ticketów 
 	-imp. różnych projektów
 	-imp. różnych środowisk 
 	-imp. zespołów 
-	-imp. child ticketów dla różnych zespołów/linii 
+
+-możliwość edytowania istniejących komentarzy
+-dodanie do ticketów osoby przypisanej do wykonania pracy 
+
+-implementacja zachowywania historii komentarzy
+-imp. child ticketów dla różnych zespołów/linii 
 -imp. podstawowych itemów w ticketach 
 	-priorytet
 	-typ
 	-sla
 	-usług itsm 
 
+do sprawdzenia czy z _AddNewComment można przekierować z powrotem do details view 
 	
 -formatowanie daty w ticketach 
 	- konwertowanie na czas lokalny 
