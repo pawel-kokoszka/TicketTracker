@@ -26,9 +26,15 @@ namespace TicketTracker.Infrastructure.Repositories
         public async Task<IEnumerable<Ticket>> GetAll()
             => await _dbContext.Tickets.ToListAsync();
 
-        public async Task<Ticket> GetTicketById(int ticketId)
-            => await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
-           // => await _dbContext.Tickets.Include(t => t.Comments).FirstAsync(t => t.Id == ticketId);
+        public async Task<Ticket> GetTicketById(int ticketId) 
+            => await _dbContext.Tickets
+                        .Include(tt => tt.TicketType)
+                        .FirstAsync(t => t.Id == ticketId);
+
+        //=> await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
+
+
+        // => await _dbContext.Tickets.Include(t => t.Comments).FirstAsync(t => t.Id == ticketId);
 
         public async Task SaveToDb()
             => await _dbContext.SaveChangesAsync();

@@ -21,7 +21,8 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
                 .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm")))
-                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")));
+                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")))
+                .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName));
 
             CreateMap<TicketDetailsDto,EditTicketCommand>();
 

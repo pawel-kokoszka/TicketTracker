@@ -36,8 +36,8 @@ namespace TicketTracker.Application.Tickets.Queries.GetAllTickets
             {
                 var prio = priorities.Where(p => p.Id == ticketDto.PriorityId).First();
                 ticketDto.PriorityValue = prio.PriorityValue;
-                var type = types.Where(t => t.Id == ticketDto.TypeId).First();
-                ticketDto.Type = type.TypeName;
+                //var type = types.Where(t => t.Id == ticketDto.TypeId).First();
+                //ticketDto.TicketTypeName = type.TypeName;
             }
 
             
