@@ -10,17 +10,13 @@ namespace TicketTracker.Domain.Entities
     public class Ticket
     {
         public int Id { get; set; }  
-        public int ProjectConfigurationId { get; set; }
 
         public int  TypeId { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
 
-        public int TicketSlaId {  get; set; }
 
-        public int TicketStateId { get; set; }
 
-        public string? AssignedToUserId { get; set; }
 
         public string? CreatedByUserId { get; set; }
 
@@ -32,12 +28,15 @@ namespace TicketTracker.Domain.Entities
         public string? Description { get; set; } 
         public string? ShortDescription { get; set; }
 
+
+        public List<Comment> Comments { get; set; } = new();
+
+        public int TicketSlaId { get; set; }
+        public int TicketStateId { get; set; }
+        public string? AssignedToUserId { get; set; }
         public int TicketServiceId { get; set; }
+        public int ProjectConfigurationId { get; set; }
 
-        public List<Comment> Comments { get; set; } = new(); 
-        
-
-        
     }
 }
 

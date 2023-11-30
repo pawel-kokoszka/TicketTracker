@@ -20,7 +20,7 @@ var scope = app.Services.CreateScope();
 
 var seeder = scope.ServiceProvider.GetRequiredService<TicketTrackerSeeder>(); 
 
-await seeder.Seed(); //inserts first records to DB 
+//await seeder.Seed(); //inserts first records to DB 
 
 #endregion 
 
