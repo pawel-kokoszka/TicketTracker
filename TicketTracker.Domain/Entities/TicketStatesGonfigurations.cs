@@ -9,8 +9,8 @@ namespace TicketTracker.Domain.Entities
     public class TicketStatesGonfigurations
     {
         public int ProjectConfigurationId { get; set; }
-        public int StatusId { get; set; }
-        public int StatusOrderValue { get; set; }
+        public int TicketStateId { get; set; }
+        public int TicketStateOrderValue { get; set; }
 
     }
 }
