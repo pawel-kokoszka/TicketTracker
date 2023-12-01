@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketServicesConfiguration
+    public class TicketSlaConfiguration
     {
-        public int TicketTypeConfigurationId {  get; set; }
-        public int ServiceId { get; set; }
+        public int TicketSlaConfigurationId {  get; set; }
+        public int TicketSlaId { get; set; }
     }
 }

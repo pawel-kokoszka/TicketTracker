@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketSla
+    public class TicketTypeConfiguration
     {
         public int Id { get; set; }
-
-        public string? SlaName { get; set; }
-        public TimeSpan SlaValue { get; set; }
-
+        public int TicketTypeId { get; set; }
+        public int ProjectConfigurationId { get; set; }
     }
 }

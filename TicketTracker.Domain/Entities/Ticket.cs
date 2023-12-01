@@ -10,7 +10,6 @@ namespace TicketTracker.Domain.Entities
     public class Ticket
     {
         public int Id { get; set; }  
-
         public int  TypeId { get; set; }
         public TicketType TicketType { get; set; } = new();
 
@@ -39,6 +38,7 @@ namespace TicketTracker.Domain.Entities
         public string? AssignedToUserId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
+        public ProjectConfiguration ProjectConfiguration { get; set; } = new();
 
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketTypesGonfiguration 
+    public class EnvironmentType
     {
-        public int ProjectConfigurationId { get; set; }
-        public int TicketTypeId { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace TicketTracker.Domain.Entities
     public class Environment
     {
         public int Id {get; set;}
+        public int EnvironmentTypeId { get; set;}
         public string? Name { get; set;}
         public string? Description { get; set;}
     }

@@ -8,9 +8,9 @@ namespace TicketTracker.Domain.Entities
 {
     public class TicketPrioritiesGonfiguration
     {
-        public int ProjectConfigurationId { get; set; }
+        public int TicketTypeConfigurationId { get; set; }
         public int TicketPriorityId { get; set; }
         public int PriorityOrderValue { get; set; }
-        public int SlaId { get; set; }
+        public int TicketSlaConfigurationId { get; set; }
     }
 }
