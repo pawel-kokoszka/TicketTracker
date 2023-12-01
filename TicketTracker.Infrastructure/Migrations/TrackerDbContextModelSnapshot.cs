@@ -241,7 +241,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
@@ -263,7 +263,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Environments");
+                    b.ToTable("Environments", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.EnvironmentType", b =>
@@ -282,7 +282,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("EnvironmentTypes");
+                    b.ToTable("EnvironmentTypes", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Project", b =>
@@ -301,7 +301,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
@@ -323,7 +323,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectConfigurations");
+                    b.ToTable("ProjectConfigurations", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -378,7 +378,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketPriority", b =>
@@ -394,7 +394,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicketPriorities");
+                    b.ToTable("TicketPriorities", (string)null);
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketType", b =>
@@ -410,7 +410,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicketTypes");
+                    b.ToTable("TicketTypes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

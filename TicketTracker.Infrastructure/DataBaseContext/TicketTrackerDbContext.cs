@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Reflection.Emit;
 using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
@@ -40,45 +41,8 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            builder.Entity<Ticket>()
-                .HasMany(t => t.Comments)
-                .WithOne(c => c.Ticket)
-                .HasForeignKey(t => t.TicketId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Ticket>()
-                .HasOne(t => t.TicketType)
-                .WithOne(tt => tt.Ticket)
-                .HasForeignKey<Ticket>(t => t.TypeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Ticket>()
-                .HasOne(t => t.ProjectConfiguration)
-                .WithOne(pc => pc.Ticket)
-                .HasForeignKey<Ticket>(t => t.ProjectConfigurationId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            //.HasForeignKey(t => t.)
-            //.OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Project>()
-                .HasOne(t => t.ProjectConfiguration)
-                .WithOne(pc => pc.Project)
-                .HasForeignKey<ProjectConfiguration>(pc => pc.ProjectId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<EnvironmentType>()
-                .HasOne(et => et.Environment)
-                .WithOne(e => e.EnvironmentType)
-                .HasForeignKey<Domain.Entities.Environment>(et => et.EnvironmentTypeId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Domain.Entities.Environment>()
-                .HasOne(e => e.ProjectConfiguration)
-                .WithOne(pc => pc.Environment)
-                .HasForeignKey<ProjectConfiguration>(pc => pc.EnvironmentId)
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
+                      
 
         }
 
