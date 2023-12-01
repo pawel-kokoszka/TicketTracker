@@ -16,7 +16,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
 
 
-        //public DbSet<Project> Projects { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
         
         //public DbSet<TicketSlaConfiguration> TicketSlaConfigurations { get; set; }
@@ -34,8 +34,8 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         //public DbSet<TicketTypeConfiguration> TicketTypeConfigurations { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
 
-        //public DbSet<Domain.Entities.Environment> Environments { get; set; }
-        //public DbSet<Domain.Entities.EnvironmentType> EnvironmentTypes { get; set; }
+        public DbSet<Domain.Entities.Environment> Environments { get; set; }
+        public DbSet<Domain.Entities.EnvironmentType> EnvironmentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -61,6 +61,12 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
             //.HasForeignKey(t => t.)
             //.OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Project>()
+                .HasOne(t => t.ProjectConfiguration)
+                .WithOne(pc => pc.Project)
+                .HasForeignKey<ProjectConfiguration>(pc => pc.ProjectId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
         }
