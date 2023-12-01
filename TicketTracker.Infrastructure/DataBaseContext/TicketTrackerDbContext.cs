@@ -17,7 +17,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
 
         //public DbSet<Project> Projects { get; set; }
-        ////public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
+        public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
         
         //public DbSet<TicketSlaConfiguration> TicketSlaConfigurations { get; set; }
         //public DbSet<TicketSla> TicketSLAs { get; set; }
@@ -53,11 +53,11 @@ namespace TicketTracker.Infrastructure.DataBaseContext
                 .HasForeignKey<Ticket>(t => t.TypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            //builder.Entity<Ticket>()
-            //    .HasOne(t => t.ProjectConfiguration)
-            //    .WithOne(pc => pc.Ticket)
-            //    .HasForeignKey<Ticket>(t => t.ProjectConfigurationId)
-            //    .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Ticket>()
+                .HasOne(t => t.ProjectConfiguration)
+                .WithOne(pc => pc.Ticket)
+                .HasForeignKey<Ticket>(t => t.ProjectConfigurationId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             //.HasForeignKey(t => t.)
             //.OnDelete(DeleteBehavior.NoAction);

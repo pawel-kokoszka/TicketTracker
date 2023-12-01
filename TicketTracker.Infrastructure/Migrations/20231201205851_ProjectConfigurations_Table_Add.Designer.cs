@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231201205851_ProjectConfigurations_Table_Add")]
+    partial class ProjectConfigurations_Table_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,26 +420,13 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
                 {
-                    b.HasOne("TicketTracker.Domain.Entities.ProjectConfiguration", "ProjectConfiguration")
-                        .WithOne("Ticket")
-                        .HasForeignKey("TicketTracker.Domain.Entities.Ticket", "ProjectConfigurationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TicketTracker.Domain.Entities.TicketType", "TicketType")
                         .WithOne("Ticket")
                         .HasForeignKey("TicketTracker.Domain.Entities.Ticket", "TypeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("ProjectConfiguration");
-
                     b.Navigation("TicketType");
-                });
-
-            modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
-                {
-                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
