@@ -68,6 +68,17 @@ namespace TicketTracker.Infrastructure.DataBaseContext
                 .HasForeignKey<ProjectConfiguration>(pc => pc.ProjectId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<EnvironmentType>()
+                .HasOne(et => et.Environment)
+                .WithOne(e => e.EnvironmentType)
+                .HasForeignKey<Domain.Entities.Environment>(et => et.EnvironmentTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Domain.Entities.Environment>()
+                .HasOne(e => e.ProjectConfiguration)
+                .WithOne(pc => pc.Environment)
+                .HasForeignKey<ProjectConfiguration>(pc => pc.EnvironmentId)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
 

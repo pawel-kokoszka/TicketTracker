@@ -12,5 +12,9 @@ namespace TicketTracker.Domain.Entities
         public int EnvironmentTypeId { get; set;}
         public string? Name { get; set;}
         public string? Description { get; set;}
+
+        //EF rel.
+        public EnvironmentType? EnvironmentType { get; set;}
+        public ProjectConfiguration? ProjectConfiguration { get; set; }
     }
 }
