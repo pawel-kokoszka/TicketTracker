@@ -38,7 +38,7 @@ namespace TicketTracker.Domain.Entities
         public string? AssignedToUserId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
-        public ProjectConfiguration ProjectConfiguration { get; set; } = new();
+        //public ProjectConfiguration ProjectConfiguration { get; set; } = new();
 
     }
 }
