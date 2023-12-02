@@ -13,5 +13,8 @@ namespace TicketTracker.Domain.Entities
         public string? SlaName { get; set; }
         public TimeSpan SlaValue { get; set; }
 
+        //ef
+        public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
+
     }
 }

@@ -16,7 +16,18 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
             builder
                 .HasKey(tpg => new { tpg.TicketTypeConfigurationId, tpg.TicketPriorityId});
 
-            //dodaj tablę TicketSlaConfiguration
+            builder
+                .HasOne(tpg => tpg.TicketPriority)
+                .WithOne(tp => tp.TicketPrioritiesGonfiguration)
+                .HasForeignKey<TicketPrioritiesGonfiguration>(tpg => tpg.TicketPriorityId)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            builder
+                .HasOne(tpg => tpg.TicketSlaConfiguration)
+                .WithOne(tsc => tsc.TicketPrioritiesGonfiguration)
+                .HasForeignKey<TicketPrioritiesGonfiguration>(tpg => tpg.TicketSlaConfigurationId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }
