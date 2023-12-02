@@ -11,8 +11,9 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; }
         public string? TypeName { get; set; }
 
-
+        //EF
         public Ticket? Ticket { get; set; } 
+        public TicketTypeConfiguration? TicTicketTypeConfiguration { get; set; } 
 
     }
 }

@@ -19,6 +19,7 @@ namespace TicketTracker.Domain.Entities
         public Ticket? Ticket { get; set; }  
         public Project? Project { get; set; }  
         public Environment? Environment { get; set; }
+        public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
 
     }
 }

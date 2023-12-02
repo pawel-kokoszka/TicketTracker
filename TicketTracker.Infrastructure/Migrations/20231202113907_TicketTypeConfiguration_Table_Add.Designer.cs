@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202113907_TicketTypeConfiguration_Table_Add")]
+    partial class TicketTypeConfiguration_Table_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -543,25 +546,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("TicketType");
                 });
 
-            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeConfiguration", b =>
-                {
-                    b.HasOne("TicketTracker.Domain.Entities.ProjectConfiguration", "ProjectConfiguration")
-                        .WithOne("TicketTypeConfiguration")
-                        .HasForeignKey("TicketTracker.Domain.Entities.TicketTypeConfiguration", "ProjectConfigurationId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("TicketTracker.Domain.Entities.TicketType", "TicketType")
-                        .WithOne("TicTicketTypeConfiguration")
-                        .HasForeignKey("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("ProjectConfiguration");
-
-                    b.Navigation("TicketType");
-                });
-
             modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
                 {
                     b.Navigation("ProjectConfiguration");
@@ -580,8 +564,6 @@ namespace TicketTracker.Infrastructure.Migrations
             modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
                 {
                     b.Navigation("Ticket");
-
-                    b.Navigation("TicketTypeConfiguration");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -591,8 +573,6 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketType", b =>
                 {
-                    b.Navigation("TicTicketTypeConfiguration");
-
                     b.Navigation("Ticket");
                 });
 #pragma warning restore 612, 618
