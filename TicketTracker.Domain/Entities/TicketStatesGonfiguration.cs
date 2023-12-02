@@ -12,5 +12,9 @@ namespace TicketTracker.Domain.Entities
         public int TicketStateId { get; set; }
         public int TicketStateOrderValue { get; set; }
 
+        //ef
+        public TicketState? TicketState { get; set; }
+        public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
+
     }
 }

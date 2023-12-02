@@ -15,6 +15,18 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
         {
             builder
                 .HasKey(tsg => new { tsg.TicketTypeConfigurationId, tsg.TicketStateId });
+
+            builder
+                .HasOne(tsg => tsg.TicketState)
+                .WithOne(tt => tt.TicketStatesGonfiguration)
+                .HasForeignKey<TicketStatesGonfiguration>(tsg => tsg.TicketStateId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+               .HasOne(tsg => tsg.TicketTypeConfiguration)
+               .WithOne(ttc => ttc.TicketStatesGonfiguration)
+               .HasForeignKey<TicketStatesGonfiguration>(tsg => tsg.TicketTypeConfigurationId)
+               .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
