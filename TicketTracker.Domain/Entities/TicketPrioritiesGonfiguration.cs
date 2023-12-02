@@ -12,5 +12,10 @@ namespace TicketTracker.Domain.Entities
         public int TicketPriorityId { get; set; }
         public int PriorityOrderValue { get; set; }
         public int TicketSlaConfigurationId { get; set; }
+
+        //ef
+        //public TicketPriority? TicketPriority { get; set; }
+        //public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
+        
     }
 }

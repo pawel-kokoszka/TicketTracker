@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202144549_TicketPrioritiesGonfiguration_table_Add")]
+    partial class TicketPrioritiesGonfiguration_table_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -414,41 +417,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TicketPriorities");
-                });
-
-            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSla", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("SlaName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("SlaValue")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TicketSLAs");
-                });
-
-            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
-                {
-                    b.Property<int>("TicketSlaConfigurationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketSlaConfigurationId"));
-
-                    b.Property<int>("TicketSlaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TicketSlaConfigurationId");
-
-                    b.ToTable("TicketSlaConfigurations");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketType", b =>

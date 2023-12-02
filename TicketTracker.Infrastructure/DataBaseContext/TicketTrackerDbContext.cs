@@ -20,8 +20,8 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
         
-        //public DbSet<TicketSlaConfiguration> TicketSlaConfigurations { get; set; }
-        //public DbSet<TicketSla> TicketSLAs { get; set; }
+        public DbSet<TicketSlaConfiguration> TicketSlaConfigurations { get; set; }
+        public DbSet<TicketSla> TicketSLAs { get; set; }
         
         //public DbSet<TicketStatesGonfiguration> TicketStatesGonfigurations { get; set; }
         //public DbSet<TicketState> TicketStates { get; set; }
@@ -30,7 +30,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         //public DbSet<TicketService> TicketServices { get; set; }
         
         public DbSet<TicketPriority> TicketPriorities { get; set; }
-        //public DbSet<TicketPrioritiesGonfiguration> TicketPrioritiesGonfiguration { get; set; }
+        public DbSet<TicketPrioritiesGonfiguration> TicketPrioritiesGonfiguration { get; set; }
         
         public DbSet<TicketTypeConfiguration> TicketTypeConfigurations { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
