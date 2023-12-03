@@ -11,7 +11,9 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; }
 
         public string? SlaName { get; set; }
-        public TimeSpan SlaValue { get; set; }
+        public int NumberOfDays { get; set; }
+        public int NumberOfMinutes { get; set; }
+        public bool IsDeadline { get; set; }
 
         //ef
         public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
