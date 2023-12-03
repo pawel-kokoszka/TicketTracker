@@ -17,5 +17,6 @@ namespace TicketTracker.Domain.Entities
         public TicketType? TicketType { get; set; }
         public TicketPrioritiesGonfiguration? TicketPrioritiesGonfiguration { get; set; }
         public TicketStatesGonfiguration? TicketStatesGonfiguration { get; set; }
+        public TicketServicesConfiguration? TicketServicesConfiguration { get; set; }
     }
 }

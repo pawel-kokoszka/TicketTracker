@@ -10,5 +10,9 @@ namespace TicketTracker.Domain.Entities
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+
+        //ef
+        public TicketServicesConfiguration? TicketServicesConfiguration { get; set; }
+
     }
 }

@@ -32,7 +32,11 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .HasForeignKey<TicketPrioritiesGonfiguration>(tpg => tpg.TicketTypeConfigurationId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
+            builder
+                .HasOne(ttc => ttc.TicketServicesConfiguration)
+                .WithOne(tsc => tsc.TicketTypeConfiguration)
+                .HasForeignKey<TicketServicesConfiguration>(tsc => tsc.TicketTypeConfigurationId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
         }
