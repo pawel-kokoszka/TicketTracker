@@ -4,7 +4,7 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketPrioritiesGonfigurationEntityConfiguration : IEntityTypeConfiguration<TicketPrioritiesGonfiguration>
+    public class TicketPrioritiesGonfigurationEntityConf : IEntityTypeConfiguration<TicketPrioritiesGonfiguration>
     {
         public void Configure(EntityTypeBuilder<TicketPrioritiesGonfiguration> builder)
         {

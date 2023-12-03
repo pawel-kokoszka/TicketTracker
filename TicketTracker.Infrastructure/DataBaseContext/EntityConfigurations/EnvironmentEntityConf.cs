@@ -9,14 +9,14 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class EnvironmentTypeConfiguration : IEntityTypeConfiguration<EnvironmentType>
+    public class EnvironmentEntityConf : IEntityTypeConfiguration<Domain.Entities.Environment>
     {
-        public void Configure(EntityTypeBuilder<EnvironmentType> builder)
+        public void Configure(EntityTypeBuilder<Domain.Entities.Environment> builder)
         {
             builder
-                .HasOne(et => et.Environment)
-                .WithOne(e => e.EnvironmentType)
-                .HasForeignKey<Domain.Entities.Environment>(et => et.EnvironmentTypeId)
+                .HasOne(e => e.ProjectConfiguration)
+                .WithOne(pc => pc.Environment)
+                .HasForeignKey<ProjectConfiguration>(pc => pc.EnvironmentId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

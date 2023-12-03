@@ -9,7 +9,7 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    internal class TicketTypeConfigurationEntityConfiguration : IEntityTypeConfiguration<TicketTypeConfiguration>
+    internal class TicketTypeConfigurationEntityConf : IEntityTypeConfiguration<TicketTypeConfiguration>
     {
         public void Configure(EntityTypeBuilder<TicketTypeConfiguration> builder)
         {
