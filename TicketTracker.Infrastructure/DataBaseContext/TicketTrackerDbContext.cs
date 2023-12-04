@@ -38,6 +38,11 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<Domain.Entities.Environment> Environments { get; set; }
         public DbSet<Domain.Entities.EnvironmentType> EnvironmentTypes { get; set; }
 
+        
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserPreference> UserPreferences { get; set; }
+        public DbSet<UserPreferenceType> UserPreferenceTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

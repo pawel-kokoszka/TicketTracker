@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class PreferenceType
+    public class UserPreferenceType
     {
         public int Id { get; set; } 
         public string? Name { get; set; }

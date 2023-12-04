@@ -4,11 +4,11 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class PreferenceTypeConf : IEntityTypeConfiguration<PreferenceType>
+    public class UserPreferenceTypeConf : IEntityTypeConfiguration<UserPreferenceType>
     {
-        public void Configure(EntityTypeBuilder<PreferenceType> builder)
+        public void Configure(EntityTypeBuilder<UserPreferenceType> builder)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

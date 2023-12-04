@@ -14,7 +14,7 @@ namespace TicketTracker.Domain.Entities
 
         //ef
 
-        public PreferenceType? PreferenceType { get; set;}
+        public UserPreferenceType? PreferenceType { get; set;}
         public UserProfile? UserProfile { get; set;}
 
     }
