@@ -11,7 +11,7 @@ namespace TicketTracker.Domain.Entities
     {
         public int Id { get; set; }  
         public int  TypeId { get; set; }
-        public TicketType TicketType { get; set; } = new();
+        public TicketType? TicketType { get; set; } //= new();
 
 
         public DateTime DateCreated { get; set; }
