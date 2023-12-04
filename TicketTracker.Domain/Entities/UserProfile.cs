@@ -18,6 +18,6 @@ namespace TicketTracker.Domain.Entities
         //ef
         public UserPreference? UserPreference {  get; set; }    
                 
-        //public IdentityUser? IdentityUser { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

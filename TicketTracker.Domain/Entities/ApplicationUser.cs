@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class ApplicationUser//: IdentityUser
+    public class ApplicationUser: IdentityUser
     {
-        //public UserProfile? UserProfile { get; set; }
+        public UserProfile? UserProfile { get; set; }
+        
     }
 }
