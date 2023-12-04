@@ -6,7 +6,7 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
 {
-    public class TicketTrackerDbContext : IdentityDbContext
+    public class TicketTrackerDbContext : IdentityDbContext<ApplicationUser>
     {
         public TicketTrackerDbContext(DbContextOptions<TicketTrackerDbContext> options) : base(options)
         {
@@ -42,6 +42,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserPreference> UserPreferences { get; set; }
         public DbSet<UserPreferenceType> UserPreferenceTypes { get; set; }
+        //public DbSet<ApplicationUser>AspNetUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

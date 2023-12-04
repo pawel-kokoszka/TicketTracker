@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 using TicketTracker.Infrastructure.DataBaseContext;
 using TicketTracker.Infrastructure.Repositories;
@@ -21,7 +22,7 @@ namespace TicketTracker.Infrastructure.Extensions
             services.AddDbContext<TicketTrackerDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("TicketTrackerDev")));
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TicketTrackerDbContext>();
 
