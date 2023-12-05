@@ -16,7 +16,8 @@ namespace TicketTracker.Domain.Entities
         public int EnvironmentId { get; set; }
 
         //EF relations:
-        public Ticket? Ticket { get; set; }  
+        //public Ticket? Ticket { get; set; }
+        public List<Ticket>? Tickets { get; set; }
         public Project? Project { get; set; }  
         public Environment? Environment { get; set; }
         public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }

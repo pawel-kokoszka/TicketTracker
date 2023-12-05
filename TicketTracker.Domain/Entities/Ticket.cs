@@ -27,6 +27,8 @@ namespace TicketTracker.Domain.Entities
         //public string? EditedByUserName { get; set; }
         public bool IsDeleted { get; set; }
         public int PriorityId { get; set; }
+        public TicketPriority? TicketPriority { get; set; }
+
         public string? Description { get; set; } 
         public string? ShortDescription { get; set; }
 
@@ -38,7 +40,7 @@ namespace TicketTracker.Domain.Entities
         public string? AssignedToUserId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
-        public ProjectConfiguration ProjectConfiguration { get; set; } = new();
+        public ProjectConfiguration? ProjectConfiguration { get; set; } //= new();
 
     }
 }

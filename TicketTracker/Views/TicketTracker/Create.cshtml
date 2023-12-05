@@ -27,6 +27,20 @@
             </div>
 
             <div class="form-floating mb-3">
+                <select class="form-select" id="ProjectConfigurationId" name="ProjectConfigurationId">
+
+                    @foreach (var projConf in ViewData["projectConfigurations"] as IEnumerable<ProjectConfigurationDto>)
+                    {
+                        <option value="@projConf.Id">@projConf.ProjectName | EnvironmentId: @projConf.EnvironmentId</option>
+                    }
+
+
+
+                </select>
+                <label for="TypeId">Project: </label>
+            </div>
+
+            <div class="form-floating mb-3">
                 <select class="form-select" id="TypeId" name="TypeId" >
                     
                         @foreach (var prio in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
@@ -37,7 +51,7 @@
                     
                     
                 </select>
-                <label for="TypeId">Ticket type</label>
+                <label for="TypeId">Ticket type: </label>
             </div>
 
             <div class="form-floating mb-3">
@@ -47,7 +61,7 @@
                             <option value="@prio.Id">@prio.PriorityValue</option>
                         }
                 </select>
-                <label for="PriorityId">Priority Level</label>
+                <label for="PriorityId">Priority Level: </label>
             </div>
 
             <div class="form-group mb-3">

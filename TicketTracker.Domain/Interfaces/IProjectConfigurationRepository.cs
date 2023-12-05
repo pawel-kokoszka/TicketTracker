@@ -9,7 +9,7 @@ namespace TicketTracker.Domain.Interfaces
 {
     public interface IProjectConfigurationRepository
     {
-        Task<IEnumerable<ProjectConfiguration>> GetAll();
+        Task<IEnumerable<ProjectConfiguration>> GetAllProjectConfigurations();
         Task<ProjectConfiguration> GetProjectConfigurationById(int projConfId);
     }
 }

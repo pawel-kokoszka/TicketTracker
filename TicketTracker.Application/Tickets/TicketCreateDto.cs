@@ -15,5 +15,7 @@ namespace TicketTracker.Application.Tickets
         public string? Description { get; set; }
 
         public string? ShortDescription { get; set; }
+
+        public int ProjectConfigurationId { get; set; }
     }
 }

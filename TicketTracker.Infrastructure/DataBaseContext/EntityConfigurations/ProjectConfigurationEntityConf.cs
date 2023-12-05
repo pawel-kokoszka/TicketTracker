@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -9,14 +10,14 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class ProjectEntityConfiguration : IEntityTypeConfiguration<Project>
+    public class ProjectConfigurationEntityConf : IEntityTypeConfiguration<ProjectConfiguration>
     {
-        public void Configure(EntityTypeBuilder<Project> builder)
+        public void Configure(EntityTypeBuilder<ProjectConfiguration> builder)
         {
             builder
-                .HasMany(p => p.ProjectConfigurations)
-                .WithOne(pc => pc.Project)
-                .HasForeignKey(pc => pc.ProjectId)
+                .HasMany(pc => pc.Tickets)
+                .WithOne(t => t.ProjectConfiguration)
+                .HasForeignKey(t => t.ProjectConfigurationId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

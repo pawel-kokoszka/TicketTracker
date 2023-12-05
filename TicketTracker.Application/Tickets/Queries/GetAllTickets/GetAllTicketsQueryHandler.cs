@@ -27,20 +27,20 @@ namespace TicketTracker.Application.Tickets.Queries.GetAllTickets
         public async Task<IEnumerable<TicketDetailsDto>> Handle(GetAllTicketsQuery request, CancellationToken cancellationToken)
         {
             var tickets = await _ticketRepository.GetAll();
-            var priorities = await _ticketPriorityRepository.GetAll();
-            var types = await _ticketTypeRepository.GetAll();
+            //var priorities = await _ticketPriorityRepository.GetAll();
+            //var types = await _ticketTypeRepository.GetAll();
 
             var ticketDtos = _mapper.Map<IEnumerable<TicketDetailsDto>>(tickets);
 
-            foreach (var ticketDto in ticketDtos)
-            {
-                var prio = priorities.Where(p => p.Id == ticketDto.PriorityId).First();
-                ticketDto.PriorityValue = prio.PriorityValue;
-                //var type = types.Where(t => t.Id == ticketDto.TypeId).First();
-                //ticketDto.TicketTypeName = type.TypeName;
-            }
+            //foreach (var ticketDto in ticketDtos)
+            //{
+            //    var prio = priorities.Where(p => p.Id == ticketDto.PriorityId).First();
+            //    ticketDto.PriorityValue = prio.PriorityValue;
+            //    //var type = types.Where(t => t.Id == ticketDto.TypeId).First();
+            //    //ticketDto.TicketTypeName = type.TypeName;
+            //}
 
-            
+
 
             return ticketDtos;
         }

@@ -25,11 +25,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
             //    .HasForeignKey<Ticket>(t => t.TypeId)
             //    .OnDelete(DeleteBehavior.NoAction);
 
-            builder
-                .HasOne(t => t.ProjectConfiguration)
-                .WithOne(pc => pc.Ticket)
-                .HasForeignKey<Ticket>(t => t.ProjectConfigurationId)
-                .OnDelete(DeleteBehavior.NoAction);
+
             
             
             

@@ -12,6 +12,7 @@ namespace TicketTracker.Domain.Entities
         public string? PriorityValue { get; set; }
 
         //EF
+        public List<Ticket>? Tickets { get; set; }
         public TicketPrioritiesGonfiguration? TicketPrioritiesGonfiguration { get; set; }
 
     }

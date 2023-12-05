@@ -15,6 +15,7 @@ using TicketTracker.Application.Comments.Commands;
 using TicketTracker.Application.Comments.Queries.GetTicketComments;
 using TicketTracker.Application.Tickets.Queries.GetTicketPriorities;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypes;
+using TicketTracker.Application.Tickets.Queries.GetAllProjectConfigurations;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -76,10 +77,16 @@ namespace TicketTracker.MVC.Controllers
         public async Task<IActionResult> Create() 
         {
             var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery ());
-            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
-
             ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+            
+            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
             ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+            
+            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            ViewData[nameof(projectConfigurations)] = projectConfigurations;
+
+
+
 
             return View();
         }

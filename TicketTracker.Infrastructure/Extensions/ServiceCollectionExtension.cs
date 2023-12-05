@@ -33,6 +33,7 @@ namespace TicketTracker.Infrastructure.Extensions
 
             services.AddScoped<ITicketPriorityRepository, TicketPriorityRepository>();
             services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
+            services.AddScoped<IProjectConfigurationRepository, ProjectConfigurationRepository>();
         }
 
     }

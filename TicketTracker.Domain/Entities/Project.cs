@@ -13,6 +13,6 @@ namespace TicketTracker.Domain.Entities
         public string? Description { get; set; }
 
         //EF Relations:
-        public ProjectConfiguration? ProjectConfiguration { get; set; }
+        public List<ProjectConfiguration>? ProjectConfigurations { get; set; }
     }
 }
