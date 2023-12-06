@@ -26,6 +26,8 @@ namespace TicketTracker.Application.Tickets
         public string? EditedByUserId { get; set; }
         public string? EditedByUserName { get; set; }
 
+        public string? ProjectName { get; set; }
+
         public List<Comment>? Comments { get; set; }
     }
 }
