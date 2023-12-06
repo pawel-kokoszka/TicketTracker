@@ -33,6 +33,8 @@ namespace TicketTracker.Infrastructure.Repositories
             => await _dbContext.Tickets
                         .Include(tt => tt.TicketType)
                         .Include(tp => tp.TicketPriority) 
+                        .Include(pc => pc.ProjectConfiguration)
+                        .ThenInclude(p => p.Project)
                         .FirstAsync(t => t.Id == ticketId);
 
         //=> await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);

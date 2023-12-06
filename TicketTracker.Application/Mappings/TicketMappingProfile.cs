@@ -24,6 +24,8 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")))
                 .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName))
                 .ForMember(dto => dto.PriorityValue, opt => opt.MapFrom(src => src.TicketPriority.PriorityValue))
+                .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.ProjectConfiguration.Project.Name))
+
                 ;
 
 
