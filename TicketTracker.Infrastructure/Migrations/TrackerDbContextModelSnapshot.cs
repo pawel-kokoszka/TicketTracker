@@ -17,7 +17,7 @@ namespace TicketTracker.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -69,12 +69,89 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -139,91 +216,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens", (string)null);
-                });
-
             modelBuilder.Entity("TicketTracker.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -249,9 +241,89 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TicketId");
-
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EnvironmentTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Environments");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.EnvironmentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnvironmentTypes");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Project", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EnvironmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProjectConfigurations");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -262,13 +334,10 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AssignedTo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedByUserId")
+                    b.Property<string>("AssignedToUserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreatedByUserName")
+                    b.Property<string>("CreatedByUserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -283,22 +352,25 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Property<string>("EditedByUserId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EditedByUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EnvId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("PriorityId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProjectConfigurationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int>("TicketServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketSlaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketStateId")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeId")
@@ -307,6 +379,238 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketPrioritiesGonfiguration", b =>
+                {
+                    b.Property<int>("TicketTypeConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketPriorityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriorityOrderValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketSlaConfigurationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketTypeConfigurationId", "TicketPriorityId");
+
+                    b.ToTable("TicketPrioritiesGonfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketPriority", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PriorityValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketPriorities");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketServices");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketServicesConfiguration", b =>
+                {
+                    b.Property<int>("TicketTypeConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketTypeConfigurationId", "ServiceId");
+
+                    b.ToTable("TicketServicesConfigurations");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSla", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeadline")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SlaName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketSLAs");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("TicketSlaConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketSlaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketSlaConfigurations");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketStates");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketStatesGonfiguration", b =>
+                {
+                    b.Property<int>("TicketTypeConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketStateId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketStateOrderValue")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketTypeConfigurationId", "TicketStateId");
+
+                    b.ToTable("TicketStatesGonfigurations");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketTypes");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProjectConfigurationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketTypeConfigurations");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserPreference", b =>
+                {
+                    b.Property<int>("UserProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PreferenceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserProfileId", "PreferenceTypeId");
+
+                    b.ToTable("UserPreferences");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserPreferenceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserPreferenceTypes");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserProfiles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -320,7 +624,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -329,7 +633,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -344,7 +648,7 @@ namespace TicketTracker.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -353,7 +657,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -371,9 +675,259 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("Ticket");
                 });
 
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.EnvironmentType", "EnvironmentType")
+                        .WithOne("Environment")
+                        .HasForeignKey("TicketTracker.Domain.Entities.Environment", "EnvironmentTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("EnvironmentType");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.Environment", "Environment")
+                        .WithOne("ProjectConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.ProjectConfiguration", "EnvironmentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.Project", "Project")
+                        .WithOne("ProjectConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.ProjectConfiguration", "ProjectId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Environment");
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.ProjectConfiguration", "ProjectConfiguration")
+                        .WithOne("Ticket")
+                        .HasForeignKey("TicketTracker.Domain.Entities.Ticket", "ProjectConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketType", "TicketType")
+                        .WithMany("Tickets")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectConfiguration");
+
+                    b.Navigation("TicketType");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketPrioritiesGonfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.TicketPriority", "TicketPriority")
+                        .WithOne("TicketPrioritiesGonfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketPrioritiesGonfiguration", "TicketPriorityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketSlaConfiguration", "TicketSlaConfiguration")
+                        .WithOne("TicketPrioritiesGonfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketPrioritiesGonfiguration", "TicketSlaConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeConfiguration")
+                        .WithOne("TicketPrioritiesGonfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketPrioritiesGonfiguration", "TicketTypeConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TicketPriority");
+
+                    b.Navigation("TicketSlaConfiguration");
+
+                    b.Navigation("TicketTypeConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketServicesConfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.TicketService", "TicketService")
+                        .WithOne("TicketServicesConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketServicesConfiguration", "ServiceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeConfiguration")
+                        .WithOne("TicketServicesConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketServicesConfiguration", "TicketTypeConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TicketService");
+
+                    b.Navigation("TicketTypeConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.TicketSla", "TicketSla")
+                        .WithOne("TicketSlaConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketSlaConfiguration", "TicketSlaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TicketSla");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketStatesGonfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.TicketState", "TicketState")
+                        .WithOne("TicketStatesGonfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketStatesGonfiguration", "TicketStateId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeConfiguration")
+                        .WithOne("TicketStatesGonfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketStatesGonfiguration", "TicketTypeConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TicketState");
+
+                    b.Navigation("TicketTypeConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeConfiguration", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.ProjectConfiguration", "ProjectConfiguration")
+                        .WithOne("TicketTypeConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketTypeConfiguration", "ProjectConfigurationId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.TicketType", "TicketType")
+                        .WithOne("TicTicketTypeConfiguration")
+                        .HasForeignKey("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ProjectConfiguration");
+
+                    b.Navigation("TicketType");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserPreference", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.UserPreferenceType", "PreferenceType")
+                        .WithOne("UserPreference")
+                        .HasForeignKey("TicketTracker.Domain.Entities.UserPreference", "PreferenceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.UserProfile", "UserProfile")
+                        .WithOne("UserPreference")
+                        .HasForeignKey("TicketTracker.Domain.Entities.UserPreference", "UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PreferenceType");
+
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserProfile", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithOne("UserProfile")
+                        .HasForeignKey("TicketTracker.Domain.Entities.UserProfile", "UserID");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("UserProfile");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
+                {
+                    b.Navigation("ProjectConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.EnvironmentType", b =>
+                {
+                    b.Navigation("Environment");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Project", b =>
+                {
+                    b.Navigation("ProjectConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.ProjectConfiguration", b =>
+                {
+                    b.Navigation("Ticket");
+
+                    b.Navigation("TicketTypeConfiguration");
+                });
+
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
                 {
                     b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketPriority", b =>
+                {
+                    b.Navigation("TicketPrioritiesGonfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketService", b =>
+                {
+                    b.Navigation("TicketServicesConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSla", b =>
+                {
+                    b.Navigation("TicketSlaConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
+                {
+                    b.Navigation("TicketPrioritiesGonfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketState", b =>
+                {
+                    b.Navigation("TicketStatesGonfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketType", b =>
+                {
+                    b.Navigation("TicTicketTypeConfiguration");
+
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeConfiguration", b =>
+                {
+                    b.Navigation("TicketPrioritiesGonfiguration");
+
+                    b.Navigation("TicketServicesConfiguration");
+
+                    b.Navigation("TicketStatesGonfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserPreferenceType", b =>
+                {
+                    b.Navigation("UserPreference");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.UserProfile", b =>
+                {
+                    b.Navigation("UserPreference");
                 });
 #pragma warning restore 612, 618
         }

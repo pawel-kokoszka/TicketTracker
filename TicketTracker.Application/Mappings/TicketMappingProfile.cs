@@ -21,7 +21,11 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
                 .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm")))
-                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")));
+                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")))
+                .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName))
+                .ForMember(dto => dto.PriorityValue, opt => opt.MapFrom(src => src.TicketPriority.PriorityValue))
+                ;
+
 
             CreateMap<TicketDetailsDto,EditTicketCommand>();
 
@@ -33,7 +37,15 @@ namespace TicketTracker.Application.Mappings
             CreateMap<Domain.Entities.Comment, CommentDetailsDto>()
                 .ForMember(dto => dto.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm")) );
 
-            //CreateMap<>
+            CreateMap<TicketPriority, TicketPriorityDto>();
+
+            CreateMap<TicketType, TicketTypeDto>();
+            
+            CreateMap<ProjectConfiguration, ProjectConfigurationDto>()
+                .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.Project.Name));
+
+
+
         }
 
 
