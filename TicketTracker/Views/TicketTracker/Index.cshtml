@@ -16,6 +16,14 @@
                 Number
             </th>
             <th>
+                Project Name
+            </th>
+
+            <th>
+                Environment 
+            </th>
+            
+            <th>
                 Type
             </th>
             <th>
@@ -45,6 +53,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnvironmentType)
+            </td>
+
+
             <td>
                 @Html.DisplayFor(modelItem => item.TicketTypeName)
             </td>
