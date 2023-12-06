@@ -31,7 +31,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             //_mapper.Map<Domain.Entities.Ticket>(request);
             _mapper.Map(request,ticket);
             ticket.EditedByUserId = currentUser.Id;
-            ticket.EditedByUserName = currentUser.Email;
+            //ticket.EditedByUserName = currentUser.Email;
             ticket.DateEdited = DateTime.UtcNow;
 
 

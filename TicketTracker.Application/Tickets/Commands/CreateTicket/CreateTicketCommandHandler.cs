@@ -29,10 +29,10 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
             var ticket = _mapper.Map<Domain.Entities.Ticket>(request);
 
             ticket.CreatedByUserId = currentUser.Id;    
-            ticket.CreatedByUserName = currentUser.Email;  
+            //ticket.CreatedByUserName = currentUser.Email;  
             ticket.DateCreated = DateTime.UtcNow;
             ticket.EditedByUserId = currentUser.Id;
-            ticket.EditedByUserName = currentUser.Email;
+            //ticket.EditedByUserName = currentUser.Email;
             ticket.DateEdited = DateTime.UtcNow;
 
             await _ticketRepository.Create(ticket);

@@ -9,17 +9,14 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
+    public class TicketTypeEntityConf : IEntityTypeConfiguration<TicketType>
     {
-        public void Configure(EntityTypeBuilder<Ticket> builder)
+        public void Configure(EntityTypeBuilder<TicketType> builder)
         {
-            builder.Property(t => t.Description)
-                .HasMaxLength(1000);
-            
-            builder.Property(t => t.ShortDescription)
-                .HasMaxLength(100);
-
-
+            builder
+                .HasMany(tt => tt.Tickets)
+                .WithOne(t => t.TicketType)
+                .HasForeignKey(t => t.TypeId);
         }
     }
 }

@@ -9,32 +9,39 @@ namespace TicketTracker.Domain.Entities
 {
     public class Ticket
     {
-        public int Id { get; set; }    
-
+        public int Id { get; set; }  
         public int  TypeId { get; set; }
+        public TicketType? TicketType { get; set; } //= new();
+
+
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
 
-        public int EnvId { get; set; }
 
-        public int StatusId { get; set; }
 
-        public int AssignedTo { get; set; }
 
         public string? CreatedByUserId { get; set; }
 
-        public string? CreatedByUserName { get; set; }     
+        //public string? CreatedByUserName { get; set; }     
         public string? EditedByUserId { get; set; }
-        public string? EditedByUserName { get; set; }
+        //public string? EditedByUserName { get; set; }
         public bool IsDeleted { get; set; }
         public int PriorityId { get; set; }
+        public TicketPriority? TicketPriority { get; set; }
+
         public string? Description { get; set; } 
         public string? ShortDescription { get; set; }
 
-        public List<Comment> Comments { get; set; } = new(); 
-        //to check if it is running with every record in index View - where is not needed 
 
-        
+        public List<Comment> Comments { get; set; } = new();
+
+        public int TicketSlaId { get; set; }
+        public int TicketStateId { get; set; }
+        public string? AssignedToUserId { get; set; }
+        public int TicketServiceId { get; set; }
+        public int ProjectConfigurationId { get; set; }
+        public ProjectConfiguration? ProjectConfiguration { get; set; } //= new();
+
     }
 }
 
