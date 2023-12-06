@@ -5,7 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>Ticket Details</h3>
+<h3>Ticket @Model.Id Details</h3>
 
    <div class="row">
         <div class="col-lg">
@@ -18,15 +18,29 @@
 
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="Id" readonly>
-                                            <label asp-for="Id">Ticket number:</label>
+                                            <input class="form-control" asp-for="ProjectName" readonly>
+                                            <label  asp-for="ProjectName" >Project</label>
 
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="ProjectName" readonly>
-                                            <label  asp-for="ProjectName" >Project</label>
+                                        <input class="form-control" asp-for="EnvironmentType" readonly>
+                                            <label asp-for="EnvironmentType">Environment Type:</label>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row">
+
+ 
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" asp-for="EnvironmentName" readonly>
+                                            <label asp-for="EnvironmentName">Environment name:</label>
 
                                         </div>
                                     </div>
@@ -56,6 +70,27 @@
 
 
                                 </div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" asp-for="EditedByUserName" readonly>
+                                                <label asp-for="EditedByUserName">Edited by user:</label>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" asp-for="DateEdited" readonly>
+                                                <label asp-for="DateEdited">Last time edited:</label>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
 
                                 <div class="row">
 

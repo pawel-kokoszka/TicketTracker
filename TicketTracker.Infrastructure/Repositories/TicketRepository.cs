@@ -27,6 +27,11 @@ namespace TicketTracker.Infrastructure.Repositories
             => await _dbContext.Tickets
                         .Include(t => t.TicketType)
                         .Include(t => t.TicketPriority)
+                        .Include(pc => pc.ProjectConfiguration)
+                            .ThenInclude(p => p.Project)
+                        .Include(pc => pc.ProjectConfiguration)
+                            .ThenInclude(e => e.Environment)
+                                .ThenInclude(e => e.EnvironmentType)                
                         .ToListAsync();
 
         public async Task<Ticket> GetTicketById(int ticketId) 
@@ -34,7 +39,10 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(tt => tt.TicketType)
                         .Include(tp => tp.TicketPriority) 
                         .Include(pc => pc.ProjectConfiguration)
-                        .ThenInclude(p => p.Project)
+                            .ThenInclude(p => p.Project)
+                        .Include(pc => pc.ProjectConfiguration)
+                            .ThenInclude(e => e.Environment)
+                                .ThenInclude(e => e.EnvironmentType)
                         .FirstAsync(t => t.Id == ticketId);
 
         //=> await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
