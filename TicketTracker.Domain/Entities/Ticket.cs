@@ -21,10 +21,15 @@ namespace TicketTracker.Domain.Entities
 
 
         public string? CreatedByUserId { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; }
 
-        //public string? CreatedByUserName { get; set; }     
         public string? EditedByUserId { get; set; }
-        //public string? EditedByUserName { get; set; }
+        public ApplicationUser? EditorUser { get; set; }
+
+        public string? AssignedToUserId { get; set; }       
+        public ApplicationUser? AssignedUser { get; set; }
+
+        
         public bool IsDeleted { get; set; }
         public int PriorityId { get; set; }
         public TicketPriority? TicketPriority { get; set; }
@@ -33,11 +38,10 @@ namespace TicketTracker.Domain.Entities
         public string? ShortDescription { get; set; }
 
 
-        public List<Comment> Comments { get; set; } = new();
+        public List<Comment>? Comments { get; set; } //= new();
 
         public int TicketSlaId { get; set; }
         public int TicketStateId { get; set; }
-        public string? AssignedToUserId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
         public ProjectConfiguration? ProjectConfiguration { get; set; } //= new();

@@ -28,8 +28,8 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             var ticket = await _ticketRepository.GetTicketById(request.Id);
 
             //_mapper.Map<Domain.Entities.Ticket>(request);
-            //_mapper.Map<Domain.Entities.Ticket>(request);
-            _mapper.Map(request,ticket);
+            _mapper.Map<Domain.Entities.Ticket>(request);
+            //_mapper.Map(request,ticket);
             ticket.EditedByUserId = currentUser.Id;
             //ticket.EditedByUserName = currentUser.Email;
             ticket.DateEdited = DateTime.UtcNow;

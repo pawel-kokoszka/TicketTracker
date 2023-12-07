@@ -10,6 +10,11 @@ namespace TicketTracker.Domain.Entities
     public class ApplicationUser: IdentityUser
     {
         public UserProfile? UserProfile { get; set; }
+        public List<Ticket>? Ticket { get; set; }
+        public List<Ticket>? EditedTicket { get; set; }
+        public List<Ticket>? AssignedTicket { get; set; }
+
+
         
     }
 }

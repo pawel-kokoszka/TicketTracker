@@ -17,6 +17,21 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .HasOne(au => au.UserProfile)
                 .WithOne(up => up.ApplicationUser)
                 .HasForeignKey<UserProfile>(up => up.UserID);
+
+            builder
+                .HasMany(au => au.Ticket)
+                .WithOne(t => t.ApplicationUser)
+                .HasForeignKey(t => t.CreatedByUserId);
+
+            builder
+                .HasMany(au => au.EditedTicket)
+                .WithOne(t => t.EditorUser)
+                .HasForeignKey(t => t.EditedByUserId);
+
+            builder
+                .HasMany(au => au.AssignedTicket)
+                .WithOne(t => t.AssignedUser)
+                .HasForeignKey(t => t.AssignedToUserId);
         }
     }
 }
