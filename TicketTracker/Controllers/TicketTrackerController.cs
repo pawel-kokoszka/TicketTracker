@@ -31,6 +31,7 @@ namespace TicketTracker.MVC.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Ticket Viewer,Ticket Maker,Admin")]
         public async Task<IActionResult> Index()
         {
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
@@ -38,7 +39,7 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
-        [Authorize(Roles = "Ticket Viewer,Admin")]
+        [Authorize(Roles = "Ticket Viewer,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {

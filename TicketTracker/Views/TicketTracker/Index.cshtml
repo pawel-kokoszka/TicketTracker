@@ -44,6 +44,12 @@
             <th>
                 Last Edited By
             </th>
+            <th>
+                Assigned to
+            </th>
+
+
+
             <th></th>
         </tr>
     </thead>
@@ -81,6 +87,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EditedByUserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AssignedToUserName)
                 </td>
             <td>
                 <a class="link-primary" asp-controller="TicketTracker" asp-route-Id="@item.Id" asp-action="Details">Details</a>
