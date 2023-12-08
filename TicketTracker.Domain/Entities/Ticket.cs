@@ -21,7 +21,7 @@ namespace TicketTracker.Domain.Entities
 
 
         public string? CreatedByUserId { get; set; }
-        public ApplicationUser? ApplicationUser { get; set; }
+        public ApplicationUser? CreatorUser { get; set; }
 
         public string? EditedByUserId { get; set; }
         public ApplicationUser? EditorUser { get; set; }

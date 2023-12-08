@@ -21,6 +21,9 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketById
         }
         public async Task<TicketDetailsDto> Handle(GetTicketByIdQuery request, CancellationToken cancellationToken)
         {
+            //dodaj sprawdzanie uprawnień
+            
+            
             var ticket = await _ticketRepository.GetTicketById(request.TicketId);
 
             var ticketDetailsDto = _mapper.Map<TicketDetailsDto>(ticket);

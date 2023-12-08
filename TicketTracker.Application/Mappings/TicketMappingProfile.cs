@@ -27,12 +27,12 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.ProjectConfiguration.Project.Name))
                 .ForMember(dto => dto.EnvironmentType, opt => opt.MapFrom(src => src.ProjectConfiguration.Environment.EnvironmentType.Name))
                 .ForMember(dto => dto.EnvironmentName, opt => opt.MapFrom(src => src.ProjectConfiguration.Environment.Name))
-                .ForMember(dto => dto.CreatedByUserId, opt => opt.MapFrom(src => src.ApplicationUser.Id))
-                .ForMember(dto => dto.CreatedByUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
+                .ForMember(dto => dto.CreatedByUserId, opt => opt.MapFrom(src => src.CreatorUser.Id))
+                .ForMember(dto => dto.CreatedByUserName, opt => opt.MapFrom(src => src.CreatorUser.UserName))
                 .ForMember(dto => dto.EditedByUserId, opt => opt.MapFrom(src => src.EditorUser.Id))
                 .ForMember(dto => dto.EditedByUserName, opt => opt.MapFrom(src => src.EditorUser.UserName))
-                .ForMember(dto => dto.AssignedToUserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
-                .ForMember(dto => dto.AssignedToUserName, opt => opt.MapFrom(src => src.AssignedUser.UserName))
+                //.ForMember(dto => dto.AssignedToUserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
+                //.ForMember(dto => dto.AssignedToUserName, opt => opt.MapFrom(src => src.AssignedUser.UserName))
 
                 ;
 

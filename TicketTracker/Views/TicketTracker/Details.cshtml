@@ -18,17 +18,10 @@
                                 
                                         <div class="row">
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="form-floating mb-3">
                                                     <input class="form-control" asp-for="ProjectName" readonly>
                                                     <label  asp-for="ProjectName" >Project</label>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                <input class="form-control" asp-for="EnvironmentType" readonly>
-                                                    <label asp-for="EnvironmentType">Environment Type:</label>
 
                                                 </div>
                                             </div>
@@ -43,6 +36,13 @@
                                                 <div class="form-floating mb-3">
                                                     <input class="form-control" asp-for="EnvironmentName" readonly>
                                                     <label asp-for="EnvironmentName">Environment name:</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                <input class="form-control" asp-for="EnvironmentType" readonly>
+                                                    <label asp-for="EnvironmentType">Environment Type:</label>
 
                                                 </div>
                                             </div>
@@ -77,8 +77,8 @@
 
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3">
-                                                        @* <input class="form-control" asp-for="EditedByUserName" readonly>
-                                                        <label asp-for="EditedByUserName">Edited by user:</label> *@
+                                                        <input class="form-control" asp-for="EditedByUserName" readonly>
+                                                        <label asp-for="EditedByUserName">Edited by user:</label>
 
                                                     </div>
 
