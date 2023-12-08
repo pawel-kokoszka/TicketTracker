@@ -137,7 +137,13 @@
 
                             </div>
 
+                   
+
                             <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="AssignedToUserName" class="form-control" readonly />
+                                    <label asp-for="AssignedToUserName">Assigned to:</label>
+                                </div>
 
                                 <div class="form-floating mb-3">
                                 <input class="form-control" asp-for="ShortDescription" readonly>
@@ -148,7 +154,7 @@
 
 
                                 <div class="form-floating mb-3">
-                                    <textarea class="form-control" style="height: 212px" asp-for="Description" readonly></textarea>
+                                    <textarea class="form-control" style="height: 280px" asp-for="Description" readonly></textarea>
                                     <label asp-for="Description">Description:</label>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
