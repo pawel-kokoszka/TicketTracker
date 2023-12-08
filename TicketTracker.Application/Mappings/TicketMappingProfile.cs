@@ -31,8 +31,8 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.CreatedByUserName, opt => opt.MapFrom(src => src.CreatorUser.UserName))
                 .ForMember(dto => dto.EditedByUserId, opt => opt.MapFrom(src => src.EditorUser.Id))
                 .ForMember(dto => dto.EditedByUserName, opt => opt.MapFrom(src => src.EditorUser.UserName))
-                //.ForMember(dto => dto.AssignedToUserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
-                //.ForMember(dto => dto.AssignedToUserName, opt => opt.MapFrom(src => src.AssignedUser.UserName))
+                .ForMember(dto => dto.AssignedToUserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
+                .ForMember(dto => dto.AssignedToUserName, opt => opt.MapFrom(src => src.AssignedUser.UserName))
 
                 ;
 
