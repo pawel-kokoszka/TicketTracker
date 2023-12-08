@@ -5,183 +5,187 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>Ticket @Model.Id Details</h3>
+<div class="container ">
 
-   <div class="row">
-        <div class="col-lg">
+        <h3>Ticket @Model.Id Details</h3>
+
+           <div class="row">
+                <div class="col-lg">
         
-                                <div class="row">
-                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6">
 
                                 
-                                <div class="row">
+                                        <div class="row">
 
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="ProjectName" readonly>
-                                            <label  asp-for="ProjectName" >Project</label>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" asp-for="ProjectName" readonly>
+                                                    <label  asp-for="ProjectName" >Project</label>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                <input class="form-control" asp-for="EnvironmentType" readonly>
+                                                    <label asp-for="EnvironmentType">Environment Type:</label>
+
+                                                </div>
+                                            </div>
+
 
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                        <input class="form-control" asp-for="EnvironmentType" readonly>
-                                            <label asp-for="EnvironmentType">Environment Type:</label>
 
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="row">
+                                        <div class="row">
 
  
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="EnvironmentName" readonly>
-                                            <label asp-for="EnvironmentName">Environment name:</label>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" asp-for="EnvironmentName" readonly>
+                                                    <label asp-for="EnvironmentName">Environment name:</label>
+
+                                                </div>
+                                            </div>
+
 
                                         </div>
-                                    </div>
-
-
-                                </div>
 
 
 
-                                <div class="row">
+                                        <div class="row">
 
-                                    <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" asp-for="CreatedByUserName" readonly>
-                                                    <label asp-for="CreatedByUserName">Created by user:</label>
+                                            <div class="col-md-6">
+                                                        <div class="form-floating mb-3">
+                                                            <input class="form-control" asp-for="CreatedByUserName" readonly>
+                                                            <label asp-for="CreatedByUserName">Created by user:</label>
                         
-                                                </div>
+                                                        </div>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control"  asp-for="DateCreated" readonly>
-                                                    <label asp-for="DateCreated">Date Created:</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                        <div class="form-floating mb-3">
+                                                            <input class="form-control"  asp-for="DateCreated" readonly>
+                                                            <label asp-for="DateCreated">Date Created:</label>
                        
+                                                        </div>
+                                            </div>
+
+
+                                        </div>
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        @* <input class="form-control" asp-for="EditedByUserName" readonly>
+                                                        <label asp-for="EditedByUserName">Edited by user:</label> *@
+
+                                                    </div>
+
                                                 </div>
-                                    </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input class="form-control" asp-for="DateEdited" readonly>
+                                                        <label asp-for="DateEdited">Last time edited:</label>
 
+                                                    </div>
+                                                </div>
 
-                                </div>
-
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                @* <input class="form-control" asp-for="EditedByUserName" readonly>
-                                                <label asp-for="EditedByUserName">Edited by user:</label> *@
 
                                             </div>
 
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" asp-for="DateEdited" readonly>
-                                                <label asp-for="DateEdited">Last time edited:</label>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input asp-for="TicketTypeName" class="form-control" readonly />
+                                                        <label asp-for="TicketTypeName">Ticket type:</label>
+                                                    </div>
 
                                             </div>
-                                        </div>
-
-
-                                    </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input asp-for="TicketTypeName" class="form-control" readonly />
-                                                <label asp-for="TicketTypeName">Ticket type:</label>
+                                            <div class="col-md-6">
+                                                    <div class="form-floating mb-3">
+                                                        <input asp-for="PriorityValue" class="form-control" readonly />
+                                                        <label asp-for="PriorityValue">Priority Level:</label>
+                                                    </div>
                                             </div>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input asp-for="PriorityValue" class="form-control" readonly />
-                                                <label asp-for="PriorityValue">Priority Level:</label>
+
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input asp-for="TypeId" class="form-control" readonly />
+                                                    <label asp-for="TypeId">SLA:</label>
+                                                </div>
+
                                             </div>
-                                    </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                    <input asp-for="PriorityId" class="form-control" readonly />
+                                                    <label asp-for="PriorityId">Affected Service:</label>
+                                                </div>
+                                            </div>
 
 
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input asp-for="TypeId" class="form-control" readonly />
-                                            <label asp-for="TypeId">SLA:</label>
                                         </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input asp-for="PriorityId" class="form-control" readonly />
-                                            <label asp-for="PriorityId">Affected Service:</label>
-                                        </div>
-                                    </div>
-
-
-                                </div>
 
                         
 
                         
 
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-floating mb-3">
+                                <input class="form-control" asp-for="ShortDescription" readonly>
+                                    <label asp-for="ShortDescription">Short Description:</label>
+                                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                </div>
+
+
+
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" style="height: 212px" asp-for="Description" readonly></textarea>
+                                    <label asp-for="Description">Description:</label>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                </div>
+        </div>
+
+
+        <div>
+
+ 
+            <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit">Edit this ticket</a>
+    
+    
+        </div>
+
+
+         <h3>Comments:</h3>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+
+                    <div class="">
+                        <partial name="_AddNewComment"
+                                 model="new CreateCommentCommand() {TicketId = Model.Id}" />
                     </div>
-
-                    <div class="col-md-6">
-
-                        <div class="form-floating mb-3">
-                        <input class="form-control" asp-for="ShortDescription" readonly>
-                            <label asp-for="ShortDescription">Short Description:</label>
-                            <span asp-validation-for="ShortDescription" class="text-danger"></span>
-                        </div>
-
-
-
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control" style="height: 212px" asp-for="Description" readonly></textarea>
-                            <label asp-for="Description">Description:</label>
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                        </div>
-
+                    <div class="">
+                        <div id="comments" class="row" data-id="@Model.Id"></div>
                     </div>
                 </div>
 
-        </div>
-</div>
-
-
-<div>
-
- 
-    <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit">Edit this ticket</a>
-    
-    
-</div>
-
-
- <h3>Comments:</h3>
-
-    <div class="row">
-        <div class="col-md-6 mb-3">
-
-            <div class="">
-                <partial name="_AddNewComment"
-                         model="new CreateCommentCommand() {TicketId = Model.Id}" />
             </div>
-            <div class="">
-                <div id="comments" class="row" data-id="@Model.Id"></div>
-            </div>
-        </div>
 
-    </div>
+</div>
 
 @section Scripts {
     <script src="~/js/tickettracker/details.js"></script>
