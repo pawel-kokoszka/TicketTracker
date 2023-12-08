@@ -20,7 +20,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 
             builder
                 .HasMany(au => au.Ticket)
-                .WithOne(t => t.ApplicationUser)
+                .WithOne(t => t.CreatorUser)
                 .HasForeignKey(t => t.CreatedByUserId);
 
             builder

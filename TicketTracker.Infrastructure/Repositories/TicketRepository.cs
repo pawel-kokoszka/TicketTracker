@@ -32,7 +32,8 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.ProjectConfiguration)
                             .ThenInclude(pc => pc.Environment)
                                 .ThenInclude(e => e.EnvironmentType)                
-                        .Include(t => t.ApplicationUser)
+                        .Include(t => t.CreatorUser)
+                        .Include(t => t.EditorUser)
                         .ToListAsync();
 
         public async Task<Ticket> GetTicketById(int ticketId) 
@@ -44,6 +45,8 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.ProjectConfiguration)
                             .ThenInclude(pc => pc.Environment)
                                 .ThenInclude(e => e.EnvironmentType)
+                        .Include(t => t.CreatorUser)
+                        .Include(t => t.EditorUser)
                         .FirstAsync(t => t.Id == ticketId);
 
         //=> await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
