@@ -53,7 +53,12 @@ namespace TicketTracker.Application.Mappings
             CreateMap<TicketType, TicketTypeDto>();
             
             CreateMap<ProjectConfiguration, ProjectConfigurationDto>()
-                .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.Project.Name));
+                .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.Project.Name))
+                .ForMember(dto => dto.EnvironmentId, opt => opt.MapFrom(src => src.EnvironmentId))
+                .ForMember(dto => dto.EnvironmentName, opt => opt.MapFrom(src => src.Environment.Name))
+                .ForMember(dto => dto.EnvironmentType, opt => opt.MapFrom(src => src.Environment.EnvironmentType.Name))
+                
+                ;
 
 
 
