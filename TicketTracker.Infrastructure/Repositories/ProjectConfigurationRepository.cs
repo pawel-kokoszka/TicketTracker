@@ -20,6 +20,8 @@ namespace TicketTracker.Infrastructure.Repositories
         public async Task<IEnumerable<ProjectConfiguration>> GetAllProjectConfigurations()
             => await _dbContext.ProjectConfigurations
                         .Include(pc => pc.Project)
+                        .Include(pc => pc.Environment)
+                            .ThenInclude(e => e.EnvironmentType)
                         .ToListAsync(); 
 
         public async Task<ProjectConfiguration> GetProjectConfigurationById(int projConfId)

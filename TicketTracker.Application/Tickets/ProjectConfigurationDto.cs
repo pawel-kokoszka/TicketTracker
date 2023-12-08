@@ -14,5 +14,7 @@ namespace TicketTracker.Application.Tickets
         public string? ProjectName { get; set; }
 
         public int EnvironmentId { get; set; }
+        public string? EnvironmentName { get; set; }
+        public string? EnvironmentType { get; set; }
     }
 }
