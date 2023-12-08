@@ -4,97 +4,110 @@
     ViewData["Title"] = "Tickets";
 }
 
-<h1>Tickets</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-sm table-striped-columns table-hover">
-    <thead>
-        <tr>
-            <th>
-                Number
-            </th>
-            <th>
-                Project Name
-            </th>
 
-            <th>
-                Environment 
-            </th>
+        <h1>Tickets</h1>
+
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New</a>
+        </p>
+
+<div class="container-fluid ">
+
+
+        <table class="table d-xxl-table-row table-sm table-striped-columns table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Number
+                    </th>
+                    <th>
+                        Project Name
+                    </th>
+
+                    <th>
+                        Environment 
+                    </th>
             
-            <th>
-                Type
-            </th>
-            <th>
-                Priority
-            </th>
-            <th>
-                Short Description
-            </th>
-            <th>
-                Created
-            </th>
-            <th>
-                Created By
-            </th>
-            <th>
-                Last Edited
-            </th>
-            <th>
-                Last Edited By
-            </th>
-            <th>
-                Assigned to
-            </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Priority
+                    </th>
+                    <th>
+                        Short Description
+                    </th>
+                    <th>
+                        Created
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Last Edited
+                    </th>
+                    <th>
+                        Last Edited By     
+                    </th>
+                    <th>
+                        Assigned to
+                    </th>
+                    <th>
+                        Action
+                    </th>
 
 
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="table-group-divider">
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProjectName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnvironmentType)
-            </td>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnvironmentType)
+                    </td>
 
 
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketTypeName)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PriorityValue)
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortDescription)
-            </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedByUserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateEdited)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EditedByUserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AssignedToUserName)
-                </td>
-            <td>
-                <a class="link-primary" asp-controller="TicketTracker" asp-route-Id="@item.Id" asp-action="Details">Details</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TicketTypeName)
+                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PriorityValue)
+                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShortDescription)
+                    </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedByUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateEdited)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EditedByUserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignedToUserName)
+                        </td>
+                    <td>
+                        <a class="link-primary" asp-controller="TicketTracker" asp-route-Id="@item.Id" asp-action="Details">Details</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+</div>
+
+
+
