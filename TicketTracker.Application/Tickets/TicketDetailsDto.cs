@@ -32,7 +32,7 @@ namespace TicketTracker.Application.Tickets
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }
 
-
+        public int ProjectConfigurationId { get; set; }
 
 
         public List<Comment>? Comments { get; set; }
