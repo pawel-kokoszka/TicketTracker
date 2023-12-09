@@ -42,10 +42,23 @@
 
                             @foreach (var projConf in ViewData["projectConfigurations"] as IEnumerable<ProjectConfigurationDto>)
                             {
-                                <option value="@projConf.Id">
-                                    @projConf.ProjectName | Environment type: @projConf.EnvironmentType
-                                    | Name: @projConf.EnvironmentName
-                                </option>
+                                
+                                if (@projConf.Id == Model.ProjectConfigurationId)
+                                {
+                                    <option value="@projConf.Id" selected>
+                                        @projConf.ProjectName | Environment type: @projConf.EnvironmentType
+                                        | Name: @projConf.EnvironmentName
+                                    </option>
+                                    
+                                }
+                                else
+                                {
+                                    <option value="@projConf.Id">
+                                        @projConf.ProjectName | Environment type: @projConf.EnvironmentType
+                                        | Name: @projConf.EnvironmentName
+                                    </option>
+                                    
+                                }
                             }
 
 
@@ -65,9 +78,18 @@
 
                         <select class="form-select" id="TypeId" name="TypeId">
 
-                            @foreach (var prio in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
+                            @foreach (var ticketType in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
                             {
-                                <option value="@prio.Id">@prio.TypeName</option>
+                                if (@ticketType.Id == Model.TypeId)
+                                {
+                                    <option value="@ticketType.Id" selected>@ticketType.TypeName</option>
+                                }
+                                else
+                                {
+                                    <option value="@ticketType.Id">@ticketType.TypeName</option>
+                                }
+
+                                
                             }
 
 
@@ -87,7 +109,15 @@
                         <select class="form-select" id="PriorityId" name="PriorityId">
                             @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketPriorityDto>)
                             {
-                                <option value="@prio.Id">@prio.PriorityValue</option>
+                                if (@prio.Id == Model.PriorityId)
+                                {
+                                    <option value="@prio.Id" selected>@prio.PriorityValue</option>                                                                        
+                                }
+                                else
+                                {
+                                    <option value="@prio.Id">@prio.PriorityValue</option>                                    
+                                }
+
                             }
                         </select>
                         <label for="PriorityId">Priority Level: </label>
