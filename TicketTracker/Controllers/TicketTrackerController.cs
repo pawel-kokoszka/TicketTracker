@@ -52,6 +52,16 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
+            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
+            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+
+            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
+            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+
+            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            ViewData[nameof(projectConfigurations)] = projectConfigurations;
+
+
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);

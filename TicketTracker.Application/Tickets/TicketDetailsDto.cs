@@ -27,9 +27,7 @@ namespace TicketTracker.Application.Tickets
         public string? EditedByUserName { get; set; }
         public string? AssignedToUserId { get; set; }
         public string? AssignedToUserName { get; set; }
-
-
-
+               
         public string? ProjectName { get; set; }
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }

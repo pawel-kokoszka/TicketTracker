@@ -36,11 +36,14 @@ namespace TicketTracker.Application.Mappings
 
                 ;
 
+            //CreateMap<>
 
 
-            CreateMap<TicketDetailsDto,EditTicketCommand>();
+            CreateMap<TicketDetailsDto,EditTicketCommand>(); //used in Edit action for single ticket
 
             CreateMap<EditTicketCommand, Domain.Entities.Ticket>();
+
+            
 
 
             CreateMap<CreateCommentDto, Domain.Entities.Comment>();
