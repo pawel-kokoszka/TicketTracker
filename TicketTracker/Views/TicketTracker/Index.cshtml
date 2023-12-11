@@ -7,10 +7,32 @@
 
 
         <h1>Tickets</h1>
-
-        <p>
+<div class="row mb-3">
+        
+        <div class="col-3">
             <a asp-action="Create" class="btn btn-primary">Create New</a>
-        </p>
+
+        </div>
+
+        <div class="col-3">
+            <div class="dropdown-center">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Create Ticket
+                </button>
+                <ul class="dropdown-menu">
+                <li><h6 class="dropdown-header">Select Project:</h6></li>
+                <li><a asp-controller="TicketTracker" asp-route-Id="1" asp-action="Create" class="dropdown-item">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Action two</a></li>
+                    <li><a class="dropdown-item" href="#">Action three</a></li>
+                </ul>
+            </div>
+        
+        </div>
+
+    @* <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit">Edit this ticket</a> *@
+
+
+</div>
 
 <div class="container-fluid ">
 

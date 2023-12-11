@@ -103,6 +103,27 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
+        [Route("TicketTracker/Create/{projectId}")]
+        public async Task<IActionResult> Create(int projectId)
+        {
+            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
+            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+
+            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
+            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+
+            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            ViewData[nameof(projectConfigurations)] = projectConfigurations;
+
+
+
+
+            return View();
+        }
+
+
+
+        [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateTicketCommand command)
         {
