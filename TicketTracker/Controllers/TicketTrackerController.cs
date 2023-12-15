@@ -16,6 +16,7 @@ using TicketTracker.Application.Comments.Queries.GetTicketComments;
 using TicketTracker.Application.Tickets.Queries.GetTicketPriorities;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypes;
 using TicketTracker.Application.Tickets.Queries.GetAllProjectConfigurations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -102,24 +103,7 @@ namespace TicketTracker.MVC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
-        [Route("TicketTracker/Create/{projectId}")]
-        public async Task<IActionResult> Create(int projectId)
-        {
-            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
-            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
 
-            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
-            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
-
-            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            ViewData[nameof(projectConfigurations)] = projectConfigurations;
-
-
-
-
-            return View();
-        }
 
 
 
@@ -138,7 +122,27 @@ namespace TicketTracker.MVC.Controllers
 
             return RedirectToAction(nameof(Index)); 
         }
-        
+
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Route("TicketTracker/CreateTicket")]
+        public async Task<IActionResult> CreateTicket()
+        {
+            var ticketPrioritiesDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
+            ViewBag.Priorities = ticketPrioritiesDtos.Select(prio => new SelectListItem { Value = prio.Id.ToString(), Text = prio.PriorityValue });//.ToList()  ;
+
+            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
+            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+
+            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            ViewBag.projectConfigurations = projectConfigurations.Select(projConf => new SelectListItem { Value = projConf.Id.ToString(), Text = projConf.Description });
+
+
+
+
+            return View();
+        }
+
+
 
         [HttpPost]
         [Authorize(Roles = "Ticket Maker,Admin")]
@@ -165,5 +169,6 @@ namespace TicketTracker.MVC.Controllers
             return Ok(commentsData);
         }
         
+
     }
 }
