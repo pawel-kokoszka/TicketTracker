@@ -18,13 +18,13 @@
         <form action="/TicketTracker/Create" method="post">
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" style="height: 100px" asp-for="ShortDescription"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here"  style="height: 100px" asp-for="ShortDescription"></textarea>
                 <label asp-for="ShortDescription">ShortDescription</label>
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" style="height: 100px" asp-for="Description"></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px" asp-for="Description"></textarea>
                 <label asp-for="Description">Description</label>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
@@ -33,6 +33,9 @@
 
             <div class="form-floating mb-3">
                 <select asp-items="ViewBag.Projects" class="form-select" id="Projects" >
+                    <option disabled selected>Click to select project</option>
+
+                    
                 </select>
                 <label >Projects:</label>
             </div>          
@@ -94,6 +97,9 @@
 
                 $.getJSON(`/TicketTracker/GetEnvironments?projectid=${projectid}`, function (data) {
                     console.log(data);
+
+                    $("select#Environments").append(`<option disabled selected >Click to select Env.</option>`);
+
                     $.each(data, function (i, item) {
                         $("select#Environments").append(`<option value="${item.projectConfigurationId}">${item.name}</option>`);
                     });

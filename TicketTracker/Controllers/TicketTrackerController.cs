@@ -127,7 +127,7 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
-        [Route("TicketTracker/CreateTicket")]
+        //[Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
         {
             var ticketPrioritiesDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
@@ -145,6 +145,7 @@ namespace TicketTracker.MVC.Controllers
             
             return View();
         }
+
 
         [Authorize(Roles = "Ticket Maker,Admin")]        
         public async Task<IActionResult> GetEnvironments(int projectId)
