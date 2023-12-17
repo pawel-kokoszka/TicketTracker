@@ -14,9 +14,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
         public void Configure(EntityTypeBuilder<EnvironmentType> builder)
         {
             builder
-                .HasOne(et => et.Environment)
+                .HasMany(et => et.Environment)
                 .WithOne(e => e.EnvironmentType)
-                .HasForeignKey<Domain.Entities.Environment>(et => et.EnvironmentTypeId)
+                .HasForeignKey(et => et.EnvironmentTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

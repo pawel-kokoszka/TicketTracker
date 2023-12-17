@@ -32,18 +32,27 @@
             
 
             <div class="form-floating mb-3">
-                <select asp-items="ViewBag.projectConfigurations" class="form-select" id="ProjectConfigurationId" asp-for="ProjectConfigurationId">
+                <select asp-items="ViewBag.Projects" class="form-select" id="Projects" >
                 </select>
-                <label for="ProjectConfigurationId">Project and Environment: </label>
+                <label >Projects:</label>
+            </div>          
+
+            <div class="form-floating mb-3">
+                <select class="form-select" id="Environments" >
+                </select>
+                <label id="Environments">Environments:</label>
             </div>
 
             <div class="form-floating mb-3">
-                <select asp-items="ViewBag.Priorities" class="form-select" id="PriorityId" asp-for="PriorityId">
-                
+                <select asp-items="ViewBag.projectConfigurations" class="form-select" id="ProjectConfigurationId" asp-for="ProjectConfigurationId">
+                </select>
+                <label asp-for="ProjectConfigurationId">Project and Environment: </label>
+            </div>
 
 
 
-
+            <div class="form-floating mb-3">
+                <select asp-items="ViewBag.Priorities" class="form-select" id="PriorityId" asp-for="PriorityId">         
                 </select>
                 <label for="PriorityId">Priority </label>
             </div>
@@ -75,4 +84,21 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $(function () {
+            $("select#Projects").change(function () {
+                var projectid = $(this).val();
+
+                $("select#Environments").empty();
+
+                $.getJSON(`/TicketTracker/GetEnvironments?projectid=${projectid}`, function (data) {
+                    console.log(data);
+                    $.each(data, function (i, item) {
+                        $("select#Environments").append(`<option value="${item.projectConfigurationId}">${item.name}</option>`);
+                    });
+                });
+            })
+        });
+    </script>
 }

@@ -17,6 +17,9 @@ using TicketTracker.Application.Tickets.Queries.GetTicketPriorities;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypes;
 using TicketTracker.Application.Tickets.Queries.GetAllProjectConfigurations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TicketTracker.Application.Tickets.Queries.GetAllProjects;
+using TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId;
+using Microsoft.CodeAnalysis;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -94,8 +97,8 @@ namespace TicketTracker.MVC.Controllers
             var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
             ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
             
-            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            ViewData[nameof(projectConfigurations)] = projectConfigurations;
+            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            //ViewData[nameof(projectConfigurations)] = projectConfigurations;
 
 
 
@@ -136,11 +139,49 @@ namespace TicketTracker.MVC.Controllers
             var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
             ViewBag.projectConfigurations = projectConfigurations.Select(projConf => new SelectListItem { Value = projConf.Id.ToString(), Text = projConf.Description });
 
+            var projects = await _mediator.Send(new GetAllProjectsQuery());
+            ViewBag.Projects = projects.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name, });
 
-
-
+            
             return View();
         }
+
+        [Authorize(Roles = "Ticket Maker,Admin")]        
+        public async Task<IActionResult> GetEnvironments(int projectId)
+        {
+            
+
+            var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId));
+
+
+            return Json(environments);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

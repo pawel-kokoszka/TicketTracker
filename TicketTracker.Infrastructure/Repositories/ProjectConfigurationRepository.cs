@@ -28,6 +28,16 @@ namespace TicketTracker.Infrastructure.Repositories
             => await _dbContext.ProjectConfigurations
                         .Include(pc => pc.Project)
                         .FirstAsync(pc => pc.Id == projConfId);
-        
+
+        public async Task<IEnumerable<Project>> GetAllProjects()
+            => await _dbContext.Projects                                             
+                        .ToListAsync();
+        public async Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId)
+            => await _dbContext.Environments
+                        .Include(e => e.ProjectConfiguration)
+                        .Include(e => e.EnvironmentType)
+                        .Where(e => e.ProjectConfiguration.ProjectId == projectId)
+                        .ToListAsync();
+
     }
 }

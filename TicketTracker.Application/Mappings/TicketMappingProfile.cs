@@ -62,6 +62,11 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.EnvironmentType, opt => opt.MapFrom(src => src.Environment.EnvironmentType.Name))
                 
                 ;
+            CreateMap<Project, ProjectDto>();
+
+            CreateMap<Domain.Entities.Environment, EnvironmentDto>()
+                .ForMember(dto => dto.ProjectConfigurationId, opt => opt.MapFrom(src => src.ProjectConfiguration.Id))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name));
 
 
 

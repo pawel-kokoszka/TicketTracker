@@ -4,18 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketTracker.Domain.Entities
+namespace TicketTracker.Application.Tickets
 {
-    public class EnvironmentType
+    public class ProjectDto
     {
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-
-
-        //EF rel.
-        public List<Environment>? Environment { get; set; }
-        
 
     }
 }
