@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,6 +40,29 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(e => e.EnvironmentType)
                         .Where(e => e.ProjectConfiguration.ProjectId == projectId)
                         .ToListAsync();
+
+        public async Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId)
+            => await _dbContext.TicketTypeConfigurations
+                        .Include(ttc => ttc.TicketType)
+                        //.ThenInclude(ttc => ttc.TicketType)
+                        .Where(pc => pc.ProjectConfigurationId == projectConfigurationId)
+                        //.SelectMany(s => s.TicketType)
+                        .Select(e => new TicketType
+                        {
+                            Id = e.TicketType.Id,
+                            TypeName = e.TicketType.TypeName
+                        })
+                        
+                        
+                        .ToListAsync(); 
+                            
+            
+                        //TicketTypes
+                        //.Include(tt => tt.TicketTypeConfiguration)
+                        //    .ThenInclude(ttc => ttc.ProjectConfiguration)
+                        //.Where(pc => pc.TicketTypeConfiguration. )
+                        //.ToListAsync();
+
 
     }
 }

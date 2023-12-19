@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TicketTracker.Application.Tickets.Queries.GetAllProjects;
 using TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId;
 using Microsoft.CodeAnalysis;
+using TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConfigurationId;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -158,6 +159,16 @@ namespace TicketTracker.MVC.Controllers
             return Json(environments);
         }
 
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        public async Task<IActionResult> GetTicketTypes(int projectConfiguratonId)
+        {
+
+
+            var ticketTypes = await _mediator.Send(new GetTicketTypesForProjectConfigurationIdQuery(projectConfiguratonId));
+
+
+            return Json(ticketTypes);
+        }
 
 
 

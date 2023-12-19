@@ -13,18 +13,10 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<TicketTypeConfiguration> builder)
         {
-            builder
-                .HasOne(ttc => ttc.ProjectConfiguration)
-                .WithOne(pc => pc.TicketTypeConfiguration)
-                .HasForeignKey<TicketTypeConfiguration>(ttc => ttc.ProjectConfigurationId)
-                .OnDelete(DeleteBehavior.NoAction);
+      
 
 
-            builder
-                .HasOne(ttc => ttc.TicketType)
-                .WithOne(tt => tt.TicTicketTypeConfiguration)
-                .HasForeignKey<TicketTypeConfiguration>(ttc => ttc.TicketTypeId)
-                .OnDelete(DeleteBehavior.NoAction);
+
 
             builder
                 .HasOne(ttc => ttc.TicketPrioritiesGonfiguration)

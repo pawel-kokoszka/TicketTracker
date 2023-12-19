@@ -47,6 +47,12 @@
             </div>
 
             <div class="form-floating mb-3">
+                <select class="form-select" id="TicketTypes">
+                </select>
+                <label id="TicketTypes">Ticket types:</label>
+            </div>
+
+            <div class="form-floating mb-3">
                 <select asp-items="ViewBag.projectConfigurations" class="form-select" id="ProjectConfigurationId" asp-for="ProjectConfigurationId">
                 </select>
                 <label asp-for="ProjectConfigurationId">Project and Environment: </label>
@@ -102,6 +108,24 @@
 
                     $.each(data, function (i, item) {
                         $("select#Environments").append(`<option value="${item.projectConfigurationId}">${item.name}</option>`);
+                    });
+                });
+            })
+        });
+
+        $(function () {
+            $("select#Environments").change(function () {
+                var projectConfiguratonId = $(this).val();
+
+                $("select#TicketTypes").empty();
+
+                $.getJSON(`/TicketTracker/GetTicketTypes?projectConfiguratonId=${projectConfiguratonId}`, function (data) {
+                    console.log(data);
+
+                    $("select#TicketTypes").append(`<option disabled selected >Click to select Type.</option>`);
+
+                    $.each(data, function (i, item) {
+                        $("select#TicketTypes").append(`<option value="${item.id}">${item.typeName}</option>`);
                     });
                 });
             })

@@ -13,7 +13,7 @@ namespace TicketTracker.Domain.Entities
 
         //EF
         public List<Ticket>? Tickets { get; set; } 
-        public TicketTypeConfiguration? TicTicketTypeConfiguration { get; set; } 
+        public List<TicketTypeConfiguration>? TicketTypeConfiguration { get; set; } 
 
     }
 }

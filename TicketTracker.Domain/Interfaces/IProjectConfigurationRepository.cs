@@ -14,5 +14,7 @@ namespace TicketTracker.Domain.Interfaces
 
         Task<IEnumerable<Project>> GetAllProjects();
         Task<IEnumerable<Entities.Environment>> GetEnvironmentsForProjectId(int projectId);
+        //Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
+        Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
     }
 }
