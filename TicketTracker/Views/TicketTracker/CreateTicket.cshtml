@@ -100,6 +100,7 @@
                 var projectid = $(this).val();
 
                 $("select#Environments").empty();
+                $("select#TicketTypes").empty();
 
                 $.getJSON(`/TicketTracker/GetEnvironments?projectid=${projectid}`, function (data) {
                     console.log(data);

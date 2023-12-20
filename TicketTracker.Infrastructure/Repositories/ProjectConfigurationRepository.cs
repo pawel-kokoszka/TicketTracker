@@ -49,7 +49,8 @@ namespace TicketTracker.Infrastructure.Repositories
                         //.SelectMany(s => s.TicketType)
                         .Select(e => new TicketType
                         {
-                            Id = e.TicketType.Id,
+                            //Id = e.TicketType.Id,
+                            Id = e.Id,
                             TypeName = e.TicketType.TypeName
                         })
                         
