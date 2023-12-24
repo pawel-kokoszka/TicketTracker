@@ -6,20 +6,19 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketPrioritiesGonfiguration
+    public class TicketPrioritiesConfiguration
     {
+        public int Id { get; set; } 
         public int TicketTypeConfigurationId { get; set; }
         public int TicketPriorityId { get; set; }
         public int PriorityOrderValue { get; set; }
-        public int TicketSlaConfigurationId { get; set; }
+        public int TicketSlaId { get; set; }
 
         //ef
-        public TicketPriority? TicketPriority { get; set; }
         public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
-        public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
+        public TicketPriority? TicketPriority { get; set; }
+        public TicketSla? TicketSla { get; set; }
 
-
-        //public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
         
     }
 }

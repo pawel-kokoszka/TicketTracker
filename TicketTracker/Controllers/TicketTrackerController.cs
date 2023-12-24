@@ -57,8 +57,8 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
-            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
-            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+            //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery());
+            //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
 
             var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
             ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
@@ -92,8 +92,8 @@ namespace TicketTracker.MVC.Controllers
         [Authorize(Roles = "Ticket Maker,Admin")]
         public async Task<IActionResult> Create() 
         {
-            var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesQuery ());
-            ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+            //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery ());
+            //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
             
             var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
             ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
@@ -131,14 +131,14 @@ namespace TicketTracker.MVC.Controllers
         //[Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
         {
-            var ticketPrioritiesDtos = await _mediator.Send(new GetTicketPrioritiesQuery());
-            ViewBag.Priorities = ticketPrioritiesDtos.Select(prio => new SelectListItem { Value = prio.Id.ToString(), Text = prio.PriorityValue });//.ToList()  ;
+            //var ticketPrioritiesDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery(ticketTypeConfigurationId));
+            //ViewBag.Priorities = ticketPrioritiesDtos.Select(prio => new SelectListItem { Value = prio.Id.ToString(), Text = prio.Name });//.ToList()  ;
 
-            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
-            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+            //var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
+            //ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
 
-            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            ViewBag.projectConfigurations = projectConfigurations.Select(projConf => new SelectListItem { Value = projConf.Id.ToString(), Text = projConf.Description });
+            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            //ViewBag.projectConfigurations = projectConfigurations.Select(projConf => new SelectListItem { Value = projConf.Id.ToString(), Text = projConf.Description });
 
             var projects = await _mediator.Send(new GetAllProjectsQuery());
             ViewBag.Projects = projects.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name, });
@@ -170,7 +170,16 @@ namespace TicketTracker.MVC.Controllers
             return Json(ticketTypes);
         }
 
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        public async Task<IActionResult> GetTicketPriorities(int ticketTypeConfigurationId)
+        {
 
+
+            var ticketTypes = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery(ticketTypeConfigurationId));
+
+
+            return Json(ticketTypes);
+        }
 
 
 

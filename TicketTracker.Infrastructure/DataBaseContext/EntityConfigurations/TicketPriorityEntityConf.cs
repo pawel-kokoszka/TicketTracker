@@ -11,7 +11,14 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
             builder
                 .HasMany(tp => tp.Tickets)
                 .WithOne(t => t.TicketPriority)
-                .HasForeignKey(t => t.PriorityId);
+                .HasForeignKey(t => t.TicketPriorityId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+              .HasMany(tp => tp.TicketPrioritiesConfigurations)
+              .WithOne(t => t.TicketPriority)
+              .HasForeignKey(t => t.TicketPriorityId)
+              .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

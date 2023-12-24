@@ -13,10 +13,11 @@ namespace TicketTracker.Domain.Entities
         public string? SlaName { get; set; }
         public int NumberOfDays { get; set; }
         public int NumberOfMinutes { get; set; }
-        public bool IsDeadline { get; set; }
+
 
         //ef
-        public TicketSlaConfiguration? TicketSlaConfiguration { get; set; }
+        public List<Ticket>? Tickets { get; set; }
+        public List<TicketPrioritiesConfiguration>? TicketPrioritiesConfigurations { get; set; }
 
     }
 }

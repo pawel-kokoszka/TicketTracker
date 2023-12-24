@@ -4,24 +4,16 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketPrioritiesGonfigurationEntityConf : IEntityTypeConfiguration<TicketPrioritiesGonfiguration>
+    public class TicketPrioritiesGonfigurationEntityConf : IEntityTypeConfiguration<TicketPrioritiesConfiguration>
     {
-        public void Configure(EntityTypeBuilder<TicketPrioritiesGonfiguration> builder)
+        public void Configure(EntityTypeBuilder<TicketPrioritiesConfiguration> builder)
         {
             builder
-                .HasKey(tpg => new { tpg.TicketTypeConfigurationId, tpg.TicketPriorityId});
+                .HasKey(tpg => tpg.Id);
 
-            builder
-                .HasOne(tpg => tpg.TicketPriority)
-                .WithOne(tp => tp.TicketPrioritiesGonfiguration)
-                .HasForeignKey<TicketPrioritiesGonfiguration>(tpg => tpg.TicketPriorityId)
-                .OnDelete(DeleteBehavior.NoAction);
             
-            builder
-                .HasOne(tpg => tpg.TicketSlaConfiguration)
-                .WithOne(tsc => tsc.TicketPrioritiesGonfiguration)
-                .HasForeignKey<TicketPrioritiesGonfiguration>(tpg => tpg.TicketSlaConfigurationId)
-                .OnDelete(DeleteBehavior.NoAction);
+            
+            
 
         }
     }

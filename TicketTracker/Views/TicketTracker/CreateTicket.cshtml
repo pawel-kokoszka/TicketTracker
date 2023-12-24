@@ -47,26 +47,28 @@
             </div>
 
             <div class="form-floating mb-3">
-                <select class="form-select" id="TicketTypes">
+                <select class="form-select" id="TicketTypes" asp-for="TypeId">
                 </select>
                 <label id="TicketTypes">Ticket types:</label>
             </div>
 
             <div class="form-floating mb-3">
+                <select class="form-select" id="TicketPriorities" asp-for="TicketPriorityId">
+                </select>
+                <label id="TicketPriorities">Select Priority:</label>
+            </div>
+
+@*             <div class="form-floating mb-3">
                 <select asp-items="ViewBag.projectConfigurations" class="form-select" id="ProjectConfigurationId" asp-for="ProjectConfigurationId">
                 </select>
                 <label asp-for="ProjectConfigurationId">Project and Environment: </label>
-            </div>
+            </div> *@
 
 
 
-            <div class="form-floating mb-3">
-                <select asp-items="ViewBag.Priorities" class="form-select" id="PriorityId" asp-for="PriorityId">         
-                </select>
-                <label for="PriorityId">Priority </label>
-            </div>
 
-            <div class="form-floating mb-3">
+
+@*             <div class="form-floating mb-3">
                 <select class="form-select" id="TypeId" name="TypeId">
 
                     @foreach (var prio in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
@@ -78,7 +80,7 @@
 
                 </select>
                 <label for="TypeId">Ticket type: </label>
-            </div>
+            </div> *@
 
 
             <div class="form-group mb-3">
@@ -127,6 +129,24 @@
 
                     $.each(data, function (i, item) {
                         $("select#TicketTypes").append(`<option value="${item.id}">${item.typeName}</option>`);
+                    });
+                });
+            })
+        });
+
+        $(function () {
+            $("select#TicketTypes").change(function () {
+                var ticketTypeConfigurationId = $(this).val();
+
+                $("select#TicketPriorities").empty();
+
+                $.getJSON(`/TicketTracker/GetTicketPriorities?projectConfiguratonId=${ticketTypeConfigurationId}`, function (data) {
+                    console.log(data);
+
+                    $("select#TicketPriorities").append(`<option disabled selected >Click to select Priority.</option>`);
+
+                    $.each(data, function (i, item) {
+                        $("select#TicketPriorities").append(`<option value="${item.id}">${item.name}</option>`);
                     });
                 });
             })

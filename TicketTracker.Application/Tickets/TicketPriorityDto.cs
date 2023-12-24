@@ -9,6 +9,6 @@ namespace TicketTracker.Application.Tickets
     public class TicketPriorityDto
     {
         public int Id { get; set; }
-        public string? PriorityValue { get; set; }
+        public string? Name { get; set; }
     }
 }
