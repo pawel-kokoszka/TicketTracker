@@ -44,6 +44,8 @@ namespace TicketTracker.Domain.Entities
         public List<Comment>? Comments { get; set; } //= new();
 
         public int TicketSlaId { get; set; }
+
+        public TicketSla? TicketSla { get; set; }
         public int TicketStateId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
