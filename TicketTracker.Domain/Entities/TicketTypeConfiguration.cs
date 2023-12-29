@@ -15,7 +15,7 @@ namespace TicketTracker.Domain.Entities
         //EF 
         public ProjectConfiguration? ProjectConfiguration { get; set; }
         public TicketType? TicketType { get; set; }
-        public List<TicketPrioritiesConfiguration>? TicketPrioritiesConfigurations { get; set; }
+        public List<TicketSlaConfiguration>? TicketPrioritiesConfigurations { get; set; }
         public TicketStatesGonfiguration? TicketStatesGonfiguration { get; set; }
         public TicketServicesConfiguration? TicketServicesConfiguration { get; set; }
     }

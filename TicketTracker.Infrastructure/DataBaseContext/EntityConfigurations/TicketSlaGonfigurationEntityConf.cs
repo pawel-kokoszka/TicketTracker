@@ -4,9 +4,9 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketPrioritiesGonfigurationEntityConf : IEntityTypeConfiguration<TicketPrioritiesConfiguration>
+    public class TicketSlaGonfigurationEntityConf : IEntityTypeConfiguration<TicketSlaConfiguration>
     {
-        public void Configure(EntityTypeBuilder<TicketPrioritiesConfiguration> builder)
+        public void Configure(EntityTypeBuilder<TicketSlaConfiguration> builder)
         {
             builder
                 .HasKey(tpg => tpg.Id);

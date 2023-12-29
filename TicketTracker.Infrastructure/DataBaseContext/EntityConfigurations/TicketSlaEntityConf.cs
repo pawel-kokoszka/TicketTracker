@@ -14,7 +14,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
         public void Configure(EntityTypeBuilder<TicketSla> builder)
         {
             builder
-              .HasMany(ts => ts.TicketPrioritiesConfigurations)
+              .HasMany(ts => ts.TicketSlaConfigurations)
               .WithOne(t => t.TicketSla)
               .HasForeignKey(t => t.TicketSlaId)
               .OnDelete(DeleteBehavior.NoAction);

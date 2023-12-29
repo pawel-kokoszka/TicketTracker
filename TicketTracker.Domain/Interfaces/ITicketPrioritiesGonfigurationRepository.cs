@@ -9,7 +9,7 @@ namespace TicketTracker.Domain.Interfaces
 {
     public interface ITicketPrioritiesGonfigurationRepository
     {
-        Task<IEnumerable<TicketPrioritiesConfiguration>> GetAll();
-        Task<IEnumerable<TicketPrioritiesConfiguration>> GetConfigurationById(int confId);
+        Task<IEnumerable<TicketSlaConfiguration>> GetAll();
+        Task<IEnumerable<TicketSlaConfiguration>> GetConfigurationById(int confId);
     }
 }
