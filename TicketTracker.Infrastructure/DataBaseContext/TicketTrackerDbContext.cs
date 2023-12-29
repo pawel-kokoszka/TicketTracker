@@ -29,7 +29,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<TicketServicesConfiguration> TicketServicesConfigurations { get; set; }
         public DbSet<TicketService> TicketServices { get; set; }
         
-        public DbSet<TicketPriority> TicketPriorities { get; set; }
+        
         public DbSet<TicketPrioritiesConfiguration> TicketPrioritiesConfigurations { get; set; }
         
         public DbSet<TicketTypeConfiguration> TicketTypeConfigurations { get; set; }

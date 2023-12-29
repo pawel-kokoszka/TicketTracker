@@ -9,7 +9,7 @@ using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.Tickets.Queries.GetTicketPriorities
 {
-    internal class GetTicketPrioritiesForTicketTypeIdQueryHandler : IRequestHandler<GetTicketPrioritiesForTicketTypeIdQuery, IEnumerable<TicketPriorityDto>>
+    internal class GetTicketPrioritiesForTicketTypeIdQueryHandler //: IRequestHandler<GetTicketPrioritiesForTicketTypeIdQuery, IEnumerable<TicketPriorityDto>>
     {
         private readonly IProjectConfigurationRepository _projectConfigurationRepository;
         private readonly IMapper _mapper;
@@ -20,13 +20,13 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketPriorities
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<TicketPriorityDto>> Handle(GetTicketPrioritiesForTicketTypeIdQuery request, CancellationToken cancellationToken)
-        {
-            var priorities = await _projectConfigurationRepository.GetTicektPrioritiesForTicketTypeId(request.TicketTypeConfigurationId);
+        //public async Task<IEnumerable<TicketPriorityDto>> Handle(GetTicketPrioritiesForTicketTypeIdQuery request, CancellationToken cancellationToken)
+        //{
+        //    //var priorities = await _projectConfigurationRepository.GetTicektPrioritiesForTicketTypeId(request.TicketTypeConfigurationId);
 
-            var ticketPriorityDtos = _mapper.Map<IEnumerable<TicketPriorityDto>>(priorities);
+        //    //var ticketPriorityDtos = _mapper.Map<IEnumerable<TicketPriorityDto>>(priorities);
 
-            return ticketPriorityDtos;
-        }
+        //    return ticketPriorityDtos;
+        //}
     }
 }

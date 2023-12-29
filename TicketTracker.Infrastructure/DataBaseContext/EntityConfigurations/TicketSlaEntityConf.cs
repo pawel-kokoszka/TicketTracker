@@ -22,7 +22,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
             builder
                 .HasMany(ts => ts.Tickets)
                 .WithOne(t => t.TicketSla)
-                .HasForeignKey(t => t.TicketPriorityId)
+                .HasForeignKey(t => t.TicketSlaId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

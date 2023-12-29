@@ -13,14 +13,13 @@ namespace TicketTracker.Application.Tickets.Queries.GetAllTickets
     internal class GetAllTicketsQueryHandler : IRequestHandler<GetAllTicketsQuery, IEnumerable<TicketDetailsDto>>
     {
         private readonly ITicketRepository _ticketRepository;
-        private readonly ITicketPriorityRepository _ticketPriorityRepository;
+        
         private readonly ITicketTypeRepository _ticketTypeRepository;
         private readonly IMapper _mapper;
 
-        public GetAllTicketsQueryHandler(ITicketRepository ticketRepository, ITicketPriorityRepository ticketPriorityRepository, ITicketTypeRepository ticketTypeRepository,IMapper mapper)
+        public GetAllTicketsQueryHandler(ITicketRepository ticketRepository, ITicketTypeRepository ticketTypeRepository,IMapper mapper)
         {
-            _ticketRepository = ticketRepository;
-            _ticketPriorityRepository = ticketPriorityRepository;
+            _ticketRepository = ticketRepository;            
             _ticketTypeRepository = ticketTypeRepository;   
             _mapper = mapper;
         }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229005728_Remove_TicketPriority_Table")]
+    partial class Remove_TicketPriority_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,6 +364,9 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TicketPriorityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TicketServiceId")
                         .HasColumnType("int");
 
@@ -689,7 +695,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.HasOne("TicketTracker.Domain.Entities.TicketSla", "TicketSla")
                         .WithMany("Tickets")
-                        .HasForeignKey("TicketSlaId")
+                        .HasForeignKey("TicketPriorityId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

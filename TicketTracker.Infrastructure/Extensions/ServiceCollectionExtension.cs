@@ -31,7 +31,7 @@ namespace TicketTracker.Infrastructure.Extensions
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
 
-            services.AddScoped<ITicketPriorityRepository, TicketPriorityRepository>();
+            
             services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
             services.AddScoped<IProjectConfigurationRepository, ProjectConfigurationRepository>();
         }

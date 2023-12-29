@@ -26,7 +26,7 @@ namespace TicketTracker.Infrastructure.Repositories
         public async Task<IEnumerable<Ticket>> GetAll()
             => await _dbContext.Tickets
                         .Include(t => t.TicketType)
-                        .Include(t => t.TicketPriority)
+                        //.Include(t => t.TicketPriority)
                         .Include(t => t.ProjectConfiguration)
                             .ThenInclude(pc => pc.Project)
                         .Include(t => t.ProjectConfiguration)
@@ -40,7 +40,7 @@ namespace TicketTracker.Infrastructure.Repositories
         public async Task<Ticket> GetTicketById(int ticketId) 
             => await _dbContext.Tickets
                         .Include(t => t.TicketType)
-                        .Include(t => t.TicketPriority)
+                        //.Include(t => t.TicketPriority)
                         .Include(t => t.ProjectConfiguration)
                             .ThenInclude(pc => pc.Project)
                         .Include(t => t.ProjectConfiguration)

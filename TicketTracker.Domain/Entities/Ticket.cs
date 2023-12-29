@@ -31,10 +31,10 @@ namespace TicketTracker.Domain.Entities
 
         
         public bool IsDeleted { get; set; }
-        // do refactoru public int PriorityId { get; set; }
-        public int TicketPriorityId { get; set; }
         
-        public TicketPriority? TicketPriority { get; set; }
+        
+        
+        
       
 
         public string? Description { get; set; } 

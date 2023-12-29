@@ -54,16 +54,16 @@ namespace TicketTracker.Infrastructure.Repositories
                             TypeName = e.TicketType.TypeName
                         })                        
                         .ToListAsync();
-        public async Task<IEnumerable<TicketPriority>> GetTicektPrioritiesForTicketTypeId(int ticketTypeConfigurationId)
-            => await _dbContext.TicketPrioritiesConfigurations
-                        .Include(tpc => tpc.TicketPriority)
-                        .Where (tpc => tpc.TicketTypeConfigurationId == ticketTypeConfigurationId)                        
-                        .Select(c => new TicketPriority
-                        {                            
-                            Id = c.TicketPriorityId,
-                            Name = c.TicketPriority.Name
-                        })
-                        .ToListAsync();
+        //public async Task<IEnumerable<TicketPriority>> GetTicektPrioritiesForTicketTypeId(int ticketTypeConfigurationId)
+        //    => await _dbContext.TicketPrioritiesConfigurations
+        //                .Include(tpc => tpc.TicketPriority)
+        //                .Where (tpc => tpc.TicketTypeConfigurationId == ticketTypeConfigurationId)                        
+        //                .Select(c => new TicketPriority
+        //                {                            
+        //                    Id = c.TicketPriorityId,
+        //                    Name = c.TicketPriority.Name
+        //                })
+        //                .ToListAsync();
 
 
     }
