@@ -11,7 +11,6 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; } 
         public int TicketTypeConfigurationId { get; set; }
         public int PriorityOrderValue { get; set; }
-        public int TicketSlaId { get; set; } //do usunięcia
         public string? Name {  get; set; }
         public string? Description { get; set; }
         public int NumberOfDays { get; set; }
@@ -20,7 +19,8 @@ namespace TicketTracker.Domain.Entities
         
         //ef
         public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
-        //dodać ref do Tickets
+        public List<Ticket>? Tickets { get; set; }
+        
         
 
         

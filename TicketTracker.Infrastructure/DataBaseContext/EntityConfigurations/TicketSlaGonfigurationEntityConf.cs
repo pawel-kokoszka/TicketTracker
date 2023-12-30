@@ -12,9 +12,14 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .HasKey(tpg => tpg.Id);
 
             
-            
-            
+            builder
+                .HasMany(t => t.Tickets)
+                .WithOne(tsg => tsg.TicketSlaConfigurations)
+                .HasForeignKey(t => t.TicketSlaConfigurationId)
+                .OnDelete(DeleteBehavior.NoAction);
+        
 
-        }
+
+    }
     }
 }
