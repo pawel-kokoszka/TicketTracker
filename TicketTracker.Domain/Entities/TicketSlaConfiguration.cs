@@ -11,15 +11,17 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; } 
         public int TicketTypeConfigurationId { get; set; }
         public int PriorityOrderValue { get; set; }
-        public int TicketSlaId { get; set; }
+        public int TicketSlaId { get; set; } //do usunięcia
         public string? Name {  get; set; }
         public string? Description { get; set; }
-
-
+        public int NumberOfDays { get; set; }
+        public int NumberOfMinutes { get; set; }
+        
+        
         //ef
         public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
+        //dodać ref do Tickets
         
-        public TicketSla? TicketSla { get; set; }
 
         
     }

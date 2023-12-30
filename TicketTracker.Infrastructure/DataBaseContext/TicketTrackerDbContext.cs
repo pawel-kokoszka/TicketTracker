@@ -21,7 +21,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
         
         //public DbSet<TicketSla> TicketSlaConfigurations { get; set; }
-        public DbSet<TicketSla> TicketSLAs { get; set; }
+        
         
         public DbSet<TicketStatesGonfiguration> TicketStatesGonfigurations { get; set; }
         public DbSet<TicketState> TicketStates { get; set; }

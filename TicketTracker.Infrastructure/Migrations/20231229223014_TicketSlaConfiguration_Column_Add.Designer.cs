@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231229223014_TicketSlaConfiguration_Column_Add")]
+    partial class TicketSlaConfiguration_Column_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -407,6 +410,28 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.ToTable("TicketServicesConfigurations");
                 });
 
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSla", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SlaName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TicketSLAs");
+                });
+
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
                 {
                     b.Property<int>("Id")
@@ -677,6 +702,12 @@ namespace TicketTracker.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("TicketTracker.Domain.Entities.TicketSla", "TicketSla")
+                        .WithMany("Tickets")
+                        .HasForeignKey("TicketSlaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("TicketTracker.Domain.Entities.TicketType", "TicketType")
                         .WithMany("Tickets")
                         .HasForeignKey("TypeId")
@@ -690,6 +721,8 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("EditorUser");
 
                     b.Navigation("ProjectConfiguration");
+
+                    b.Navigation("TicketSla");
 
                     b.Navigation("TicketType");
                 });
@@ -715,11 +748,19 @@ namespace TicketTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSlaConfiguration", b =>
                 {
+                    b.HasOne("TicketTracker.Domain.Entities.TicketSla", "TicketSla")
+                        .WithMany("TicketSlaConfigurations")
+                        .HasForeignKey("TicketSlaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeConfiguration")
                         .WithMany("TicketPrioritiesConfigurations")
                         .HasForeignKey("TicketTypeConfigurationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("TicketSla");
 
                     b.Navigation("TicketTypeConfiguration");
                 });
@@ -831,6 +872,13 @@ namespace TicketTracker.Infrastructure.Migrations
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketService", b =>
                 {
                     b.Navigation("TicketServicesConfiguration");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketSla", b =>
+                {
+                    b.Navigation("TicketSlaConfigurations");
+
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.TicketState", b =>

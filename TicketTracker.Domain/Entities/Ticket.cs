@@ -45,7 +45,7 @@ namespace TicketTracker.Domain.Entities
 
         public int TicketSlaId { get; set; }
 
-        public TicketSla? TicketSla { get; set; }
+        
         public int TicketStateId { get; set; }
         public int TicketServiceId { get; set; }
         public int ProjectConfigurationId { get; set; }
