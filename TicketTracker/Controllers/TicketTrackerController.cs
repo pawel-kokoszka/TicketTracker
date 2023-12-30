@@ -171,14 +171,14 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
-        public async Task<IActionResult> GetTicketPriorities(int ticketTypeConfigurationId)
+        public async Task<IActionResult> GetTicketSlas(int ticketTypeConfigurationId)
         {
 
 
-            var ticketTypes = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery(ticketTypeConfigurationId));
+            var ticketSlas = await _mediator.Send(new GetTicketSlasForTicketTypeIdQuery(ticketTypeConfigurationId));
 
 
-            return Json(ticketTypes);
+            return Json(ticketSlas);
         }
 
 

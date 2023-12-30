@@ -107,7 +107,7 @@
                         </select>
                         <label for="PriorityId">Priority Level</label> *@
                         <select class="form-select" id="PriorityId" name="PriorityId">
-                            @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketPriorityDto>)
+                            @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketSlaDto>)
                             {
                                 if (@prio.Id == Model.PriorityId)
                                 {

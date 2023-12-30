@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Application.Tickets.Queries.GetTicketPriorities
 {
-    public class GetTicketPrioritiesForTicketTypeIdQuery : IRequest<IEnumerable<TicketPriorityDto>>
+    public class GetTicketSlasForTicketTypeIdQuery : IRequest<IEnumerable<TicketSlaDto>>
     {
         public int TicketTypeConfigurationId { get; set; }
 
-        public GetTicketPrioritiesForTicketTypeIdQuery(int ticketTypeConfigurationId)
+        public GetTicketSlasForTicketTypeIdQuery(int ticketTypeConfigurationId)
         {
             TicketTypeConfigurationId = ticketTypeConfigurationId;
         }

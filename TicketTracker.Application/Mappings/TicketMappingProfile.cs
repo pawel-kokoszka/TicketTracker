@@ -68,7 +68,7 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.ProjectConfigurationId, opt => opt.MapFrom(src => src.ProjectConfiguration.Id))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name));
 
-
+            CreateMap<TicketSlaConfiguration, TicketSlaDto>();
 
         }
 
