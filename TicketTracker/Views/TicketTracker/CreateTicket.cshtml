@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form action="/TicketTracker/Create" method="post">
+        <form action="/TicketTracker/CreateTicket" method="post">
 
             <div class="form-floating mb-3">
                 <textarea class="form-control" placeholder="Leave a comment here"  style="height: 100px" asp-for="ShortDescription"></textarea>
@@ -32,7 +32,7 @@
             
 
             <div class="form-floating mb-3">
-                <select asp-items="ViewBag.Projects" class="form-select" id="Projects" >
+                <select asp-items="ViewBag.Projects" class="form-select" id="Projects" asp-for="ProjectConfigurationId">
                     <option disabled selected>Click to select project</option>
 
                     
@@ -53,7 +53,7 @@
             </div>
 
             <div class="form-floating mb-3">
-                <select class="form-select" id="TicketSlas" asp-for="TicketPriorityId">
+                <select class="form-select" id="TicketSlas" asp-for="TicketSlaConfigurationId">
                 </select>
                 <label id="TicketSlas">Select SLA:</label>
             </div>

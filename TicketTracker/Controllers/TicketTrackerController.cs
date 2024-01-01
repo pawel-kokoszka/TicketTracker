@@ -113,7 +113,7 @@ namespace TicketTracker.MVC.Controllers
 
         [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateTicketCommand command)
+        public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
         {
             if (!ModelState.IsValid)
             {
