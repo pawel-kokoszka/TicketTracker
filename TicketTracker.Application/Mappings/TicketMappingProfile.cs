@@ -53,7 +53,7 @@ namespace TicketTracker.Application.Mappings
 
            
 
-            CreateMap<TicketType, TicketTypeDto>();
+            CreateMap<Domain.DTOs.TicketTypeDto, TicketTypeDto>();
             
             CreateMap<ProjectConfiguration, ProjectConfigurationDto>()
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.Project.Name))

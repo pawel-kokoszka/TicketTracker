@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicketTracker.Application.Tickets
+namespace TicketTracker.Domain.DTOs
 {
     public class TicketTypeDto
     {
         public int Id { get; set; }
         public string? TypeName { get; set; }
         public int TicketTypeConfigurationId { get; set; }
-
     }
 }

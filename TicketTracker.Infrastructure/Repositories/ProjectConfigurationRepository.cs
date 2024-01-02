@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 using TicketTracker.Infrastructure.DataBaseContext;
@@ -41,17 +42,18 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Where(e => e.ProjectConfiguration.ProjectId == projectId)
                         .ToListAsync();
 
-        public async Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId)
+        public async Task<IEnumerable<TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId)
             => await _dbContext.TicketTypeConfigurations
                         .Include(ttc => ttc.TicketType)
                         //.ThenInclude(ttc => ttc.TicketType)
                         .Where(pc => pc.ProjectConfigurationId == projectConfigurationId)
                         //.SelectMany(s => s.TicketType)
-                        .Select(e => new TicketType
+                        .Select(e => new TicketTypeDto
                         {
-                            //Id = e.TicketType.Id,
-                            Id = e.Id,
-                            TypeName = e.TicketType.TypeName
+                            
+                            Id = e.TicketType.Id,
+                            TypeName = e.TicketType.TypeName,
+                            TicketTypeConfigurationId = e.Id
                         })                        
                         .ToListAsync();
 
