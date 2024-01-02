@@ -48,12 +48,19 @@
 
             $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {
                 
+                if (data && data.length > 0) {
+                    // Data is not empty, process and append options
+                    $("select#TicketSlas").append(`<option disabled selected >Click to select SLA.</option>`);
 
-                $("select#TicketSlas").append(`<option disabled selected >Click to select SLA.</option>`);
+                    $.each(data, function (i, item) {
+                        $("select#TicketSlas").append(`<option value="${item.id}">${item.name}</option>`);
+                    });
+                } else {
+                    $("select#TicketSlas").empty();
+                    $("select#TicketSlas").append(`<option disabled selected >There is no SLA set for this ticket type, please contact Admin</option>`);
+                }
 
-                $.each(data, function (i, item) {
-                    $("select#TicketSlas").append(`<option value="${item.id}">${item.name}</option>`);
-                });
+
             });
         })
     });
