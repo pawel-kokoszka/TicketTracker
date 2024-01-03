@@ -13,12 +13,8 @@ namespace TicketTracker.Domain.Entities
         public int  TypeId { get; set; }
         public TicketType? TicketType { get; set; } //= new();
 
-
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
-
-
-
 
         public string? CreatedByUserId { get; set; }
         public ApplicationUser? CreatorUser { get; set; }
@@ -32,26 +28,19 @@ namespace TicketTracker.Domain.Entities
         
         public bool IsDeleted { get; set; }
         
-        
-        
-        
-      
-
         public string? Description { get; set; } 
         public string? ShortDescription { get; set; }
 
-
-        public List<Comment>? Comments { get; set; } //= new();
+        public int ProjectConfigurationId { get; set; }
+        public ProjectConfiguration? ProjectConfiguration { get; set; } //= new();
 
         public int TicketSlaConfigurationId { get; set; }
-
         public TicketSlaConfiguration? TicketSlaConfigurations { get; set; }
 
         public int TicketStateId { get; set; } 
         public int TicketServiceId { get; set; }
-        public int ProjectConfigurationId { get; set; }
-        public ProjectConfiguration? ProjectConfiguration { get; set; } //= new();
 
+        public List<Comment>? Comments { get; set; } //= new();
     }
 }
 
