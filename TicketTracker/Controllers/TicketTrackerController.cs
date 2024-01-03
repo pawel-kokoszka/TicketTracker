@@ -60,8 +60,8 @@ namespace TicketTracker.MVC.Controllers
             //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery());
             //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
 
-            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
-            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+            //var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
+            //ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
 
             var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
             ViewData[nameof(projectConfigurations)] = projectConfigurations;
