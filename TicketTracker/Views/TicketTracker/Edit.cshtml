@@ -15,6 +15,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <input asp-for="CreatedByUserId" class="form-control" type="hidden" />
+            <input asp-for="AssignedToUserId" class="form-control" type="hidden" />
+            <input asp-for="EditedByUserId" class="form-control" type="hidden" />
+            <input asp-for="ProjectConfigurationId" class="form-control" type="hidden" />
+            <input asp-for="TicketSlaConfigurationId" class="form-control" type="hidden" />
+            <input asp-for="TypeId" class="form-control" type="hidden" />
 
             <div class="row">
                 <div class="col-md-6">
@@ -38,64 +43,37 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="ProjectConfigurationId" name="ProjectConfigurationId">
-
-                            @foreach (var projConf in ViewData["projectConfigurations"] as IEnumerable<ProjectConfigurationDto>)
-                            {
-                                
-                                if (@projConf.Id == Model.ProjectConfigurationId)
-                                {
-                                    <option value="@projConf.Id" selected>
-                                        @projConf.ProjectName | Environment type: @projConf.EnvironmentType
-                                        | Name: @projConf.EnvironmentName
-                                    </option>
-                                    
-                                }
-                                else
-                                {
-                                    <option value="@projConf.Id">
-                                        @projConf.ProjectName | Environment type: @projConf.EnvironmentType
-                                        | Name: @projConf.EnvironmentName
-                                    </option>
-                                    
-                                }
-                            }
-
-
-
-                        </select>
-                        <label for="ProjectConfigurationId">Project and Environment: </label>
+                        <input class="form-control" asp-for="EditedByUserName" readonly>
+                        <label asp-for="EditedByUserName">Created by user:</label>                        
                     </div>
 
                     <div class="form-floating mb-3">
-@*                         <select class="form-select" id="TypeId" name="TypeId" aria-label="Floating label select example">
-                            <option value="1">Issue</option>
-                            <option value="2">Problem</option>
-                            <option value="3">Change</option>
-                            <option value="4" selected>Service</option>
-                        </select>
-                        <label for="TypeId">Ticket type</label> *@
+                        <input class="form-control" asp-for="DateEdited" readonly>
+                        <label asp-for="DateEdited">Date Edited:</label>                        
+                    </div>
 
-                        <select class="form-select" id="TypeId" name="TypeId">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for="ProjectName" readonly>
+                        <label asp-for="ProjectName">Project Name:</label>
+                        <span asp-validation-for="ProjectName" class="text-danger"></span>
+                    </div>
 
-                            @foreach (var ticketType in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
-                            {
-                                if (@ticketType.Id == Model.TypeId)
-                                {
-                                    <option value="@ticketType.Id" selected>@ticketType.TypeName</option>
-                                }
-                                else
-                                {
-                                    <option value="@ticketType.Id">@ticketType.TypeName</option>
-                                }
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for="EnvironmentType" readonly>
+                        <label asp-for="EnvironmentType">Environment Type:</label>
 
-                                
-                            }
+                    </div>
 
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for="EnvironmentName " readonly>
+                        <label asp-for="EnvironmentName">Environment Name:</label>
 
+                    </div>
 
-                        </select>
-                        <label for="TypeId">Ticket type: </label>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for="TicketTypeName" readonly>
+                        <label asp-for="TicketTypeName">Ticket Type:</label>
+
                     </div>
 
                     <div class="form-floating mb-3">
@@ -106,8 +84,8 @@
                             <option value="4" selected>Prio 4</option>
                         </select>
                         <label for="PriorityId">Priority Level</label> *@
-                        <select class="form-select" id="PriorityId" name="PriorityId">
-                            @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketSlaDto>)
+                        <select class="form-select" id="TicketSlaConfigurationName" asp-for="TicketSlaConfigurationName">
+                           @*  @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketSlaDto>)
                             {
                                 if (@prio.Id == Model.PriorityId)
                                 {
@@ -118,9 +96,16 @@
                                     <option value="@prio.Id">@prio.Name</option>                                    
                                 }
 
-                            }
+                            } *@
+                            <option value="1">@Model.TicketSlaConfigurationName</option>
                         </select>
-                        <label for="PriorityId">Priority Level: </label>
+                        <label asp-for="TicketSlaConfigurationName">Priority Level: </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" asp-for="TicketTypeName" readonly>
+                        <label asp-for="TicketTypeName">SLA:</label>
+
                     </div>
 
                 </div>

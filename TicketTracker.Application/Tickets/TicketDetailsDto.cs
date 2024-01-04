@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketTracker.Domain.Entities;
+﻿using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Application.Tickets
 {
@@ -41,7 +36,7 @@ namespace TicketTracker.Application.Tickets
 
 
 
-        public List<Comment>? Comments { get; set; }
+        //public List<Comment>? Comments { get; set; }
 
     }
 }

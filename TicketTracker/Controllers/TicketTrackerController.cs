@@ -110,23 +110,6 @@ namespace TicketTracker.MVC.Controllers
 
 
 
-
-        [Authorize(Roles = "Ticket Maker,Admin")]
-        [HttpPost]
-        public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(command);
-            }
-
-            await _mediator.Send(command);
-
-            this.SetNotification("success", $"Created Ticket: {command.ShortDescription}");
-
-            return RedirectToAction(nameof(Index)); 
-        }
-
         [Authorize(Roles = "Ticket Maker,Admin")]
         //[Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
@@ -146,6 +129,23 @@ namespace TicketTracker.MVC.Controllers
             
             return View();
         }
+
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        [HttpPost]
+        public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await _mediator.Send(command);
+
+            this.SetNotification("success", $"Created Ticket: {command.ShortDescription}");
+
+            return RedirectToAction(nameof(Index)); 
+        }
+
 
 
         [Authorize(Roles = "Ticket Maker,Admin")]        
