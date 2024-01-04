@@ -12,6 +12,9 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; }  
         public int  TypeId { get; set; }
         public TicketType? TicketType { get; set; } //= new();
+        
+        public int TicketTypeConfigurationId { get; set; }
+        
 
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
