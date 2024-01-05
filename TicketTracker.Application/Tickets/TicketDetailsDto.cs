@@ -1,6 +1,4 @@
-﻿using TicketTracker.Domain.Entities;
-
-namespace TicketTracker.Application.Tickets
+﻿namespace TicketTracker.Application.Tickets
 {
     public class TicketDetailsDto
     {
@@ -8,6 +6,7 @@ namespace TicketTracker.Application.Tickets
 
         public int TypeId { get; set; }
         public string? TicketTypeName { get; set; }
+        public int TicketTypeConfigurationId { get; set; }
 
         public string? DateCreated { get; set; } 
         public string? DateEdited { get; set; } 
@@ -24,11 +23,14 @@ namespace TicketTracker.Application.Tickets
         public string? Description { get; set; }
         public string? ShortDescription { get; set; }
                
+
         public string? ProjectName { get; set; }
         public int ProjectConfigurationId { get; set; }
         
         public int TicketSlaConfigurationId { get; set; }
         public string? TicketSlaConfigurationName { get; set; }   
+        
+        
         
         
         public string? EnvironmentType { get; set; }

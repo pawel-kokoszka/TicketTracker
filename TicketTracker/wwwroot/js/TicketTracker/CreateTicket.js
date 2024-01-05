@@ -43,7 +43,7 @@
             
             var id  = $("#TicketTypes option:selected").data('ttcid');
 
-
+            $('#TicketTypeConfigurationId').val(id);
             $("select#TicketSlas").empty();
 
             $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {

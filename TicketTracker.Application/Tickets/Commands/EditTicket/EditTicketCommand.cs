@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Application.Tickets.Commands.EditTicket
 {
-    public class EditTicketCommand : TicketDetailsEditedDto, IRequest
+    public class EditTicketCommand : TicketEditDetailsDto, IRequest
     {
     }
 }

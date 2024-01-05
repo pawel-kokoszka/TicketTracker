@@ -18,6 +18,8 @@ namespace TicketTracker.Domain.Interfaces
         //Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
         Task<IEnumerable<Domain.DTOs.TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
 
-        Task<IEnumerable<TicketSlaConfiguration>> GetTicektSlasForTicketTypeId(int ticketTypeConfigurationId);
+        Task<IEnumerable<TicketSlaConfiguration>> GetTicketSlasForTicketTypeId(int ticketTypeConfigurationId);
+
+        
     }
 }

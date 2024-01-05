@@ -22,7 +22,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketPriorities
 
         public async Task<IEnumerable<TicketSlaDto>> Handle(GetTicketSlasForTicketTypeIdQuery request, CancellationToken cancellationToken)
         {
-            var slas = await _projectConfigurationRepository.GetTicektSlasForTicketTypeId(request.TicketTypeConfigurationId);
+            var slas = await _projectConfigurationRepository.GetTicketSlasForTicketTypeId(request.TicketTypeConfigurationId);
 
             var ticketSlaDtos = _mapper.Map<IEnumerable<TicketSlaDto>>(slas);
 

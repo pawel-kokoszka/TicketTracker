@@ -1,11 +1,12 @@
 ﻿namespace TicketTracker.Application.Tickets
 {
-    public class TicketDetailsEditedDto
+    public class TicketEditDetailsDto //do sprawdzenia czy może dziedziczyć po ticektdetailsdto
     {
         public int Id { get; set; }
 
         public int TypeId { get; set; }
         public string? TicketTypeName { get; set; }
+        public int TicketTypeConfigurationId { get; set; }
 
         public string? DateCreated { get; set; }
         public string? DateEdited { get; set; }        
@@ -29,6 +30,8 @@
         public int TicketSlaConfigurationId { get; set; }
         public string? TicketSlaConfigurationName { get; set; }
 
+        public List<TicketSlaDto>? TicketSlaDtos { get; set; }
+
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }
 
@@ -37,4 +40,5 @@
 
         //public List<Comment>? Comments { get; set; }
     }
+        
 }

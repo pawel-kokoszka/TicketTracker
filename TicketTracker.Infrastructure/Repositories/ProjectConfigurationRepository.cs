@@ -58,7 +58,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .ToListAsync();
 
 
-        public async Task<IEnumerable<TicketSlaConfiguration>> GetTicektSlasForTicketTypeId(int ticketTypeConfigurationId)
+        public async Task<IEnumerable<TicketSlaConfiguration>> GetTicketSlasForTicketTypeId(int ticketTypeConfigurationId)
             => await _dbContext.TicketSlaConfigurations
                         
                         .Where(tsc => tsc.TicketTypeConfigurationId == ticketTypeConfigurationId)

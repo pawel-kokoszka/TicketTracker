@@ -24,5 +24,7 @@ namespace TicketTracker.Infrastructure.Repositories
 
         public async Task<TicketType> GetTicketTypeById(int typeId)
             => await _dbContext.TicketTypes.FirstAsync(t => t.Id == typeId);
+
+
     }
 }

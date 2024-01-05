@@ -63,14 +63,19 @@ namespace TicketTracker.MVC.Controllers
             //var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
             //ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
 
-            var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            ViewData[nameof(projectConfigurations)] = projectConfigurations;
+            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+            //ViewData[nameof(projectConfigurations)] = projectConfigurations;
 
 
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
+                        
+            var ticketSlas = await _mediator.Send(new GetTicketSlasForTicketTypeIdQuery(command.TicketTypeConfigurationId));
 
+            command.TicketSlaDtos = ticketSlas.ToList();
+
+            //gdzieś podczas wczytywania danych do command nie wczytuje się TicketTypeConfigurationId
             return View(command);
         }
 
@@ -86,7 +91,8 @@ namespace TicketTracker.MVC.Controllers
                        
             await _mediator.Send(command);
 
-            return RedirectToAction(nameof(Index));
+           
+           return RedirectToAction(nameof(Index));
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]

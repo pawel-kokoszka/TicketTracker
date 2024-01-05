@@ -8,6 +8,8 @@
 
         public int ProjectConfigurationId { get; set; }
         public int TypeId { get; set; }
+        public int TicketTypeConfigurationId { get; set; }
+
         public int TicketSlaConfigurationId { get; set; }
 
 

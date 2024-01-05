@@ -18,8 +18,9 @@
             <input asp-for="AssignedToUserId" class="form-control" type="hidden" />
             <input asp-for="EditedByUserId" class="form-control" type="hidden" />
             <input asp-for="ProjectConfigurationId" class="form-control" type="hidden" />
-            <input asp-for="TicketSlaConfigurationId" class="form-control" type="hidden" />
+            @* <input asp-for="TicketSlaConfigurationId" class="form-control" type="hidden" /> *@
             <input asp-for="TypeId" class="form-control" type="hidden" />
+            <input asp-for="TicketTypeConfigurationId" class="form-control" type="hidden" />
 
             <div class="row">
                 <div class="col-md-6">
@@ -84,7 +85,7 @@
                             <option value="4" selected>Prio 4</option>
                         </select>
                         <label for="PriorityId">Priority Level</label> *@
-                        <select class="form-select" id="TicketSlaConfigurationName" asp-for="TicketSlaConfigurationName">
+                        <select class="form-select" id="TicketSlaConfigurationId" asp-for="TicketSlaConfigurationId">
                            @*  @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketSlaDto>)
                             {
                                 if (@prio.Id == Model.PriorityId)
@@ -96,10 +97,29 @@
                                     <option value="@prio.Id">@prio.Name</option>                                    
                                 }
 
-                            } *@
+                            } 
+                            
                             <option value="1">@Model.TicketSlaConfigurationName</option>
+                            *@
+
+                            @* <option value="@Model.TicketSlaConfigurationId">@Model.TicketSlaConfigurationName</option> *@
+
+                            @foreach (var sla in Model.TicketSlaDtos)
+                            {
+@*                                 if (sla.Id == Model.TicketSlaConfigurationId)
+                                {
+                                    <option value="@sla.Id">@sla.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@sla.Id">@sla.Name</option>
+                                } *@
+
+                                <option value="@sla.Id">@sla.Name</option>
+                            }
+
                         </select>
-                        <label asp-for="TicketSlaConfigurationName">Priority Level: </label>
+                        <label asp-for="TicketSlaConfigurationId">Priority Level: </label>
                     </div>
 
                     <div class="form-floating mb-3">
