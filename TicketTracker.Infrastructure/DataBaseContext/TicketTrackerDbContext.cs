@@ -19,13 +19,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
-        
-        //public DbSet<TicketSla> TicketSlaConfigurations { get; set; }
-        
-        
-        public DbSet<TicketStatesGonfiguration> TicketStatesGonfigurations { get; set; }
-        public DbSet<TicketState> TicketStates { get; set; }
-        
+
         public DbSet<TicketServicesConfiguration> TicketServicesConfigurations { get; set; }
         public DbSet<TicketService> TicketServices { get; set; }
         
@@ -34,6 +28,8 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         
         public DbSet<TicketTypeConfiguration> TicketTypeConfigurations { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
+        public DbSet<TicketFlowConfiguration> TicketFlowConfigurations { get; set; }
+        public DbSet<TicketStatus> TicketStatuses { get; set; }
 
         public DbSet<Domain.Entities.Environment> Environments { get; set; }
         public DbSet<Domain.Entities.EnvironmentType> EnvironmentTypes { get; set; }
@@ -42,7 +38,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserPreference> UserPreferences { get; set; }
         public DbSet<UserPreferenceType> UserPreferenceTypes { get; set; }
-        //public DbSet<ApplicationUser>AspNetUsers { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

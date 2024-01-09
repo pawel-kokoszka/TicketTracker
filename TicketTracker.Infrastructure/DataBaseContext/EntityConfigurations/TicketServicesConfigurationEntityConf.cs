@@ -15,6 +15,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
         {
             builder
                 .HasKey(tsc => new { tsc.TicketTypeConfigurationId, tsc.ServiceId});
+
         }
     }
 }

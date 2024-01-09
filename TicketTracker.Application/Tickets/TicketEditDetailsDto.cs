@@ -1,6 +1,6 @@
 ﻿namespace TicketTracker.Application.Tickets
 {
-    public class TicketEditDetailsDto : TicketDetailsDto  //do sprawdzenia czy może dziedziczyć po ticektdetailsdto
+    public class TicketEditDetailsDto : TicketDetailsDto  
     {
     //    public int Id { get; set; }
 

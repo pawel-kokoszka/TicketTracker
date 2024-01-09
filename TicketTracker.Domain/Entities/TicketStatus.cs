@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketState
+    public class TicketStatus
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-    
+
         //ef
-        public TicketStatesGonfiguration? TicketStatesGonfiguration { get; set; }
+        public List<Ticket>? Tickets { get; set; }
+        public List<TicketFlowConfiguration>? TicketFlowConfigurations { get; set; }
 
     }
-
 }
