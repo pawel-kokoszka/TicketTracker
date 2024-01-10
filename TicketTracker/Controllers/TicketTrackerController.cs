@@ -21,6 +21,7 @@ using TicketTracker.Application.Tickets.Queries.GetAllProjects;
 using TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId;
 using Microsoft.CodeAnalysis;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConfigurationId;
+using TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTypeConfiguration;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -57,16 +58,6 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
-            //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery());
-            //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
-
-            //var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
-            //ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
-
-            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            //ViewData[nameof(projectConfigurations)] = projectConfigurations;
-
-
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
@@ -75,7 +66,11 @@ namespace TicketTracker.MVC.Controllers
 
             command.TicketSlaDtos = ticketSlas.ToList();
 
-            //gdzieś podczas wczytywania danych do command nie wczytuje się TicketTypeConfigurationId
+            var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
+                                                                                                           command.TicketStatusId));
+            
+            command.TicketStatusDtos = ticketStatuses.ToList(); 
+
             return View(command);
         }
 
@@ -140,6 +135,8 @@ namespace TicketTracker.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
         {
+            
+
             if (!ModelState.IsValid)
             {
                 return View(command);
@@ -188,6 +185,17 @@ namespace TicketTracker.MVC.Controllers
         }
 
 
+        //nie uzywane do wyrzucenia, pierwszy status jest nadawany w CreateTicketCommandHandler
+        //[Authorize(Roles = "Ticket Maker,Admin")]
+        //public async Task<IActionResult> GetTicketStatuses(int ticketTypeConfigurationId, int currentStatus)
+        //{
+
+
+        //    var ticketSlas = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(ticketTypeConfigurationId, currentStatus));
+
+
+        //    return Json(ticketSlas);
+        //}
 
 
 

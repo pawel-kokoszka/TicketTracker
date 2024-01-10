@@ -30,6 +30,8 @@
         public int TicketSlaConfigurationId { get; set; }
         public string? TicketSlaConfigurationName { get; set; }   
         
+        public int TicketStatusId { get; set; }
+        public string? TicketStatusName { get; set; }
         
         
         

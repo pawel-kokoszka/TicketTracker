@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketTracker.Domain.Entities
+﻿namespace TicketTracker.Domain.Entities
 {
     public class TicketFlowConfiguration
     {
@@ -12,6 +6,8 @@ namespace TicketTracker.Domain.Entities
         public int TicketTypeConfigurationId { get; set; }
         public int StatusId { get; set; }
         public int NextStatusId { get; set; }
+
+        public bool IsNewTicketFirstStatus { get; set; } 
 
         //EF
         public TicketStatus? TicketStatuses { get; set; }

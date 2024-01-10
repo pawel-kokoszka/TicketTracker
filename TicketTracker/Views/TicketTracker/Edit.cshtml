@@ -78,43 +78,10 @@
                     </div>
 
                     <div class="form-floating mb-3">
-   @*                      <select class="form-select" id="PriorityId" name="PriorityId" aria-label="Floating label select example">
-                            <option value="1">Prio 1</option>
-                            <option value="2">Prio 2</option>
-                            <option value="3">Prio 3</option>
-                            <option value="4" selected>Prio 4</option>
-                        </select>
-                        <label for="PriorityId">Priority Level</label> *@
                         <select class="form-select" id="TicketSlaConfigurationId" asp-for="TicketSlaConfigurationId">
-                           @*  @foreach (var prio in ViewData["ticketPrioritieDtos"] as IEnumerable<TicketSlaDto>)
-                            {
-                                if (@prio.Id == Model.PriorityId)
-                                {
-                                    <option value="@prio.Id" selected>@prio.Name</option>                                                                        
-                                }
-                                else
-                                {
-                                    <option value="@prio.Id">@prio.Name</option>                                    
-                                }
-
-                            } 
-                            
-                            <option value="1">@Model.TicketSlaConfigurationName</option>
-                            *@
-
-                            @* <option value="@Model.TicketSlaConfigurationId">@Model.TicketSlaConfigurationName</option> *@
-
+                           
                             @foreach (var sla in Model.TicketSlaDtos)
                             {
-@*                                 if (sla.Id == Model.TicketSlaConfigurationId)
-                                {
-                                    <option value="@sla.Id">@sla.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@sla.Id">@sla.Name</option>
-                                } *@
-
                                 <option value="@sla.Id">@sla.Name</option>
                             }
 
@@ -126,6 +93,20 @@
                         <input class="form-control" asp-for="TicketTypeName" readonly>
                         <label asp-for="TicketTypeName">SLA:</label>
 
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="TicketStatusId" asp-for="TicketStatusId">
+
+                            <option value="@Model.TicketStatusId">@Model.TicketStatusName</option>
+                            
+                            @foreach (var status in Model.TicketStatusDtos)
+                            {
+                                <option value="@status.StatusId">@status.Name</option>
+                            }
+
+                        </select>
+                        <label asp-for="TicketStatusId">Ticket Status:</label>
                     </div>
 
                 </div>

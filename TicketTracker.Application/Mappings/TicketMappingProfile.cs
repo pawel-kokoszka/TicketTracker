@@ -33,9 +33,12 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.EditedByUserName, opt => opt.MapFrom(src => src.EditorUser.UserName))
                 .ForMember(dto => dto.AssignedToUserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
                 .ForMember(dto => dto.AssignedToUserName, opt => opt.MapFrom(src => src.AssignedUser.UserName))
+                .ForMember(dto => dto.TicketStatusId, opt => opt.MapFrom(src => src.TicketStatusId))
+                .ForMember(dto => dto.TicketStatusName, opt => opt.MapFrom(src => src.TicketStatuses.Name))
 
                 ;
 
+            //CreateMap<>
             //CreateMap<>
 
 
@@ -69,6 +72,14 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name));
 
             CreateMap<TicketSlaConfiguration, TicketSlaDto>();
+
+            CreateMap<TicketFlowConfiguration, TicketStatusDto>(); //do spr. czy to jest gdzieś używane
+            
+            CreateMap<TicketStatus, TicketStatusDto>()
+                .ForMember(dto => dto.StatusId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name)); 
+
+
 
         }
 

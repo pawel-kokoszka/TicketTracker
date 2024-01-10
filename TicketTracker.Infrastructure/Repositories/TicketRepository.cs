@@ -49,6 +49,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.CreatorUser)
                         .Include(t => t.EditorUser)
                         .Include(t => t.AssignedUser)
+                        .Include(t => t.TicketStatuses)
                         .FirstAsync(t => t.Id == ticketId);
 
 

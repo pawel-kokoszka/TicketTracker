@@ -11,6 +11,8 @@
         public int TicketTypeConfigurationId { get; set; }
 
         public int TicketSlaConfigurationId { get; set; }
+        public int TicketStatusId { get; set; }
+
 
 
         public string? AssignedToUserId { get; set; }

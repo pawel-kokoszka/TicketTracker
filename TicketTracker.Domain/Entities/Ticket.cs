@@ -39,8 +39,7 @@ namespace TicketTracker.Domain.Entities
 
         public int TicketSlaConfigurationId { get; set; }
         public TicketSlaConfiguration? TicketSlaConfigurations { get; set; }
-
-        public int TicketStateId { get; set; } //do usunięcia
+               
         public int TicketStatusId { get; set; }
                
         public TicketStatus? TicketStatuses { get; set; }

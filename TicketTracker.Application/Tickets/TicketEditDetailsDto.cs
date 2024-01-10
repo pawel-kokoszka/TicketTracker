@@ -35,6 +35,7 @@
     //    public string? EnvironmentName { get; set; }
 
         public List<TicketSlaDto>? TicketSlaDtos { get; set; }
+        public List<TicketStatusDto>? TicketStatusDtos { get; set; }
 
 
 
