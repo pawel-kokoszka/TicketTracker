@@ -45,6 +45,11 @@ namespace TicketTracker.Domain.Entities
         public TicketStatus? TicketStatuses { get; set; }
 
         public int TicketServiceId { get; set; }
+        public TicketService? TicketService { get; set; }
+
+        public int TicketSubServiceId { get; set; }
+        public TicketSubService? TicketSubService { get; set; }
+
 
         public List<Comment>? Comments { get; set; } //= new();
     }

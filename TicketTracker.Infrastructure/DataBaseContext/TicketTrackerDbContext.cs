@@ -20,7 +20,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectConfiguration> ProjectConfigurations { get; set; }
 
-        public DbSet<TicketServicesConfiguration> TicketServicesConfigurations { get; set; }
+        public DbSet<TicketServiceConfiguration> TicketServicesConfigurations { get; set; }
         public DbSet<TicketService> TicketServices { get; set; }
         
         

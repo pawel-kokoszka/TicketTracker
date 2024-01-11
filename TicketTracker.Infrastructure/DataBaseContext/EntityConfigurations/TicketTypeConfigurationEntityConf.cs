@@ -30,9 +30,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 
             //do refactoru
             builder
-                .HasOne(ttc => ttc.TicketServicesConfiguration)
+                .HasMany(ttc => ttc.TicketServiceConfigurations)
                 .WithOne(tsc => tsc.TicketTypeConfiguration)
-                .HasForeignKey<TicketServicesConfiguration>(tsc => tsc.TicketTypeConfigurationId)
+                .HasForeignKey(tsc => tsc.TicketTypeConfigurationId)
                 .OnDelete(DeleteBehavior.NoAction);
 
 

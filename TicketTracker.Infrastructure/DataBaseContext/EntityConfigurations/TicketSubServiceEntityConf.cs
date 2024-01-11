@@ -9,15 +9,15 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketServicesConfigurationEntityConf : IEntityTypeConfiguration<TicketServiceConfiguration>
+    internal class TicketSubServiceEntityConf : IEntityTypeConfiguration<TicketSubService>
     {
-        public void Configure(EntityTypeBuilder<TicketServiceConfiguration> builder)
+        public void Configure(EntityTypeBuilder<TicketSubService> builder)
         {
             builder
-                .HasKey(tsc => new { tsc.TicketTypeConfigurationId, tsc.TicketServiceId});
-
-
-
+                .HasMany(tss => tss.Tickets)
+                .WithOne(t => t.TicketSubService)
+                .HasForeignKey(t => t.TicketSubServiceId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
