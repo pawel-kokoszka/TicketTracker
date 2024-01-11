@@ -70,6 +70,8 @@
                         Priority
                     </th>
                     <th>
+                        Status
+                    <th>
                         Short Description
                     </th>
                     <th>
@@ -113,27 +115,30 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TicketTypeName)
                     </td>
-                        <td>
+                    <td>
                             @Html.DisplayFor(modelItem => item.TicketSlaConfigurationName)
-                        </td>
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.TicketStatusName)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ShortDescription)
                     </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateCreated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedByUserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateEdited)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EditedByUserName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AssignedToUserName)
-                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedByUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateEdited)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EditedByUserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AssignedToUserName)
+                    </td>
                     <td>
                         <a class="link-primary" asp-controller="TicketTracker" asp-route-Id="@item.Id" asp-action="Details">Details</a>
                     </td>

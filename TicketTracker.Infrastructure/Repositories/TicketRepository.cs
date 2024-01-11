@@ -35,6 +35,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.CreatorUser)
                         .Include(t => t.EditorUser)
                         .Include(t => t.AssignedUser)
+                        .Include(t => t.TicketStatuses)
                         .ToListAsync();
 
         public async Task<Ticket> GetTicketById(int ticketId) 
