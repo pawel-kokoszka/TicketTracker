@@ -79,6 +79,18 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.StatusId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name)); 
 
+            //CreateMap<TicketService, TicketServiceDto>();
+            
+            CreateMap<TicketService, TicketServiceDto>()
+                .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dto => dto.ServiceName , opt => opt.MapFrom(src => src.ServiceName))
+                .ForMember(dto => dto.TicketSubServices , opt => opt.MapFrom(src => src.TicketSubServices))
+                
+                
+                ;
+
+            CreateMap<TicketSubService, TicketSubServiceDto>();
+
 
 
         }

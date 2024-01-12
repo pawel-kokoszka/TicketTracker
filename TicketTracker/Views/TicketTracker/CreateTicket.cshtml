@@ -60,29 +60,17 @@
                 <label id="TicketSlas">Select SLA:</label>
             </div>
 
-@*             <div class="form-floating mb-3">
-                <select asp-items="ViewBag.projectConfigurations" class="form-select" id="ProjectConfigurationId" asp-for="ProjectConfigurationId">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="TicketServiceId" asp-for="TicketServiceId">
                 </select>
-                <label asp-for="ProjectConfigurationId">Project and Environment: </label>
-            </div> *@
+                <label id="TicketServiceId">Affected service:</label>
+            </div>
 
-
-
-
-
-@*             <div class="form-floating mb-3">
-                <select class="form-select" id="TypeId" name="TypeId">
-
-                    @foreach (var prio in ViewData["ticketTypeDtos"] as IEnumerable<TicketTypeDto>)
-                    {
-                        <option value="@prio.Id">@prio.TypeName</option>
-                    }
-
-
-
+            <div class="form-floating mb-3">
+                <select class="form-select" id="TicketSubServiceId" asp-for="TicketSubServiceId">
                 </select>
-                <label for="TypeId">Ticket type: </label>
-            </div> *@
+                <label id="TicketSubServiceId">SubService:</label>
+            </div>
 
 
             <div class="form-group mb-3">

@@ -22,6 +22,7 @@ using TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId;
 using Microsoft.CodeAnalysis;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConfigurationId;
 using TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTypeConfiguration;
+using TicketTracker.Application.Tickets.Queries.GetTicketServices;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -182,6 +183,18 @@ namespace TicketTracker.MVC.Controllers
 
 
             return Json(ticketSlas);
+        }
+
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        public async Task<IActionResult> GetTicketServices(int ticketTypeConfigurationId)
+        {
+
+
+            var ticketServices = await _mediator.Send(new GetTicketServicesForTicketTypeIdQuery(ticketTypeConfigurationId));
+
+
+
+            return Json(ticketServices);
         }
 
 

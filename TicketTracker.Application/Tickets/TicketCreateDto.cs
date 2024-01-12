@@ -17,8 +17,8 @@
 
         public string? AssignedToUserId { get; set; }
 
-        //do dodania przy procesowaniu biletów 
-        //public int TicketStateId { get; set; }
-        //public int TicketServiceId { get; set; }
+        public int TicketServiceId { get; set; }
+        public int TicketSubServiceId { get; set; }
+
     }
 }

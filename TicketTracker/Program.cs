@@ -3,6 +3,8 @@ using TicketTracker.Infrastructure.DataBaseContext;
 using TicketTracker.Infrastructure.Extensions;
 using TicketTracker.Infrastructure.Seeders;
 using TicketTracker.Application.Extensions;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddApplication();
 
 var app = builder.Build();
@@ -47,3 +53,5 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.Run();
+
+

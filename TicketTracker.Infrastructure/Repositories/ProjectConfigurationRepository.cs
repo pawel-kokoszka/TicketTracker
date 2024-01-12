@@ -70,29 +70,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .OrderBy(c => c.PriorityOrderValue)
                         .ToListAsync();
 
-        //public async Task<IEnumerable<TicketFlowConfiguration>> GetTicketStatusesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
-        //    => await _dbContext.TicketFlowConfigurations
-        //                //.Include(tfc => tfc.TicketStatuses)
-        //                .Where(tfc => tfc.TicketTypeConfigurationId == ticketTypeConfigurationId &&
-
-        //                            _dbContext.TicketFlowConfigurations
-        //                                 .Where(innerSf => innerSf.StatusId == statusId && innerSf.TicketTypeConfigurationId == ticketTypeConfigurationId)
-        //                                 .Select(innerSf => innerSf.NextStatusId)
-        //                                 .Contains(tfc.StatusId))// do spr czy to jest potrzebne
-                        
-        //                .Select(sf => new TicketFlowConfiguration
-        //                { 
-        //                      //Id = sf.Id,
-        //                      StatusId  = sf.StatusId,
-        //                      TicketTypeConfigurationId = sf.TicketTypeConfigurationId,
-        //                      //NextStatusId = 0
-        //                        /* nazwa statusu*/ 
-        //                }
-        //                )
-                        
-                        
-        //                .Distinct()
-        //                .ToListAsync();
+        
 
         public async Task<IEnumerable<TicketStatus>> GetTicketStatusesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
             => await _dbContext.TicketFlowConfigurations
@@ -111,22 +89,43 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Where(tfc => tfc.TicketTypeConfigurationId == ticketTypeConfigurationId && tfc.IsNewTicketFirstStatus == true)
                         .FirstAsync() ;
 
+        //public async Task<IEnumerable<TicketService>> GetTicektServicesForTicketConfigurationId(int ticketTypeConfigurationId)
+        //    => await _dbContext.TicketServices
+        //            .Join(
+        //                _dbContext.TicketServicesConfigurations,
+        //                ts => ts.Id,
+        //                tsc => tsc.TicketServiceId,
+        //                (ts, tsc) => new { TicketService = ts, TicketServiceConfiguration = tsc }
+        //            )
+        //            .Where(joined => joined.TicketServiceConfiguration.TicketTypeConfigurationId == 1)
+        //            .Select(joined => new
+        //            {
+        //                joined.TicketService.Id,
+        //                joined.TicketService.ServiceName
+        //            })
+        //            .ToListAsync();
 
-        //public async Task<IEnumerable<TicketStatus>> GetDistinctStatuses(int ticketTypeConfigurationId)
-        //{
-        //    // Query to retrieve distinct StatusID and StatusName
-        //    _dbContext.TicketFlowConfigurations
-        //        .Where(tfc => tfc.TicketTypeConfigurationId == ticketTypeConfigurationId &&
+        public async Task<IEnumerable<TicketService>> GetTicektServicesForTicketConfigurationId(int ticketTypeConfigurationId)
+        {
+            var result = await _dbContext.TicketServices
+                .Join(
+                    _dbContext.TicketServicesConfigurations,
+                    ts => ts.Id,
+                    tsc => tsc.TicketServiceId,
+                    (ts, tsc) => new { TicketService = ts, TicketServiceConfiguration = tsc }
+                )
+                .Where(joined => joined.TicketServiceConfiguration.TicketTypeConfigurationId == ticketTypeConfigurationId)
+                .Select(joined => joined.TicketService)
+                .Include(ts => ts.TicketSubServices)
+                .ToListAsync();
 
-        //                    _dbContext.TicketFlowConfigurations
-        //                         .Where(innerSf => innerSf.StatusId == 8 && innerSf.TicketTypeConfigurationId == ticketTypeConfigurationId)
-        //                         .Select(innerSf => innerSf.NextStatusId)
-        //                         .Contains(tfc.StatusId))// do spr czy to jest potrzebne
-
-        //        .Select(sf => new { sf.StatusId /* nazwa statusu*/ })
-        //        .Distinct();
-
-        //    return distinctStatusesQuery;
-        //}
+            return result;
+        }
     }
 }
+
+        //=> await _dbContext.TicketServices
+        //            .Include(ts => ts.TicketSubServices)
+        //            .Include(ts => ts.TicketServiceConfigurations)
+        //            . (ts => ts.TicketServiceConfigurations.)
+        //            .ToListAsync();

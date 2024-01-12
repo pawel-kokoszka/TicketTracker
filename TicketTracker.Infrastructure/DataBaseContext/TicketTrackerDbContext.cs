@@ -52,5 +52,6 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         {
             configurationBuilder.Conventions.Remove(typeof(ForeignKeyIndexConvention));
         }
+
     }
 }
