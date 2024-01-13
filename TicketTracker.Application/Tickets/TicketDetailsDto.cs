@@ -32,9 +32,15 @@
         
         public int TicketStatusId { get; set; }
         public string? TicketStatusName { get; set; }
-        
-        
-        
+
+        public int TicketServiceId { get; set; }
+        public string? TicketServiceName { get; set; }
+
+        public int TicketSubServiceId { get; set; }
+        public string? TicketSubServiceName { get; set; }
+
+
+
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }
 

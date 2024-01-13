@@ -115,11 +115,6 @@
                                                         <label asp-for="TicketStatusName">Current status:</label>
                                                     </div>
                                             </div>
-
-
-                                        </div>
-                            <div class="row">
-
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3">
                                                     <input asp-for="TypeId" class="form-control" readonly />
@@ -127,10 +122,23 @@
                                                 </div>
 
                                             </div>
+
+
+                                        </div>
+                            <div class="row">
+
+
                                             <div class="col-md-6">
                                                 <div class="form-floating mb-3">
-                                                    <input  class="form-control" readonly />
-                                                    <label   >Affected Service:</label>
+                                                    <input asp-for="TicketServiceName" class="form-control" readonly />
+                                                    <label asp-for="TicketServiceName">Service:</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-floating mb-3">
+                                                        <input asp-for="TicketSubServiceName" class="form-control" readonly />
+                                                        <label asp-for="TicketSubServiceName">Sub-Service:</label>
                                                 </div>
                                             </div>
 
