@@ -21,6 +21,8 @@
             @* <input asp-for="TicketSlaConfigurationId" class="form-control" type="hidden" /> *@
             <input asp-for="TypeId" class="form-control" type="hidden" />
             <input asp-for="TicketTypeConfigurationId" class="form-control" type="hidden" />
+            @* <input asp-for="TicketServiceId" class="form-control" type="hidden" />
+            <input asp-for="TicketSubServiceId" class="form-control" type="hidden" /> *@
 
             <div class="row">
                 <div class="col-md-6">
@@ -109,6 +111,23 @@
                         <label asp-for="TicketStatusId">Ticket Status:</label>
                     </div>
 
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="TicketServiceId" asp-for="TicketServiceId" readonly>
+                             <option value="@Model.TicketServiceId">@Model.TicketServiceName</option> 
+                        </select>
+                        <label asp-for="TicketServiceId">Ticket Service:</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="TicketSubServiceId" asp-for="TicketSubServiceId">
+
+                           <option value="@Model.TicketSubServiceId">@Model.TicketSubServiceName</option>
+
+
+                        </select>
+                        <label asp-for="TicketSubServiceId">Ticket Sub-Service:</label>
+                    </div>
+
                 </div>
 
                 <div class="col-md-6">
@@ -174,5 +193,8 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script src="~/js/TicketTracker/Edit.js"></script>
+    <script src="~/js/TicketTracker/EditTicket.js"></script>
+    <script src="~/js/TicketTracker/Edit.js"></script> 
 }
+
+

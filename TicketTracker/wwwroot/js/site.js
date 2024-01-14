@@ -56,3 +56,75 @@ const HideCollapse = () => {
 
 }
 
+const LoadServices = () => {
+
+    const id = $('#TicketTypeConfigurationId').val();
+    const selectedserviceid = $("select#TicketServiceId").val();
+    //$("select#TicketServiceId").empty();
+    //$("select#TicketSubServiceId").empty();
+    $.getJSON(`/TicketTracker/GetTicketServices?ticketTypeConfigurationId=${id}`, function (data) {
+
+        if (data && data.length > 0) {
+            // Data is not empty, process and append options
+            //$("select#TicketServiceId").append(`<option disabled selected >Click to select Service.</option>`);
+
+            $("select#TicketServiceId").empty();
+
+            $.each(data, function (i, service) {
+
+                if (service.id == selectedserviceid) {
+                    $("select#TicketServiceId").append(`<option selected value="${service.id}">${service.serviceName}</option>`);
+
+                }
+                else {
+                    $("select#TicketServiceId").append(`<option value="${service.id}">${service.serviceName}</option>`);
+                }
+            });
+
+
+
+        } else {
+            $("select#TicketServiceId").empty();
+            $("select#TicketServiceId").append(`<option disabled selected >There is no Service set for this ticket type, please contact Admin</option>`);
+        }
+
+        var serviceId = $("select#TicketServiceId").val();
+
+        /*trzeba jakos sprawdzić element który już się wyświetla w ticketServiceID i na jego podstawie wyśiwtlić listę subs tutaj*/
+
+
+        var selectedService;
+        selectedService = data.find(function (service) {
+            return service.id == serviceId;
+        });
+
+
+        var selectedSubServiceId = $("select#TicketSubServiceId").val();
+
+        if (data && data.length > 0) {
+
+            $("select#TicketSubServiceId").empty();
+
+            $.each(selectedService.ticketSubServices, function (i, subService) {
+
+
+                if (subService.id == selectedSubServiceId) {
+                    
+                    $("select#TicketSubServiceId").append(`<option selected value="${subService.id}">${subService.subServiceName}</option>`);
+
+                }
+                else {
+                    $("select#TicketSubServiceId").append(`<option value="${subService.id}">${subService.subServiceName}</option>`);
+                    
+                }
+
+            });
+        } else {
+            $("select#TicketSubServiceId").empty();
+            $("select#TicketSubServiceId").append(`<option disabled selected >There is no Sub-Service set for this ticket type, please contact Admin</option>`);
+        }
+
+    });
+
+
+}

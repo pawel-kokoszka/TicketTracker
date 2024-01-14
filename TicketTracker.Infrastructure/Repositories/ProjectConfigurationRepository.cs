@@ -121,6 +121,12 @@ namespace TicketTracker.Infrastructure.Repositories
 
             return result;
         }
+
+        public async Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId)
+            => await _dbContext.TicketSubService
+                    .Where(tss => tss.TicketServiceId == serviceId)
+                    .OrderBy(tss => tss.DisplayOrderValue)
+                    .ToListAsync();
     }
 }
 

@@ -24,6 +24,6 @@ namespace TicketTracker.Domain.Interfaces
         Task<TicketFlowConfiguration> GetStatusForNewTicket(int ticketTypeConfigurationId);
         Task<IEnumerable<TicketService>> GetTicektServicesForTicketConfigurationId(int ticketTypeConfigurationId);
 
-
+        Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId);
     }
 }

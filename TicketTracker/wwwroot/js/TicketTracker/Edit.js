@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+    LoadServices();
     LoadCommentsForTicketId();
 
     $("#AddCommentCollapse form").submit(function (event) {

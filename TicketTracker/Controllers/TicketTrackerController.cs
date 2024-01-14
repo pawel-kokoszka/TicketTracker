@@ -192,8 +192,7 @@ namespace TicketTracker.MVC.Controllers
 
             var ticketServices = await _mediator.Send(new GetTicketServicesForTicketTypeIdQuery(ticketTypeConfigurationId));
 
-
-
+            
             return Json(ticketServices);
         }
 
