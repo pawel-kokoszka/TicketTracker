@@ -23,6 +23,7 @@ using Microsoft.CodeAnalysis;
 using TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConfigurationId;
 using TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTypeConfiguration;
 using TicketTracker.Application.Tickets.Queries.GetTicketServices;
+using TicketTracker.Application.Tickets.Queries.GetUserGroup;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -69,7 +70,6 @@ namespace TicketTracker.MVC.Controllers
 
             var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
                                                                                                            command.TicketStatusId));
-            
             command.TicketStatusDtos = ticketStatuses.ToList(); 
 
             return View(command);
@@ -91,23 +91,24 @@ namespace TicketTracker.MVC.Controllers
            return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
-        public async Task<IActionResult> Create() 
-        {
-            //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery ());
-            //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
+        //do wywalenia - nieużywane
+        //[Authorize(Roles = "Ticket Maker,Admin")]
+        //public async Task<IActionResult> Create() 
+        //{
+        //    //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery ());
+        //    //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
             
-            var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
-            ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
+        //    var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
+        //    ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
             
-            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            //ViewData[nameof(projectConfigurations)] = projectConfigurations;
+        //    //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
+        //    //ViewData[nameof(projectConfigurations)] = projectConfigurations;
 
 
 
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
 
@@ -116,28 +117,23 @@ namespace TicketTracker.MVC.Controllers
         //[Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
         {
-            //var ticketPrioritiesDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery(ticketTypeConfigurationId));
-            //ViewBag.Priorities = ticketPrioritiesDtos.Select(prio => new SelectListItem { Value = prio.Id.ToString(), Text = prio.Name });//.ToList()  ;
+            //var ticketCreateDto = new TicketCreateDto ();
 
-            //var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery());
-            //ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
-
-            //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-            //ViewBag.projectConfigurations = projectConfigurations.Select(projConf => new SelectListItem { Value = projConf.Id.ToString(), Text = projConf.Description });
+            CreateTicketCommand command = new CreateTicketCommand();           
+            var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
+            command.CreatedByUserId = currentUser.UserId;
 
             var projects = await _mediator.Send(new GetAllProjectsQuery());
             ViewBag.Projects = projects.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name, });
 
             
-            return View();
+            return View(command);
         }
 
         [Authorize(Roles = "Ticket Maker,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
         {
-            
-
             if (!ModelState.IsValid)
             {
                 return View(command);

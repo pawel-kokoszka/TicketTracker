@@ -15,10 +15,12 @@
 
 
 
-        public string? AssignedToUserId { get; set; }
+        public string? CreatedByUserId { get; set; }
 
         public int TicketServiceId { get; set; }
         public int TicketSubServiceId { get; set; }
+
+
 
     }
 }

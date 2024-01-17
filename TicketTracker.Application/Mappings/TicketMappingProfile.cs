@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Application.Comments;
 using TicketTracker.Application.Tickets;
+using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
 using TicketTracker.Domain.Entities;
 
@@ -18,6 +19,10 @@ namespace TicketTracker.Application.Mappings
             CreateMap<TicketCreateDto, Domain.Entities.Ticket>();
 
             CreateMap<Domain.Entities.Ticket, TicketCreateDto>();
+
+            //For passing Command to View with user group/team 
+            CreateMap<TicketCreateDto, CreateTicketCommand>();
+           
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
                 .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm")))

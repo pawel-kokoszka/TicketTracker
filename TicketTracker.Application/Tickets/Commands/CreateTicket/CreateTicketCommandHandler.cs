@@ -27,16 +27,22 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
                 return Unit.Value;
             }
 
+
+
             var ticket = _mapper.Map<Domain.Entities.Ticket>(request);
 
             ticket.TicketStatusId = _projectConfigurationRepository.GetStatusForNewTicket(ticket.TicketTypeConfigurationId).Result.StatusId;
-                   
+
+            //dodać spr. czy currentuser z tego handlera jest tym samym co przakazny do handlera w command?
+            if (ticket.CreatedByUserId != currentUser.Id)
+            {
+                throw new InvalidOperationException("User sent from client is different from userContext!");
+            }
 
             ticket.CreatedByUserId = currentUser.Id;    
-            //ticket.CreatedByUserName = currentUser.Email;  
             ticket.DateCreated = DateTime.UtcNow;
+            
             ticket.EditedByUserId = currentUser.Id;
-            //ticket.EditedByUserName = currentUser.Email;
             ticket.DateEdited = DateTime.UtcNow;
 
             await _ticketRepository.Create(ticket);
