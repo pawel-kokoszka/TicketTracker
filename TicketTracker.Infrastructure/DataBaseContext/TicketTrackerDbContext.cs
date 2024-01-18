@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System.Reflection.Emit;
 using TicketTracker.Domain.Entities;
+using TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations;
 
 namespace TicketTracker.Infrastructure.DataBaseContext
 {
@@ -38,6 +39,11 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserPreference> UserPreferences { get; set; }
         public DbSet<UserPreferenceType> UserPreferenceTypes { get; set; }
+
+
+        public DbSet<TeamType> TeamTypes { get; set; }
+        public DbSet<UserTeamConfiguration> UserTeamConfigurations { get; set; }
+
         
 
         protected override void OnModelCreating(ModelBuilder builder)
