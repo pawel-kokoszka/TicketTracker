@@ -32,6 +32,12 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .HasMany(au => au.AssignedTicket)
                 .WithOne(t => t.AssignedUser)
                 .HasForeignKey(t => t.AssignedToUserId);
+
+            builder
+                .HasMany(au => au.UserTeamConfigurations)
+                .WithOne(utc => utc.User)
+                .HasForeignKey(utc => utc.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

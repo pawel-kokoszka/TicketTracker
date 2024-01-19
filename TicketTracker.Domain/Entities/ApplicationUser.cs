@@ -14,7 +14,10 @@ namespace TicketTracker.Domain.Entities
         public List<Ticket>? EditedTicket { get; set; }
         public List<Ticket>? AssignedTicket { get; set; }
 
+        public List<UserTeamConfiguration>? UserTeamConfigurations { get; set; }
 
-        
+
+
+
     }
 }

@@ -15,7 +15,7 @@ namespace TicketTracker.Domain.Entities
         public int SeniorityLevel { get; set; }
 
         //ef
-        public List<UserTeamConfiguration> UserTeamConfigurations  { get; set; }
+        public List<UserTeamConfiguration>? UserTeamConfigurations  { get; set; }
 
     }
 }

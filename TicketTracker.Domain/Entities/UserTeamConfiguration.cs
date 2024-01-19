@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketTracker.Domain.Entities
+﻿namespace TicketTracker.Domain.Entities
 {
     public class UserTeamConfiguration
     {
@@ -16,12 +10,14 @@ namespace TicketTracker.Domain.Entities
 
         public string? UserId { get; set; }
 
-        public int  displayOrder { get; set;}
+        public int  DisplayOrder { get; set;}
 
         //ef
         public TeamType? TeamType { get; set; }
 
         public ApplicationUser? User { get; set; }
+
+        public List<TicketTypeTeamAssignRule>? TicketTypeTeamAssignRules { get; set; } 
 
 
     }
