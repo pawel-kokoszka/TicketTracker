@@ -42,8 +42,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext
 
 
         public DbSet<TeamType> TeamTypes { get; set; }
-        public DbSet<UserTeamConfiguration> UserTeamConfigurations { get; set; }
-        public DbSet<TicketTypeTeamAssignRule> TicketTypeTeamAssignRules { get; set; }
+        public DbSet<TeamsUsers> TeamsUsers { get; set; }
+        public DbSet<TicketTypeTeamAssigningRule> TicketTypeTeamAssignRules { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
         
 

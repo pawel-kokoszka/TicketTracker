@@ -9,9 +9,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
         public void Configure(EntityTypeBuilder<TeamType> builder)
         {
             builder
-                 .HasMany(tt => tt.UserTeamConfigurations)       
-                 .WithOne(utc => utc.TeamType)
-                 .HasForeignKey(utc => utc.TeamTypeId)
+                 .HasMany(tt => tt.Teams)       
+                 .WithOne(t => t.TeamType)
+                 .HasForeignKey(t => t.TeamTypeId)
                  .OnDelete(DeleteBehavior.NoAction);
         }
     }

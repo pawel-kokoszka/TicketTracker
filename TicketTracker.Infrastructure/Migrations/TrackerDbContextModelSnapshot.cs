@@ -326,6 +326,37 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.ToTable("ProjectConfigurations");
                 });
 
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsExternal")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeniorityLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teams");
+                });
+
             modelBuilder.Entity("TicketTracker.Domain.Entities.TeamType", b =>
                 {
                     b.Property<int>("Id")
@@ -349,6 +380,22 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TeamTypes");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TeamsUsers", b =>
+                {
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("SeniorityOrder")
+                        .HasColumnType("int");
+
+                    b.HasKey("TeamId", "UserId");
+
+                    b.ToTable("TeamsUsers");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -570,7 +617,7 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.ToTable("TicketTypeConfigurations");
                 });
 
-            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeTeamAssignRule", b =>
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeTeamAssigningRule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -579,9 +626,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AssignedTeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AssignedUserTeamConfigurationsId")
                         .HasColumnType("int");
 
                     b.Property<int>("AssigningTeamId")
@@ -650,34 +694,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserProfiles");
-                });
-
-            modelBuilder.Entity("TicketTracker.Domain.Entities.UserTeamConfiguration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserTeamConfigurations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -770,6 +786,36 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("Environment");
 
                     b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Team", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.TeamType", "TeamType")
+                        .WithMany("Teams")
+                        .HasForeignKey("TeamTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("TeamType");
+                });
+
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TeamsUsers", b =>
+                {
+                    b.HasOne("TicketTracker.Domain.Entities.Team", "Team")
+                        .WithMany("TeamsUsers")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserTeams")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -920,17 +966,13 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("TicketType");
                 });
 
-            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeTeamAssignRule", b =>
+            modelBuilder.Entity("TicketTracker.Domain.Entities.TicketTypeTeamAssigningRule", b =>
                 {
-                    b.HasOne("TicketTracker.Domain.Entities.UserTeamConfiguration", "AssigningUserTeamConfigurations")
-                        .WithMany("TicketTypeTeamAssignRules")
+                    b.HasOne("TicketTracker.Domain.Entities.Team", "Team")
+                        .WithMany("TicketTypeTeamAssigningRules")
                         .HasForeignKey("AssignedTeamId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("TicketTracker.Domain.Entities.UserTeamConfiguration", "AssignedUserTeamConfigurations")
-                        .WithMany()
-                        .HasForeignKey("AssignedUserTeamConfigurationsId");
 
                     b.HasOne("TicketTracker.Domain.Entities.TicketTypeConfiguration", "TicketTypeConfiguration")
                         .WithMany("TicketTypeTeamAssignRules")
@@ -938,9 +980,7 @@ namespace TicketTracker.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("AssignedUserTeamConfigurations");
-
-                    b.Navigation("AssigningUserTeamConfigurations");
+                    b.Navigation("Team");
 
                     b.Navigation("TicketTypeConfiguration");
                 });
@@ -973,24 +1013,6 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("TicketTracker.Domain.Entities.UserTeamConfiguration", b =>
-                {
-                    b.HasOne("TicketTracker.Domain.Entities.TeamType", "TeamType")
-                        .WithMany("UserTeamConfigurations")
-                        .HasForeignKey("TeamTypeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("TicketTracker.Domain.Entities.ApplicationUser", "User")
-                        .WithMany("UserTeamConfigurations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("TeamType");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TicketTracker.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("AssignedTicket");
@@ -1001,7 +1023,7 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     b.Navigation("UserProfile");
 
-                    b.Navigation("UserTeamConfigurations");
+                    b.Navigation("UserTeams");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Environment", b =>
@@ -1026,9 +1048,16 @@ namespace TicketTracker.Infrastructure.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("TicketTracker.Domain.Entities.Team", b =>
+                {
+                    b.Navigation("TeamsUsers");
+
+                    b.Navigation("TicketTypeTeamAssigningRules");
+                });
+
             modelBuilder.Entity("TicketTracker.Domain.Entities.TeamType", b =>
                 {
-                    b.Navigation("UserTeamConfigurations");
+                    b.Navigation("Teams");
                 });
 
             modelBuilder.Entity("TicketTracker.Domain.Entities.Ticket", b =>
@@ -1088,11 +1117,6 @@ namespace TicketTracker.Infrastructure.Migrations
             modelBuilder.Entity("TicketTracker.Domain.Entities.UserProfile", b =>
                 {
                     b.Navigation("UserPreference");
-                });
-
-            modelBuilder.Entity("TicketTracker.Domain.Entities.UserTeamConfiguration", b =>
-                {
-                    b.Navigation("TicketTypeTeamAssignRules");
                 });
 #pragma warning restore 612, 618
         }

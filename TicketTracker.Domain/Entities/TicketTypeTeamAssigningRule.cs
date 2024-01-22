@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Domain.Entities
 {
-    public class TicketTypeTeamAssignRule
+    public class TicketTypeTeamAssigningRule
     {
         public int Id { get; set; } 
         public int TicketTypeConfigurationId { get; set; }
@@ -14,8 +14,7 @@ namespace TicketTracker.Domain.Entities
         public int AssignedTeamId { get; set; }
 
         //ef
-        public UserTeamConfiguration? AssigningUserTeamConfigurations { get; set; }
-        public UserTeamConfiguration? AssignedUserTeamConfigurations { get; set; }
+        public Team? Team { get; set; } 
         public TicketTypeConfiguration? TicketTypeConfiguration { get; set; }
 
 

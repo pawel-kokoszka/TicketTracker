@@ -4,11 +4,13 @@ using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
 {
-    public class TicketTypeTeamAssignRuleEntityConf : IEntityTypeConfiguration<TicketTypeTeamAssigningRule>
+    public class TeamsUsersEntityConf : IEntityTypeConfiguration<TeamsUsers>
     {
-        public void Configure(EntityTypeBuilder<TicketTypeTeamAssigningRule> builder)
+        public void Configure(EntityTypeBuilder<TeamsUsers> builder)
         {
-            
+            builder
+                .HasKey(tu => new { tu.TeamId, tu.UserId } ); 
         }
+
     }
 }
