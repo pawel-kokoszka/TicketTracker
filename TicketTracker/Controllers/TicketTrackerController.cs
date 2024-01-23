@@ -24,6 +24,7 @@ using TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConfigur
 using TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTypeConfiguration;
 using TicketTracker.Application.Tickets.Queries.GetTicketServices;
 using TicketTracker.Application.Tickets.Queries.GetUserGroup;
+using TicketTracker.Application.Tickets.Queries.GetTeamsToAssign;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -190,6 +191,17 @@ namespace TicketTracker.MVC.Controllers
 
             
             return Json(ticketServices);
+        }
+
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        public async Task<IActionResult> GetTeamsToAssign(int ticketTypeConfigurationId, string userId)
+        {
+
+
+            var teamsToAssign = await _mediator.Send(new GetTeamsToAssignQuery(ticketTypeConfigurationId, userId));
+
+
+            return Json(teamsToAssign);
         }
 
 

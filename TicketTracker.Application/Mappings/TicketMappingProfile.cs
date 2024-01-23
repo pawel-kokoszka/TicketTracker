@@ -100,6 +100,7 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<TicketSubService, TicketSubServiceDto>();
 
+            CreateMap<Domain.DTOs.TeamDto, Application.Tickets.TeamDto>();
 
 
         }
