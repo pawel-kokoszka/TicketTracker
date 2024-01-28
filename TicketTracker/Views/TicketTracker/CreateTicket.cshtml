@@ -18,6 +18,8 @@
         <form action="/TicketTracker/CreateTicket" method="post">
             <input asp-for="TicketTypeConfigurationId" class="form-control" id="TicketTypeConfigurationId" type="hidden" />
             <input asp-for="CreatedByUserId" class="form-control" id="CreatedByUserId" type="hidden" />
+            <input asp-for="AssignedTeamId" class="form-control" id="AssignedTeamId" type="hidden" />
+            <input asp-for="AssigningTeamId" class="form-control" id="AssigningTeamId" type="hidden" />
             
 
 
@@ -65,15 +67,20 @@
             <div class="form-floating mb-3">
                 <select class="form-select" id="TicketServiceId" asp-for="TicketServiceId">
                 </select>
-                <label id="TicketServiceId">Affected service:</label>
+                <label id="TicketServiceId">Service category:</label>
             </div>
 
             <div class="form-floating mb-3">
                 <select class="form-select" id="TicketSubServiceId" asp-for="TicketSubServiceId">
                 </select>
-                <label id="TicketSubServiceId">SubService:</label>
+                <label id="TicketSubServiceId">Service:</label>
             </div>
 
+            <div class="form-floating mb-3">
+                <select class="form-select" id="AssignedUserId" asp-for="AssignedUserId">
+                </select>
+                <label id="AssignedUserId">Assign user:</label>
+            </div>
 
             <div class="form-group mb-3">
                 <input class="btn btn-primary" type="submit" value="Create">

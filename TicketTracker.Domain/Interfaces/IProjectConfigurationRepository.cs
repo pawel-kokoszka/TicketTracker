@@ -25,6 +25,8 @@ namespace TicketTracker.Domain.Interfaces
         Task<IEnumerable<TicketService>> GetTicektServicesForTicketConfigurationId(int ticketTypeConfigurationId);
 
         Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId);
+
+        Task<int> GetAssigningTeam(int ticketTypeConfigurationId, string? userId);
         Task<IEnumerable<TeamDto>> GetTeamsToAssign(int ticketTypeConfigurationId, string? userId);
     }
 }

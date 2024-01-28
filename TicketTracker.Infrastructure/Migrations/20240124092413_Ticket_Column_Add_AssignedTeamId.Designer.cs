@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240124092413_Ticket_Column_Add_AssignedTeamId")]
+    partial class Ticket_Column_Add_AssignedTeamId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -406,13 +409,13 @@ namespace TicketTracker.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AssignedTeamId")
-                        .HasColumnType("int");
-
                     b.Property<string>("AssignedUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AssigningTeamId")
+                    b.Property<int?>("AssingedTeamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AssingningTeamId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedByUserId")

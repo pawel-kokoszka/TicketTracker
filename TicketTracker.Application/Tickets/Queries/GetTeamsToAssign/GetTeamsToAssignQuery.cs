@@ -10,8 +10,8 @@ namespace TicketTracker.Application.Tickets.Queries.GetTeamsToAssign
     public class GetTeamsToAssignQuery : IRequest<IEnumerable<TeamDto>>
     {
         public int TicketTypeConfigurationId {  get; set; }
-        public string? UserId { get; set; }
-        public GetTeamsToAssignQuery(int ticketTypeConfigurationId, string? userId)
+        public string UserId { get; set; }
+        public GetTeamsToAssignQuery(int ticketTypeConfigurationId, string userId)
         {
             TicketTypeConfigurationId = ticketTypeConfigurationId;
             UserId = userId;

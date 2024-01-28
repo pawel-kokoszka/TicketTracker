@@ -16,11 +16,15 @@
 
 
         public string? CreatedByUserId { get; set; }
+        public int AssigningTeamId { get; set; }
+
 
         public int TicketServiceId { get; set; }
         public int TicketSubServiceId { get; set; }
 
 
-
+   
+        public int? AssignedTeamId { get; set; }
+        public string? AssignedUserId { get; set; }
     }
 }

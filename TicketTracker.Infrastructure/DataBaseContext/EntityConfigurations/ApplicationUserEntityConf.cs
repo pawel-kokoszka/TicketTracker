@@ -31,7 +31,7 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
             builder
                 .HasMany(au => au.AssignedTicket)
                 .WithOne(t => t.AssignedUser)
-                .HasForeignKey(t => t.AssignedToUserId);
+                .HasForeignKey(t => t.AssignedUserId);
 
             builder
                 .HasMany(au => au.TeamsUsers)

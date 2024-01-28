@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
@@ -113,9 +107,9 @@ namespace TicketTracker.Infrastructure.Repositories
                     .OrderBy(tss => tss.DisplayOrderValue)
                     .ToListAsync();
 
-        public async Task<IEnumerable<TeamDto>> GetTeamsToAssign(int ticketTypeConfigurationId, string? userId)
+        public async Task<IEnumerable<TeamDto>> GetTeamsToAssign3(int ticketTypeConfigurationId, int assigningTeamId)
         {
-            var assigningTeamId = await GetAssigningTeam(ticketTypeConfigurationId, userId);
+             //assigningTeamId = 1; //await GetAssigningTeam(ticketTypeConfigurationId, userId);
 
             var teamsToAssign = new List<TeamDto>();
 
@@ -146,24 +140,7 @@ namespace TicketTracker.Infrastructure.Repositories
                                             UserSeniorityOrder = columns.teamsUsers.teamsUsers.SeniorityOrder
                                         })
                                         .ToListAsync();
-
-            //teamsToAssign = await _dbContext.TicketTypeTeamAssignRules
-            //                .Include(team => team.Team)
-            //                .ThenInclude(teamsUsers => teamsUsers.TeamsUsers)
-            //                //.ThenInclude(users => users.ApplicationUser)
-            //                .Where(ttt => ttt.TicketTypeConfigurationId == ticketTypeConfigurationId && ttt.AssigningTeamId == assigningTeamId)
-            //                .Select(team => new TeamDto
-            //                {
-            //                    TeamId = team.AssignedTeamId,
-            //                    TeamName = team.Team.Name,
-            //                    UserSeniorityOrder = team.Team.SeniorityLevel,
-            //                    UserId = team.Team.TeamsUsers.
-            //                                //team.Team.TeamsUsers. 
-
-            //                 })
-            //                .ToListAsync();
-
-
+            
             return teamsToAssign;
         }
 
@@ -193,5 +170,86 @@ namespace TicketTracker.Infrastructure.Repositories
          
             return assigningTeamId;
         }
+
+        public async Task<IEnumerable<TeamDto>> GetTeamsToAssign(int ticketTypeConfigurationId, string? userId)
+        {
+            //assigningTeamId = 1; //await GetAssigningTeam(ticketTypeConfigurationId, userId);
+
+            var teamsToAssign = new List<TeamDto>();
+            //var assigningTeamId = /*await*/ 
+
+            teamsToAssign = await _dbContext.TicketTypeTeamAssignRules
+                                        .Join(
+                                            _dbContext.Teams,
+                                            teamAssignRules => teamAssignRules.AssignedTeamId,
+                                            teams => teams.Id,
+                                            (teamAssignRules, teams) => new { teamAssignRules = teamAssignRules, teams = teams })
+                                        .Join(
+                                            _dbContext.TeamsUsers,
+                                            teams => teams.teams.Id,
+                                            teamsUsers => teamsUsers.TeamId,
+                                            (teams, teamsUsers) => new { teams = teams, teamsUsers = teamsUsers })
+                                        .Join(
+                                            _dbContext.Users,
+                                            teamsUsers => teamsUsers.teamsUsers.UserId,
+                                            users => users.Id,
+                                            (teamsUsers, users) => new { teamsUsers = teamsUsers, users = users })
+                                        .Where(ttt => ttt.teamsUsers.teams.teamAssignRules.TicketTypeConfigurationId == ticketTypeConfigurationId
+                                            && ttt.teamsUsers.teams.teamAssignRules.AssigningTeamId ==  
+                                                
+                                                    _dbContext.TicketTypeTeamAssignRules
+                                                    .Join(
+                                                        _dbContext.Teams,
+                                                        teamAssignRules => teamAssignRules.AssigningTeamId,
+                                                        teams => teams.Id,
+                                                        (teamAssignRules, teams) => new { TicketTypeTeamAssigningRule = teamAssignRules, Team = teams }
+                                                     )
+                                                    .Join(
+                                                        _dbContext.TeamsUsers,
+                                                        teamAssignRules_teams => teamAssignRules_teams.Team.Id,
+                                                        teamsUsers => teamsUsers.TeamId,
+                                                        (teamAssignRules_teams, teamsUsers) => new { join1 = teamAssignRules_teams, join2 = teamsUsers }
+                                                     )
+                                                    .Where
+                                                     (
+                                                        teamAssignRules_teams_teamsUsers => teamAssignRules_teams_teamsUsers.join1.TicketTypeTeamAssigningRule.TicketTypeConfigurationId == ticketTypeConfigurationId
+                                                        && teamAssignRules_teams_teamsUsers.join2.UserId == userId
+                                                     )
+                                                    .Select(teamAssignRules => teamAssignRules.join1.TicketTypeTeamAssigningRule.AssigningTeamId)
+                                                    .Distinct()
+                                                    .First()
+                                                
+                                            )
+                                        .Select(columns => new TeamDto
+                                        {
+                                            TeamId = columns.teamsUsers.teams.teamAssignRules.AssignedTeamId,
+                                            TeamName = columns.teamsUsers.teams.teams.Name,
+                                            UserId = columns.users.Id,
+                                            UserEmail = columns.users.Email,
+                                            UserSeniorityOrder = columns.teamsUsers.teamsUsers.SeniorityOrder
+                                        })
+                                        .ToListAsync();
+
+            return teamsToAssign;
+        }
+        //-------------------------------------------------------------------------------------------------------------------
+        public async Task<IEnumerable<Ticket>> GetTeamsToAssign4(int ticketTypeConfigurationId, string? userId)
+            {
+                //assigningTeamId = 1; //await GetAssigningTeam(ticketTypeConfigurationId, userId);
+
+                var teamsToAssign =  await _dbContext.Tickets
+                                            
+                                            .Where
+                                            (   t => t.IsDeleted == false 
+                                                &&
+                                                 _dbContext.TicketTypes
+                                                                .Where(tt => tt.Id == 1)
+                                                                .Select(tt => tt.Id)
+                                                                .Contains(t.TypeId)        
+                                            )
+                                            .ToListAsync();
+
+                return teamsToAssign;
+            }
     }
 }

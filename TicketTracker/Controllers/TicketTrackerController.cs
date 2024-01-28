@@ -25,6 +25,7 @@ using TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTypeCo
 using TicketTracker.Application.Tickets.Queries.GetTicketServices;
 using TicketTracker.Application.Tickets.Queries.GetUserGroup;
 using TicketTracker.Application.Tickets.Queries.GetTeamsToAssign;
+using TicketTracker.Application.Tickets.Queries.GetAssigningTeam;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -193,51 +194,32 @@ namespace TicketTracker.MVC.Controllers
             return Json(ticketServices);
         }
 
+        [HttpGet]
         [Authorize(Roles = "Ticket Maker,Admin")]
+        [Route("TicketTracker/GetTeamsToAssign")] 
         public async Task<IActionResult> GetTeamsToAssign(int ticketTypeConfigurationId, string userId)
         {
+            //var assigningTeam = _mediator.Send(new GetAssigningTeamQuery( ticketTypeConfigurationId, userId));
 
+            //int val = assigningTeam.Result;
 
             var teamsToAssign = await _mediator.Send(new GetTeamsToAssignQuery(ticketTypeConfigurationId, userId));
 
+            //teamsToAssign.ToList();
 
             return Json(teamsToAssign);
         }
 
 
-        //nie uzywane do wyrzucenia, pierwszy status jest nadawany w CreateTicketCommandHandler
-        //[Authorize(Roles = "Ticket Maker,Admin")]
-        //public async Task<IActionResult> GetTicketStatuses(int ticketTypeConfigurationId, int currentStatus)
-        //{
-
-
-        //    var ticketSlas = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(ticketTypeConfigurationId, currentStatus));
-
-
-        //    return Json(ticketSlas);
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        [HttpGet]
+        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Route("TicketTracker/GetAssigningTeam")] 
+        public async Task<IActionResult> GetAssigningTeam(int ticketTypeConfigurationId, string userId)
+        {            
+            var assigningTeamId = await _mediator.Send(new GetAssigningTeamQuery(ticketTypeConfigurationId, userId));
+            
+            return Json(assigningTeamId);
+        }
 
 
         [HttpPost]

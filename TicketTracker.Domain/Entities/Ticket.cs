@@ -20,15 +20,18 @@ namespace TicketTracker.Domain.Entities
         public DateTime DateEdited { get; set; }
 
         public string? CreatedByUserId { get; set; }
+
+        public int AssigningTeamId { get; set; }
         public ApplicationUser? CreatorUser { get; set; }
 
         public string? EditedByUserId { get; set; }
         public ApplicationUser? EditorUser { get; set; }
 
-        public string? AssignedToUserId { get; set; }       
+        public string? AssignedUserId { get; set; }
         public ApplicationUser? AssignedUser { get; set; }
 
-        
+        public int? AssignedTeamId { get; set; } 
+
         public bool IsDeleted { get; set; }
         
         public string? Description { get; set; } 
@@ -49,6 +52,11 @@ namespace TicketTracker.Domain.Entities
 
         public int TicketSubServiceId { get; set; }
         public TicketSubService? TicketSubService { get; set; }
+
+        
+
+        
+
 
 
         public List<Comment>? Comments { get; set; } //= new();

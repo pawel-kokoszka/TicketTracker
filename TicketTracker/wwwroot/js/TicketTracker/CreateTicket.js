@@ -44,7 +44,7 @@ var ticketservices;
 
     $(function () {
         $("select#TicketTypes").change(function () {
-            
+
             var id  = $("#TicketTypes option:selected").data('ttcid');
 
             $('#TicketTypeConfigurationId').val(id);
@@ -53,7 +53,7 @@ var ticketservices;
             $("select#TicketSubServiceId").empty();
 
             $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {
-                
+
                 if (data && data.length > 0) {
                     // Data is not empty, process and append options
                     $("select#TicketSlas").append(`<option disabled selected >Click to select SLA.</option>`);
@@ -65,8 +65,8 @@ var ticketservices;
                     $("select#TicketSlas").empty();
                     $("select#TicketSlas").append(`<option disabled selected >There is no SLA set for this ticket type, please contact Admin</option>`);
                 }
-                
-                
+
+
             });
         })
     });
@@ -109,16 +109,6 @@ $(function () {
             return service.id == serviceId;
         });
 
-        //var selectedService;
-        //for (var i = 0; i < jsonData.length; i++) {
-        //    if (jsonData[i].id == serviceId) {
-        //        selectedService = jsonData[i];
-        //        break;
-        //    }
-        //}
-        //console.log("selectedService");
-        //console.log(selectedService);
-
             if (jsonData && jsonData.length > 0) {
                 // Data is not empty, process and append options
                 $("select#TicketSubServiceId").append(`<option disabled selected >Click to select Sub-Service.</option>`);
@@ -130,56 +120,56 @@ $(function () {
                 $("select#TicketSubServiceId").empty();
                 $("select#TicketSubServiceId").append(`<option disabled selected >There is no Sub-Service set for this ticket type, please contact Admin</option>`);
             }
-            
 
-        
+
+
+    })
+});
+//----------------------------------------------------------------------------------------------------
+$(function () {
+    $("select#TicketTypes").change(function () {
+
+        var id = $("#TicketTypes option:selected").data('ttcid');
+        var userid = $("#CreatedByUserId").val();
+
+        //$("select#AssignedUserId").empty();
+
+        $.get(`/TicketTracker/GetAssigningTeam?ticketTypeConfigurationId=${id}&userId=${userid}`, function (iddata) {
+
+            
+            $("#AssigningTeamId").val(iddata);
+
+
+        });
+
+        $.getJSON(`/TicketTracker/GetTeamsToAssign?ticketTypeConfigurationId=${id}&userId=${userid}`, function (tdata) {
+
+            if (tdata && tdata.length > 0) {
+                // Data is not empty, process and append options
+                $("select#AssignedUserId").append(`<option disabled selected >Click to assign Team Member.</option>`);
+
+                $.each(tdata, function (i, item) {
+                    $("select#AssignedUserId").append(`<option value="${item.userId}" data-assignedteamid=${item.teamId} >${item.teamName} | ${item.userEmail}</option>`);
+                });
+            } else {
+                $("select#AssignedUserId").empty();
+                $("select#AssignedUserId").append(`<option disabled selected >There is no Team set for this ticket type, please contact Admin</option>`);
+            }
+
+
+        });
     })
 });
 
+$(function () {
+    $("select#AssignedUserId").change(function () {
 
-//<script>
-//    $(document).ready(function () {
-//        ticketservices = [ /* your JSON data here */ ];
-
-//    // Find the service with "id": 2
-//    var selectedService = ticketservices.find(function (service) {
-//            return service.id === serviceId;
-//        });
-
- 
-
-//    $.each(selectedService.ticketSubServices, function (index, subService) {
-//        selectElement.append($('<option>', {
-//            value: subService.id,
-//            text: subService.subServiceName
-//        }));
-//            });
-//        }
-//    });
-//</script>
+        var teamid = $("#AssignedUserId option:selected").data('assignedteamid');
 
 
 
+        $("#AssignedTeamId").val(teamid);
 
 
-
-
-
-
-//$(function () {
-//    $("select#TicketTypes").change(function () {
-//        var id = $(this).val();
-
-//        $("select#TicketSlas").empty();
-
-//        $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {
-//            console.log(data);
-
-//            $("select#TicketSlas").append(`<option disabled selected >Click to select SLA.</option>`);
-
-//            $.each(data, function (i, item) {
-//                $("select#TicketSlas").append(`<option value="${item.id}">${item.name}</option>`);
-//            });
-//        });
-//    })
-//});
+    });
+});
