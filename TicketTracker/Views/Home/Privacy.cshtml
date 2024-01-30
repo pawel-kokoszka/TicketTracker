@@ -77,6 +77,19 @@
                     </div>
                 </div>
 
+    <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="1177" asp-action="Edit" >Edit this ticket</a>
+
+    <a class="btn btn-outline-primary mb-3 " data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Tooltip on top" asp-controller="TicketTracker" asp-route-Id="1177" asp-action="Edit">Edit this ticket</a>
+
+    <a class="btn btn-primary mb-3 disabled" asp-controller="TicketTracker" asp-route-Id="1177" asp-action="Edit" disabled>Edit this ticket</a>
+
+    <a class="btn btn-outline-primary mb-3 disabled" asp-controller="TicketTracker" asp-route-Id="1177" asp-action="Edit" disabled>Edit this ticket</a>
+    <div>
+        <a class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Tooltip on top">
+        Tooltip on top
+    </a>
+
+    </div>
 
 </div>
 
@@ -84,7 +97,10 @@
 
 
 
-
+<button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" 
+        data-bs-custom-class="custom-tooltip" data-bs-title="This top tooltip is themed via CSS variables.">
+    Custom tooltip
+</button>
 
 
 
