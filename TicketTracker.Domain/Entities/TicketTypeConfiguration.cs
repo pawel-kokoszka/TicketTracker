@@ -19,6 +19,7 @@ namespace TicketTracker.Domain.Entities
         public List<TicketFlowConfiguration>? TicketFlowConfigurations { get; set; }
         public List<TicketServiceConfiguration>? TicketServiceConfigurations { get; set; }
         public List<TicketTypeTeamAssigningRule>? TicketTypeTeamAssignRules { get; set; }
+        public List<TeamRole>? TeamRoles { get; set; }
 
 
     }

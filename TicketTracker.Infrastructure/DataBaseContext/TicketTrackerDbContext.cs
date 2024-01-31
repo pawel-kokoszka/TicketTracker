@@ -46,6 +46,9 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         public DbSet<TicketTypeTeamAssigningRule> TicketTypeTeamAssignRules { get; set; }
         public DbSet<Team> Teams { get; set; }
 
+        public DbSet<TeamRoleType> TeamRoleTypes { get; set; }
+        public DbSet<TeamRole> TeamsRoles { get; set; }
+
         
 
         protected override void OnModelCreating(ModelBuilder builder)
