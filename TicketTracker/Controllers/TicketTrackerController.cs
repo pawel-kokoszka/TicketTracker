@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TicketTracker.Application.Tickets;
-using TicketTracker.Domain.Entities;
 using MediatR;
 using TicketTracker.Application.Tickets.Queries.GetAllTickets;
 using TicketTracker.Application.Tickets.Commands.CreateTicket;
@@ -8,14 +6,10 @@ using TicketTracker.Application.Tickets.Queries.GetTicketById;
 using AutoMapper;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
 using Microsoft.AspNetCore.Authorization;
-using TicketTracker.MVC.Models;
-using Newtonsoft.Json;
 using TicketTracker.MVC.Extensions;
 using TicketTracker.Application.Comments.Commands;
 using TicketTracker.Application.Comments.Queries.GetTicketComments;
 using TicketTracker.Application.Tickets.Queries.GetTicketPriorities;
-using TicketTracker.Application.Tickets.Queries.GetTicketTypes;
-using TicketTracker.Application.Tickets.Queries.GetAllProjectConfigurations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TicketTracker.Application.Tickets.Queries.GetAllProjects;
 using TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId;
@@ -93,36 +87,16 @@ namespace TicketTracker.MVC.Controllers
            return RedirectToAction(nameof(Index));
         }
 
-        //do wywalenia - nieużywane
-        //[Authorize(Roles = "Ticket Maker,Admin")]
-        //public async Task<IActionResult> Create() 
-        //{
-        //    //var ticketPrioritieDtos = await _mediator.Send(new GetTicketPrioritiesForTicketTypeIdQuery ());
-        //    //ViewData[nameof(ticketPrioritieDtos)] = ticketPrioritieDtos;
-            
-        //    var ticketTypeDtos = await _mediator.Send(new GetTicketTypesQuery ());
-        //    ViewData[nameof(ticketTypeDtos)] = ticketTypeDtos;
-            
-        //    //var projectConfigurations = await _mediator.Send(new GetAllProjectConfigurationsQuery());
-        //    //ViewData[nameof(projectConfigurations)] = projectConfigurations;
-
-
-
-
-        //    return View();
-        //}
-
-
-
 
         [Authorize(Roles = "Ticket Maker,Admin")]
-        //[Route("TicketTracker/CreateTicket")]
+        [Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
         {
-            //var ticketCreateDto = new TicketCreateDto ();
+            var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
+            
+
 
             CreateTicketCommand command = new CreateTicketCommand();           
-            var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
             command.CreatedByUserId = currentUser.UserId;
 
             var projects = await _mediator.Send(new GetAllProjectsQuery());
