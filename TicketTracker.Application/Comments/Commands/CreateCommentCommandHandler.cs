@@ -26,7 +26,7 @@ namespace TicketTracker.Application.Comments.Commands
         public async Task<Unit> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
             var currentUser = _userContext.GetCurrentUser();
-            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("Ticket Maker")))
+            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("App User")))
             {
                 return Unit.Value;
             }

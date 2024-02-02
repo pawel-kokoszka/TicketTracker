@@ -20,7 +20,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
         public async Task<Unit> Handle(EditTicketCommand request, CancellationToken cancellationToken)
         {
             var currentUser = _userContext.GetCurrentUser();
-            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("Ticket Maker")))
+            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("App User")))
             {
                 return Unit.Value;
             }

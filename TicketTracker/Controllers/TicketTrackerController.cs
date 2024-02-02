@@ -20,6 +20,7 @@ using TicketTracker.Application.Tickets.Queries.GetTicketServices;
 using TicketTracker.Application.Tickets.Queries.GetUserGroup;
 using TicketTracker.Application.Tickets.Queries.GetTeamsToAssign;
 using TicketTracker.Application.Tickets.Queries.GetAssigningTeam;
+using TicketTracker.Application.Tickets.Queries.GetProjectsForUserId;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -35,7 +36,7 @@ namespace TicketTracker.MVC.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "Ticket Viewer,Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Ticket Maker,Admin")]
         public async Task<IActionResult> Index()
         {
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
@@ -43,7 +44,7 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
-        [Authorize(Roles = "Ticket Viewer,Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
@@ -52,7 +53,7 @@ namespace TicketTracker.MVC.Controllers
             return View(ticketDetailsDto);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
@@ -71,7 +72,7 @@ namespace TicketTracker.MVC.Controllers
             return View(command);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit( EditTicketCommand command)
@@ -88,11 +89,13 @@ namespace TicketTracker.MVC.Controllers
         }
 
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
-        [Route("TicketTracker/CreateTicket")]
+        [Authorize(Roles = "App User,Admin")]
+        //[Route("TicketTracker/CreateTicket")]
         public async Task<IActionResult> CreateTicket()
         {
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
+            
+            var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId));
             
 
 
@@ -106,7 +109,7 @@ namespace TicketTracker.MVC.Controllers
             return View(command);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateTicket(CreateTicketCommand command)
         {
@@ -124,7 +127,7 @@ namespace TicketTracker.MVC.Controllers
 
 
 
-        [Authorize(Roles = "Ticket Maker,Admin")]        
+        [Authorize(Roles = "App User,Admin")]        
         public async Task<IActionResult> GetEnvironments(int projectId)
         {
             
@@ -135,7 +138,7 @@ namespace TicketTracker.MVC.Controllers
             return Json(environments);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         public async Task<IActionResult> GetTicketTypes(int projectConfiguratonId)
         {
 
@@ -146,7 +149,7 @@ namespace TicketTracker.MVC.Controllers
             return Json(ticketTypes);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         public async Task<IActionResult> GetTicketSlas(int ticketTypeConfigurationId)
         {
 
@@ -157,7 +160,7 @@ namespace TicketTracker.MVC.Controllers
             return Json(ticketSlas);
         }
 
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         public async Task<IActionResult> GetTicketServices(int ticketTypeConfigurationId)
         {
 
@@ -169,7 +172,7 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/GetTeamsToAssign")] 
         public async Task<IActionResult> GetTeamsToAssign(int ticketTypeConfigurationId, string userId)
         {
@@ -186,7 +189,7 @@ namespace TicketTracker.MVC.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/GetAssigningTeam")] 
         public async Task<IActionResult> GetAssigningTeam(int ticketTypeConfigurationId, string userId)
         {            
@@ -197,7 +200,7 @@ namespace TicketTracker.MVC.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Comment")]
         public async Task<IActionResult> CreateComment(CreateCommentCommand command)
         {
@@ -212,7 +215,7 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Ticket Maker,Admin")]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Comments/{ticketId}")]
         public async Task<IActionResult> GetTicketComments(int ticketId)
         {

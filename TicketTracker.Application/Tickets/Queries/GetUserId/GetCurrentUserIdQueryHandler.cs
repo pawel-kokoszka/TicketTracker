@@ -24,7 +24,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserId
         public async Task<UserIdDto> Handle(GetCurrentUserIdQuery request, CancellationToken cancellationToken)
         {
             var currentUser =  _userContext.GetCurrentUser();
-            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("Ticket Maker")))
+            if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("App User")))
             {
                 //await Task.FromCanceled(cancellationToken);   //pewnie do refactoru
                 throw new InvalidOperationException();    

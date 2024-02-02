@@ -19,7 +19,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(pc => pc.Project)
                         .Include(pc => pc.Environment)
                             .ThenInclude(e => e.EnvironmentType)
-                        .ToListAsync(); 
+                        .ToListAsync();
 
         public async Task<ProjectConfiguration> GetProjectConfigurationById(int projConfId)
             => await _dbContext.ProjectConfigurations
@@ -27,8 +27,75 @@ namespace TicketTracker.Infrastructure.Repositories
                         .FirstAsync(pc => pc.Id == projConfId);
 
         public async Task<IEnumerable<Project>> GetAllProjects()
-            => await _dbContext.Projects                                             
-                        .ToListAsync();
+           => await _dbContext.Projects
+                       .ToListAsync();
+
+        public async Task<IEnumerable<Project>> GetProjectsForUserId(string UserId)
+        {
+            int roleID2 = 2;
+            int roleID3 = 3;
+
+            var result = await _dbContext.TeamsUsers
+                         .Where(tu => tu.UserId == UserId)
+                         .Include(tu => tu.Team)
+                             .ThenInclude(t => t.TeamRoles.Where(tr => tr.RoleId == roleID2 || tr.RoleId == roleID3))
+                                 //.Where(tr => tr.Team.TeamRoles.Contains(=> ttt. ) )
+
+                                 .ThenInclude(tr => tr.TicketTypeConfiguration.ProjectConfiguration.Project)
+
+                         .SelectMany(r => r.Team.TeamRoles) //.Select(e => e.TicketTypeConfiguration.ProjectConfiguration.Project))
+                         .Where(e => e.RoleId == roleID2)
+                         .Select(e => e.TicketTypeConfiguration.ProjectConfiguration.Project)
+                         .Distinct()
+                         .ToListAsync();
+
+
+            
+            //var projects = new List<Project>();
+
+            return result;
+         }
+        //public async Task<IEnumerable<Project>> GetProjectsForUserId(string UserId)
+        //{
+        //    int roleID2 = 2;
+        //    int roleID3 = 3;
+
+        //   var result = await _dbContext.TeamsUsers
+        //                .Where(tu => tu.UserId == UserId)
+        //                .Include(tu => tu.Team)
+        //                    .ThenInclude(t => t.TeamRoles.Where(tr => tr.RoleId == roleID2 || tr.RoleId == roleID3))
+        //                    //.Where(tr => tr.Team.TeamRoles.Contains(=> ttt. ) )
+
+        //                        .ThenInclude(tr => tr.TicketTypeConfiguration.ProjectConfiguration.Project)
+                                    
+        //                .SelectMany(r => r.Team.TeamRoles.Select(e => e.TicketTypeConfiguration.ProjectConfiguration.Project))
+
+        //                .ToListAsync();
+
+
+            
+        //    var projects = new List<Project>();
+
+        //    return result;
+        // }
+
+        //public async Task<IEnumerable<Project>> GetProjectsForUserId3(string UserId)
+        //    => await _dbContext.TeamsUsers
+        //                .Where(tu => tu.UserId == UserId)
+        //                .Include(tu => tu.Team)
+        //                    .ThenInclude(t => t.TeamRoles)
+                                
+        //                        .ThenInclude(tr => tr.TicketTypeConfiguration)
+        //                            .ThenInclude(ttc => ttc.ProjectConfiguration)
+        //                                .ThenInclude(pc => pc.Project)
+        //                .Select(p => 
+        //                    new Project { 
+        //                        Id = p.Team.TeamRoles
+        //                    }
+        //                )
+
+        //                .ToListAsync();
+
         public async Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId)
             => await _dbContext.Environments
                         .Include(e => e.ProjectConfiguration)
