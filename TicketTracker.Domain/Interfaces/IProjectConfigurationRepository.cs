@@ -16,8 +16,8 @@ namespace TicketTracker.Domain.Interfaces
         Task<IEnumerable<Project>> GetAllProjects();
         Task<IEnumerable<Project>> GetProjectsForUserId(string UserId);
 
-        Task<IEnumerable<Entities.Environment>> GetEnvironmentsForProjectId(int projectId);
-        //Task<IEnumerable<TicketType>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
+        Task<IEnumerable<Entities.Environment>> GetEnvironmentsForProjectId(int projectId, string userId);
+        
         Task<IEnumerable<Domain.DTOs.TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId);
 
         Task<IEnumerable<TicketSlaConfiguration>> GetTicketSlasForTicketTypeId(int ticketTypeConfigurationId);

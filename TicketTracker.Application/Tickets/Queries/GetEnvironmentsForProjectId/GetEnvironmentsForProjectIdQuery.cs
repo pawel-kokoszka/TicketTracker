@@ -10,9 +10,11 @@ namespace TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId
     public class GetEnvironmentsForProjectIdQuery : IRequest<IEnumerable<EnvironmentDto>>
     {
         public int ProjectId { get; set; }
-        public GetEnvironmentsForProjectIdQuery(int projectId)
+        public string? UserId { get; set; }
+        public GetEnvironmentsForProjectIdQuery(int projectId, string? userId)
         {
             ProjectId = projectId;
+            UserId = userId;    
         }
 
     }

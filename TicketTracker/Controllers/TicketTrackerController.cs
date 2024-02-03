@@ -128,11 +128,11 @@ namespace TicketTracker.MVC.Controllers
 
 
         [Authorize(Roles = "App User,Admin")]        
-        public async Task<IActionResult> GetEnvironments(int projectId)
+        public async Task<IActionResult> GetEnvironments(int projectId, string userId)
         {
             
 
-            var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId));
+            var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId, userId));
 
 
             return Json(environments);
