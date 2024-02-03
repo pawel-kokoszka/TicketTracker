@@ -102,8 +102,8 @@ namespace TicketTracker.MVC.Controllers
             CreateTicketCommand command = new CreateTicketCommand();           
             command.CreatedByUserId = currentUser.UserId;
 
-            var projects = await _mediator.Send(new GetAllProjectsQuery());
-            ViewBag.Projects = projects.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name, });
+            //var projects = await _mediator.Send(new GetAllProjectsQuery());
+            ViewBag.Projects = userProjects.Select(p => new SelectListItem { Value = p.Id.ToString(), Text = p.Name, });
 
             
             return View(command);
