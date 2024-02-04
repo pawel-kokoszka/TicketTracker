@@ -20,8 +20,9 @@
             <input asp-for="CreatedByUserId" class="form-control" id="CreatedByUserId" type="hidden" />
             <input asp-for="AssignedTeamId" class="form-control" id="AssignedTeamId" type="hidden" />
             <input asp-for="AssigningTeamId" class="form-control" id="AssigningTeamId" type="hidden" />
+            <input asp-for="ProjectConfigurationId" class="form-control" id="ProjectConfigurationId" type="hidden" />
             
-
+            
 
             <div class="form-floating mb-3">
                 <textarea class="form-control" placeholder="Leave a comment here"  style="height: 100px" asp-for="ShortDescription"></textarea>
@@ -38,7 +39,7 @@
             
 
             <div class="form-floating mb-3">
-                <select asp-items="ViewBag.Projects" class="form-select" id="Projects" asp-for="ProjectConfigurationId">
+                <select asp-items="ViewBag.Projects" class="form-select" id="Projects" >
                     <option disabled selected>Click to select project</option>
 
                     

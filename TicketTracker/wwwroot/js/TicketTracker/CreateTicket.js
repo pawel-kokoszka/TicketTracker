@@ -2,6 +2,7 @@ var ticketservices;
     $(function () {
         $("select#Projects").change(function () {
             var projectid = $(this).val();
+            var userid = $("#CreatedByUserId").val();
 
             $("select#Environments").empty();
             $("select#TicketTypes").empty();
@@ -9,7 +10,7 @@ var ticketservices;
             $("select#TicketServiceId").empty();
             $("select#TicketSubServiceId").empty();
 
-            $.getJSON(`/TicketTracker/GetEnvironments?projectid=${projectid}`, function (data) {
+            $.getJSON(`/TicketTracker/GetEnvironments?projectid=${projectid}&userId=${userid}`, function (data) {
                 
 
                 $("select#Environments").append(`<option disabled selected >Click to select Env.</option>`);
@@ -24,6 +25,8 @@ var ticketservices;
     $(function () {
         $("select#Environments").change(function () {
             var projectConfiguratonId = $(this).val();
+
+            $("#ProjectConfigurationId").val(projectConfiguratonId);
 
             $("select#TicketTypes").empty();
             $("select#TicketSlas").empty();
