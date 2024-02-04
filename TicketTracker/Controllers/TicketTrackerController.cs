@@ -95,7 +95,7 @@ namespace TicketTracker.MVC.Controllers
         {
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
             
-            var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId));
+            var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId, new List<int>{ 2,3}));
             
 
 
@@ -132,7 +132,7 @@ namespace TicketTracker.MVC.Controllers
         {
             
 
-            var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId, userId));
+            var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId, userId, new List<int> { 2, 3 }));
             /*
              trzeba zmienić zwracany typ z zapytania żeby zwracał projectConfigurationID bo nie jest i w trakcie mapowania dto ma tam zera
              */

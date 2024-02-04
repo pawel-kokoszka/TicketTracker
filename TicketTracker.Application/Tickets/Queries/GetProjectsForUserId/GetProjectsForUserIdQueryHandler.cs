@@ -23,7 +23,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetProjectsForUserId
 
         public async Task<IEnumerable<ProjectDto>> Handle(GetProjectsForUserIdQuery request, CancellationToken cancellationToken)
         {
-            var projects = await _projConfRepository.GetProjectsForUserId(request.UserId);
+            var projects = await _projConfRepository.GetProjectsForUserId(request.UserId, request.RequiredRoles);
 
             var projectsDtos = _mapper.Map<IEnumerable<ProjectDto>>(projects);
 

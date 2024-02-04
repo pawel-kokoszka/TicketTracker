@@ -54,6 +54,7 @@ var ticketservices;
             $("select#TicketSlas").empty();
             $("select#TicketServiceId").empty();
             $("select#TicketSubServiceId").empty();
+            $("select#AssignedUserId").empty();
 
             $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {
 

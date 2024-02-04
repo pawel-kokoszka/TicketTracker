@@ -11,10 +11,12 @@ namespace TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId
     {
         public int ProjectId { get; set; }
         public string? UserId { get; set; }
-        public GetEnvironmentsForProjectIdQuery(int projectId, string? userId)
+        public List<int> RequiredRoles { get; set; }
+        public GetEnvironmentsForProjectIdQuery(int projectId, string? userId, List<int> requiredRoles)
         {
             ProjectId = projectId;
-            UserId = userId;    
+            UserId = userId;
+            RequiredRoles = requiredRoles;
         }
 
     }
