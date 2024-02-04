@@ -133,7 +133,9 @@ namespace TicketTracker.MVC.Controllers
             
 
             var environments = await _mediator.Send(new GetEnvironmentsForProjectIdQuery(projectId, userId));
-
+            /*
+             trzeba zmienić zwracany typ z zapytania żeby zwracał projectConfigurationID bo nie jest i w trakcie mapowania dto ma tam zera
+             */
 
             return Json(environments);
         }
@@ -193,6 +195,7 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/GetAssigningTeam")] 
         public async Task<IActionResult> GetAssigningTeam(int ticketTypeConfigurationId, string userId)
         {            
+            //trzeba dodać zabezpieczenie przed pustym wynikiem zapytania
             var assigningTeamId = await _mediator.Send(new GetAssigningTeamQuery(ticketTypeConfigurationId, userId));
             
             return Json(assigningTeamId);

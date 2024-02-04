@@ -30,13 +30,13 @@ namespace TicketTracker.Infrastructure.Repositories
            => await _dbContext.Projects
                        .ToListAsync();
 
-        public async Task<IEnumerable<Project>> GetProjectsForUserId(string UserId)
+        public async Task<IEnumerable<Project>> GetProjectsForUserId(string userId)
         {
             int createTicektRole = 2;
             int workOnTicektRole = 3;
 
             var result = await _dbContext.TeamsUsers
-                         .Where(tu => tu.UserId == UserId)
+                         .Where(tu => tu.UserId == userId)
                          .Include(tu => tu.Team)
                              .ThenInclude(t => t.TeamRoles)//.Where(tr => tr.RoleId == createTicektRole || tr.RoleId == workOnTicektRole))
                                  //.Where(tr => tr.Team.TeamRoles.Contains(=> ttt. ) )
@@ -44,7 +44,7 @@ namespace TicketTracker.Infrastructure.Repositories
                                  .ThenInclude(tr => tr.TicketTypeConfiguration.ProjectConfiguration.Project)
 
                          .SelectMany(r => r.Team.TeamRoles) //.Select(e => e.TicketTypeConfiguration.ProjectConfiguration.Project))
-                         .Where(e => e.RoleId == createTicektRole)
+                         .Where(e => e.RoleId == createTicektRole || e.RoleId == workOnTicektRole)
                          .Select(e => e.TicketTypeConfiguration.ProjectConfiguration.Project)
                          .Distinct()
                          .ToListAsync();
@@ -63,9 +63,32 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(e => e.EnvironmentType)
                         .Where(e => e.ProjectConfiguration.ProjectId == projectId)
                         .ToListAsync();
-        public Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId, string userId)
+        public async Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId, string userId)
         {
-            throw new NotImplementedException();
+            int createTicektRole = 2;
+            int workOnTicektRole = 3;
+
+            var result = await _dbContext.TeamsUsers
+                         .Where(tu => tu.UserId == userId)
+                         .Include(tu => tu.Team)
+                             .ThenInclude(t => t.TeamRoles)
+
+                                 .ThenInclude(tr => tr.TicketTypeConfiguration.ProjectConfiguration.Environment)
+
+                         .SelectMany(r => r.Team.TeamRoles) 
+                         .Where(e => e.RoleId == createTicektRole || e.RoleId == workOnTicektRole)
+                         .Select(e => new Domain.Entities.Environment {
+                             Id = e.TicketTypeConfiguration.ProjectConfiguration.EnvironmentId,
+                             EnvironmentTypeId = e.TicketTypeConfiguration.ProjectConfiguration.Environment.EnvironmentTypeId,
+                             Name = e.TicketTypeConfiguration.ProjectConfiguration.Environment.Name,
+                             Description = e.TicketTypeConfiguration.ProjectConfiguration.Environment.Description,
+                             ProjectConfiguration = e.TicketTypeConfiguration.ProjectConfiguration                            
+                         })
+                         .Where(w => w.ProjectConfiguration.ProjectId == projectId)
+                         .Distinct()
+                         .ToListAsync();
+
+            return result;
         }
 
         public async Task<IEnumerable<TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId)
