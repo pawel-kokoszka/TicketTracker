@@ -22,7 +22,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetEnvironmentsForProjectId
 
         public async Task<IEnumerable<EnvironmentDto>> Handle(GetEnvironmentsForProjectIdQuery request, CancellationToken cancellationToken)
         {
-            var environments = await _projConfRepository.GetEnvironmentsForProjectId(request.ProjectId, request.UserId);
+            var environments = await _projConfRepository.GetEnvironmentsForProjectId(request.ProjectId, request.UserId, request.RequiredRoles);
             var environmentsDtos = _mapper.Map<IEnumerable<EnvironmentDto>>(environments);
 
             return environmentsDtos;
