@@ -25,6 +25,7 @@ var ticketservices;
     $(function () {
         $("select#Environments").change(function () {
             var projectConfiguratonId = $(this).val();
+            var userid = $("#CreatedByUserId").val();
 
             $("#ProjectConfigurationId").val(projectConfiguratonId);
 
@@ -33,7 +34,7 @@ var ticketservices;
             $("select#TicketServiceId").empty();
             $("select#TicketSubServiceId").empty();
 
-            $.getJSON(`/TicketTracker/GetTicketTypes?projectConfiguratonId=${projectConfiguratonId}`, function (data) {
+            $.getJSON(`/TicketTracker/GetTicketTypes?projectConfiguratonId=${projectConfiguratonId}&userId=${userid}`, function (data) {
                 
 
                 $("select#TicketTypes").append(`<option disabled selected >Click to select Type.</option>`);

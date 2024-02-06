@@ -50,13 +50,6 @@ namespace TicketTracker.Infrastructure.Repositories
             return result;
          }
 
-
-        //public async Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId)
-        //    => await _dbContext.Environments
-        //                .Include(e => e.ProjectConfiguration)
-        //                .Include(e => e.EnvironmentType)
-        //                .Where(e => e.ProjectConfiguration.ProjectId == projectId)
-        //                .ToListAsync();
         public async Task<IEnumerable<Domain.Entities.Environment>> GetEnvironmentsForProjectId(int projectId, string userId, List<int> requiredRoles)
         {
             
@@ -69,8 +62,7 @@ namespace TicketTracker.Infrastructure.Repositories
                                  .ThenInclude(tr => tr.TicketTypeConfiguration.ProjectConfiguration.Environment)
 
                          .SelectMany(r => r.Team.TeamRoles) 
-                         .Where(e => requiredRoles.Contains(e.RoleId))
-                         //.Where(e => e.RoleId == createTicektRole || e.RoleId == workOnTicektRole)
+                         .Where(e => requiredRoles.Contains(e.RoleId))                         
                          .Select(e => new Domain.Entities.Environment {
                              Id = e.TicketTypeConfiguration.ProjectConfiguration.EnvironmentId,
                              EnvironmentTypeId = e.TicketTypeConfiguration.ProjectConfiguration.Environment.EnvironmentTypeId,
@@ -85,21 +77,29 @@ namespace TicketTracker.Infrastructure.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId)
-            => await _dbContext.TicketTypeConfigurations
-                        .Include(ttc => ttc.TicketType)
-                        //.ThenInclude(ttc => ttc.TicketType)
-                        .Where(pc => pc.ProjectConfigurationId == projectConfigurationId)
-                        //.SelectMany(s => s.TicketType)
-                        .Select(e => new TicketTypeDto
-                        {
-                            
-                            Id = e.TicketType.Id,
-                            TypeName = e.TicketType.TypeName,
-                            TicketTypeConfigurationId = e.Id
-                        })                        
-                        .ToListAsync();
+        public async Task<IEnumerable<TicketTypeDto>> GetTicektTypesForProjectConfigurationId(int projectConfigurationId, string userId, List<int> requiredRoles)
+        {
+            var result = await (
+                from tr in _dbContext.TeamsRoles
+                  join t in _dbContext.Teams on tr.TeamId equals t.Id
+                    join tu in _dbContext.TeamsUsers on t.Id equals tu.TeamId
+                join ttc in _dbContext.TicketTypeConfigurations on tr.TicketTypeConfigurationId equals ttc.Id
+                    join tt in _dbContext.TicketTypes on ttc.TicketTypeId equals tt.Id
 
+                where tu.UserId == userId && requiredRoles.Contains(tr.RoleId) && ttc.ProjectConfigurationId == projectConfigurationId
+                select(
+                    new TicketTypeDto
+                    {
+                        Id = tt.Id,
+                        TypeName = tt.TypeName,
+                        TicketTypeConfigurationId = ttc.Id
+                    })
+                )
+                .Distinct()
+                .ToListAsync();
+
+            return result;
+        }
 
         public async Task<IEnumerable<TicketSlaConfiguration>> GetTicketSlasForTicketTypeId(int ticketTypeConfigurationId)
             => await _dbContext.TicketSlaConfigurations

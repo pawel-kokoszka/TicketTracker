@@ -11,6 +11,12 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
 {
     public class CreateTicketCommand : TicketCreateDto, IRequest
     {
+        public CreateTicketCommand(bool isEditable)
+        {
+            IsEditable = isEditable;
+        }
+
+        public bool IsEditable { get; set; }
 
 
 

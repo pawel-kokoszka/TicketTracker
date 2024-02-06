@@ -10,9 +10,16 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketTypesForProjectConf
     public class GetTicketTypesForProjectConfigurationIdQuery : IRequest<IEnumerable<TicketTypeDto>>
     {
         public int ProjectConfigurationId { get; set; }
-        public GetTicketTypesForProjectConfigurationIdQuery(int projectConfigurationId)
+        public string? UserId { get; set; }
+        public List<int> RequiredRoles { get; set; }
+
+        public GetTicketTypesForProjectConfigurationIdQuery(int projectConfigurationId, string? userId, List<int> requiredRoles)
         {
             ProjectConfigurationId = projectConfigurationId;
+            UserId = userId;
+            RequiredRoles = requiredRoles;
         }
+
+        
     }
 }

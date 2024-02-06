@@ -96,10 +96,18 @@ namespace TicketTracker.MVC.Controllers
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
             
             var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId, new List<int>{ 2,3}));
-            
 
+            CreateTicketCommand command;
 
-            CreateTicketCommand command = new CreateTicketCommand();           
+            if (userProjects.Count() > 0)
+            {
+                command = new CreateTicketCommand(true);
+            }
+            else
+            {
+                command = new CreateTicketCommand(false);           
+            }
+
             command.CreatedByUserId = currentUser.UserId;
 
             //var projects = await _mediator.Send(new GetAllProjectsQuery());
@@ -141,11 +149,11 @@ namespace TicketTracker.MVC.Controllers
         }
 
         [Authorize(Roles = "App User,Admin")]
-        public async Task<IActionResult> GetTicketTypes(int projectConfiguratonId)
+        public async Task<IActionResult> GetTicketTypes(int projectConfiguratonId, string userId)
         {
 
 
-            var ticketTypes = await _mediator.Send(new GetTicketTypesForProjectConfigurationIdQuery(projectConfiguratonId));
+            var ticketTypes = await _mediator.Send(new GetTicketTypesForProjectConfigurationIdQuery(projectConfiguratonId, userId, new List<int> { 2, 3 }));
 
 
             return Json(ticketTypes);
