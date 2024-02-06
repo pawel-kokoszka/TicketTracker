@@ -18,6 +18,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetAssigningTeam
 
         public async Task<int> Handle(GetAssigningTeamQuery request, CancellationToken cancellationToken)
         {
+            //trzeba dodać zabezpieczenie przed pustym wynikiem zapytania bo rzuca wyjątkiem
             var assigningTeamId = await _projectConfigurationRepository.GetAssigningTeam(request.TicketTypeConfigurationId, request.UserId);
 
             return assigningTeamId; 
