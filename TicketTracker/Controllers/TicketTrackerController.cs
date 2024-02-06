@@ -97,15 +97,15 @@ namespace TicketTracker.MVC.Controllers
             
             var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId, new List<int>{ 2,3}));
 
-            CreateTicketCommand command;
+            CreateTicketCommand command = new CreateTicketCommand();
 
             if (userProjects.Count() > 0)
             {
-                command = new CreateTicketCommand(true);
+                command.IsEditable = true;
             }
             else
             {
-                command = new CreateTicketCommand(false);           
+                command.IsEditable = false;
             }
 
             command.CreatedByUserId = currentUser.UserId;

@@ -26,5 +26,7 @@
    
         public int? AssignedTeamId { get; set; }
         public string? AssignedUserId { get; set; }
+
+        public bool IsEditable { get; set; }
     }
 }
