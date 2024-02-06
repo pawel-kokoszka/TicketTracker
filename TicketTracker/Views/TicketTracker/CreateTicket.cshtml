@@ -22,7 +22,12 @@
             <input asp-for="AssigningTeamId" class="form-control" id="AssigningTeamId" type="hidden" />
             <input asp-for="ProjectConfigurationId" class="form-control" id="ProjectConfigurationId" type="hidden" />
             
-            
+            @if (Model.IsEditable == false)
+            {
+                <div class="alert alert-danger" role="alert">
+                    Sorry, it looks like you don't have permissions to create new ticket :(
+                </div>                
+            }
 
             <div class="form-floating mb-3">
                 <textarea class="form-control" placeholder="Leave a comment here"  style="height: 100px" asp-for="ShortDescription"></textarea>
@@ -83,9 +88,18 @@
                 <label id="AssignedUserId">Assign user:</label>
             </div>
 
-            <div class="form-group mb-3">
-                <input class="btn btn-primary" type="submit" value="Create">
-            </div>
+
+            @if (Model.IsEditable == false)
+            {
+                <div class="form-group mb-3">
+                    <input class="btn btn-primary" type="submit" value="Create" disabled>
+                </div>
+            }else
+            {
+                <div class="form-group mb-3">
+                    <input class="btn btn-primary" type="submit" value="Create">
+                </div>                
+            }
 
         </form>
     </div>
