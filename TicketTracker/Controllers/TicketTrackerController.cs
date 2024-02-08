@@ -21,6 +21,10 @@ using TicketTracker.Application.Tickets.Queries.GetUserGroup;
 using TicketTracker.Application.Tickets.Queries.GetTeamsToAssign;
 using TicketTracker.Application.Tickets.Queries.GetAssigningTeam;
 using TicketTracker.Application.Tickets.Queries.GetProjectsForUserId;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using TicketTracker.Domain.Entities;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -29,6 +33,11 @@ namespace TicketTracker.MVC.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+
+        private readonly int _readOnlyTicketRole = 1;
+        private readonly int _createTicketRole = 2;
+        private readonly int _workOnTicketRole = 3;
+        private readonly int _CommentAddOnlyTicketRole = 4;
 
         public TicketTrackerController(IMediator mediator, IMapper mapper)
         {
@@ -40,15 +49,55 @@ namespace TicketTracker.MVC.Controllers
         public async Task<IActionResult> Index()
         {
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
-
+            
             return View(tickets);
+        }
+
+        [Authorize(Roles = "App User,Ticket Maker,Admin")]
+        public async Task<IActionResult> AccessDenied()
+        {
+            //var tickets = await _mediator.Send(new GetAllTicketsQuery());
+            ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource :(";
+
+            var tickets = await _mediator.Send(new GetAllTicketsQuery());
+            return View("Index",tickets);
         }
 
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
+            //1 spr. usera
+            var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
+
+            //2 spr. role usera bazując na ticketId 
+            //var currentUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId));
+            var currentUserRoles = new List<int> { };//{_readOnlyTicketRole, _createTicketRole, _workOnTicketRole, _CommentAddOnlyTicketRole};
+            
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+
+            if (currentUserRoles.IsNullOrEmpty())
+            {
+                //ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource :(";
+                return RedirectToAction(nameof(AccessDenied));
+            }
+            else
+            {
+                if (currentUserRoles.Contains(_readOnlyTicketRole))
+                {
+                    ticketDetailsDto.IsEditable = false;
+                }
+                if (currentUserRoles.Contains(_workOnTicketRole))
+                {
+                    ticketDetailsDto.IsEditable = true;
+                }
+
+            }
+
+
+
+            //3 jeśli nie znajduje żadnej roli związanej z dostępem do tt w tym widoku to przekierowuje do Index view z ViewBag.Message że brak uprawnień 
+
 
             return View(ticketDetailsDto);
         }
