@@ -44,7 +44,8 @@
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }
 
-        public bool IsEditable { get; set; }
+        public bool IsEditable { get; set; } = false;
+        public bool IsCommentable { get; set; } = false;
 
 
         //public List<Comment>? Comments { get; set; }
