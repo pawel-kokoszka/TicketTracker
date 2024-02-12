@@ -25,6 +25,7 @@ using Microsoft.IdentityModel.Tokens;
 using NuGet.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using TicketTracker.Domain.Entities;
+using System.Linq;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -37,7 +38,7 @@ namespace TicketTracker.MVC.Controllers
         private readonly int _readOnlyTicketRole = 1;
         private readonly int _createTicketRole = 2;
         private readonly int _workOnTicketRole = 3;
-        private readonly int _CommentAddOnlyTicketRole = 4;
+        private readonly int _CommentAddTicketRole = 4;
 
         public TicketTrackerController(IMediator mediator, IMapper mapper)
         {
@@ -53,54 +54,83 @@ namespace TicketTracker.MVC.Controllers
             return View(tickets);
         }
 
+
+
+
+
+
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         public async Task<IActionResult> AccessDenied()
-        {
-            //var tickets = await _mediator.Send(new GetAllTicketsQuery());
+        {            
             ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource :(";
 
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
             return View("Index",tickets);
         }
 
+
+
+
+
+
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
         {
+            var currentTicketUserRoles = new Dictionary<int, bool>
+            {
+                { _readOnlyTicketRole, false },
+                { _createTicketRole, false },
+                { _workOnTicketRole, true },
+                { _CommentAddTicketRole, false }
+            };
+
+
+
+            //---------------------------------------------------
             //1 spr. usera
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
 
             //2 spr. role usera bazując na ticketId 
             //var currentUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId));
-            var currentUserRoles = new List<int> { };//{_readOnlyTicketRole, _createTicketRole, _workOnTicketRole, _CommentAddOnlyTicketRole};
+            //var currentUserRoles = new List<int> { };//{_readOnlyTicketRole, _createTicketRole, _workOnTicketRole, _CommentAddOnlyTicketRole};
             
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
 
-            if (currentUserRoles.IsNullOrEmpty())
-            {
-                //ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource :(";
+            if (currentTicketUserRoles.IsNullOrEmpty())
+            {                
                 return RedirectToAction(nameof(AccessDenied));
             }
             else
             {
-                if (currentUserRoles.Contains(_readOnlyTicketRole))
+                if (currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == true)
                 {
                     ticketDetailsDto.IsEditable = false;
                 }
-                if (currentUserRoles.Contains(_workOnTicketRole))
+                else
                 {
-                    ticketDetailsDto.IsEditable = true;
+                    if (currentTicketUserRoles.ContainsKey(_workOnTicketRole) && currentTicketUserRoles[_workOnTicketRole] == true)
+                    {
+                        ticketDetailsDto.IsEditable = true;
+                    }
+                }
+                
+                if (currentTicketUserRoles.ContainsKey(_CommentAddTicketRole) && currentTicketUserRoles[_CommentAddTicketRole] == true)
+                {
+                    ticketDetailsDto.IsCommentable = true;
                 }
 
+
             }
-
-
-
-            //3 jeśli nie znajduje żadnej roli związanej z dostępem do tt w tym widoku to przekierowuje do Index view z ViewBag.Message że brak uprawnień 
-
-
             return View(ticketDetailsDto);
         }
+
+
+
+
+
+
+
 
         [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Edit/{ticketId}")]
