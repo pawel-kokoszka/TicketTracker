@@ -82,7 +82,7 @@ namespace TicketTracker.MVC.Controllers
                 { _readOnlyTicketRole, false },
                 { _createTicketRole, false },
                 { _workOnTicketRole, true },
-                { _CommentAddTicketRole, false }
+                { _CommentAddTicketRole, true }
             };
 
 
@@ -119,8 +119,6 @@ namespace TicketTracker.MVC.Controllers
                 {
                     ticketDetailsDto.IsCommentable = true;
                 }
-
-
             }
             return View(ticketDetailsDto);
         }
@@ -136,7 +134,45 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
+            var currentTicketUserRoles = new Dictionary<int, bool>
+            {
+                //{ _readOnlyTicketRole, true },
+                
+                { _workOnTicketRole, true },
+                { _CommentAddTicketRole, false }
+            };
+
             var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+
+            if (currentTicketUserRoles.IsNullOrEmpty())
+            {
+                return RedirectToAction(nameof(AccessDenied));
+            }
+            else
+            {
+                if (currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == true 
+                    || currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == false)
+                {
+                   // ticketDetailsDto.IsEditable = false;
+                    return RedirectToAction(nameof(AccessDenied));
+                }
+                else
+                {
+                    if (currentTicketUserRoles.ContainsKey(_workOnTicketRole) && currentTicketUserRoles[_workOnTicketRole] == true)
+                    {
+                        ticketDetailsDto.IsEditable = true;
+                    }else
+                    {
+                        return RedirectToAction(nameof(AccessDenied));
+                    }
+                }
+
+                if (currentTicketUserRoles.ContainsKey(_CommentAddTicketRole) && currentTicketUserRoles[_CommentAddTicketRole] == true)
+                {
+                    ticketDetailsDto.IsCommentable = true;
+                }
+            }
+
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
                         
@@ -156,15 +192,18 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit( EditTicketCommand command)
         {
+            //todo - dodaj sprawdzanie ról 
+
+
+
             if (!ModelState.IsValid)
             {
                 return View(command);
             }
                        
             await _mediator.Send(command);
-
-           
-           return RedirectToAction(nameof(Index));
+            
+           return RedirectToAction("Details",new { ticketId = command.Id });          
         }
 
 
@@ -184,7 +223,7 @@ namespace TicketTracker.MVC.Controllers
             }
             else
             {
-                command.IsEditable = false;
+                return RedirectToAction(nameof(AccessDenied));
             }
 
             command.CreatedByUserId = currentUser.UserId;
