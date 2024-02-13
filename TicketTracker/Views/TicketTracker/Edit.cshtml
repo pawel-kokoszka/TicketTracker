@@ -162,7 +162,12 @@
 
 
             <div class="form-group mb-3">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                
+                 @if (Model.IsEditable == true)
+                {
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                }
+
             </div>
 
         </form>
@@ -175,14 +180,17 @@
 
 <h3>Comments:</h3>
 
-
 <div class="row">
     <div class="col-md-6 mb-3">
+        
+        @if (Model.IsCommentable == true || Model.IsEditable == true)
+        {
+            <div class="">
+                <partial name="_AddNewComment"
+                model="new CreateCommentCommand() {TicketId = Model.Id}" />
+            </div>
+        }
 
-        <div class="">
-        <partial name="_AddNewComment"
-                 model="new CreateCommentCommand() {TicketId = Model.Id}" />
-         </div>
         <div class="">
                 <div id="comments" class="row" data-id="@Model.Id"></div>
         </div>

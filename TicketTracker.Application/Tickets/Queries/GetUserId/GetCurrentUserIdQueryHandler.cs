@@ -26,7 +26,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserId
             var currentUser =  _userContext.GetCurrentUser();
             if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("App User")))
             {
-                //await Task.FromCanceled(cancellationToken);   //pewnie do refactoru
+                //await Task.FromCanceled(cancellationToken);   //do refactoru
                 throw new InvalidOperationException();    
             }
                         
