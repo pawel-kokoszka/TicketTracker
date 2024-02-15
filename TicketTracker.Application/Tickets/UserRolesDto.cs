@@ -8,5 +8,10 @@ namespace TicketTracker.Application.Tickets
 {
     public class UserRolesDto
     {
+        public bool Read { get; set; }
+        public bool Create { get; set; }
+        public bool Edit { get; set; }
+        public bool Comment { get; set; }
+        
     }
 }

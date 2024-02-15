@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TicketTracker.Domain.Interfaces
 {
@@ -30,5 +31,6 @@ namespace TicketTracker.Domain.Interfaces
 
         Task<int> GetAssigningTeam(int ticketTypeConfigurationId, string? userId);
         Task<IEnumerable<TeamDto>> GetTeamsToAssign(int ticketTypeConfigurationId, string? userId);
+        Task<List<TeamRoleType>> GetUserRolesRelatedToTicketId(int ticketId, string? userId);
     }
 }
