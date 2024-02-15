@@ -88,20 +88,23 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.StatusId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name)); 
 
-            //CreateMap<TicketService, TicketServiceDto>();
             
             CreateMap<TicketService, TicketServiceDto>()
                 .ForMember(dto => dto.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dto => dto.ServiceName , opt => opt.MapFrom(src => src.ServiceName))
-                .ForMember(dto => dto.TicketSubServices , opt => opt.MapFrom(src => src.TicketSubServices))
-                
-                
-                ;
+                .ForMember(dto => dto.TicketSubServices , opt => opt.MapFrom(src => src.TicketSubServices));
+
 
             CreateMap<TicketSubService, TicketSubServiceDto>();
 
             CreateMap<Domain.DTOs.TeamDto, Application.Tickets.TeamDto>();
 
+            CreateMap<IEnumerable<TeamRoleType>, UserRolesDto>()
+                .ForMember(dto => dto.Read, opt => opt.MapFrom(src => src.Any(role => role.Name == "Read") ))
+                .ForMember(dto => dto.Create, opt => opt.MapFrom(src => src.Any(role => role.Name == "Create") ))
+                .ForMember(dto => dto.Edit, opt => opt.MapFrom(src => src.Any(role => role.Name == "Edit") ))
+                .ForMember(dto => dto.Comment, opt => opt.MapFrom(src => src.Any(role => role.Name == "Comment") ))
+                ;
 
         }
 

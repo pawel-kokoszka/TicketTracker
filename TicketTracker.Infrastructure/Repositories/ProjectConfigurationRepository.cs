@@ -301,5 +301,29 @@ namespace TicketTracker.Infrastructure.Repositories
                 return teamsToAssign;
             }
 
+        public async Task<List<TeamRoleType>> GetUserRolesRelatedToTicketId(int ticketId, string? userId)
+        {
+            var roles = await (
+                            from t in _dbContext.Tickets
+                                join ttc in _dbContext.TicketTypeConfigurations on t.TicketTypeConfigurationId equals ttc.Id
+                                    join tr in _dbContext.TeamsRoles on ttc.Id equals tr.TicketTypeConfigurationId
+                                        join tu in _dbContext.TeamsUsers on tr.TeamId equals tu.TeamId
+                                        join trt in _dbContext.TeamRoleTypes on tr.RoleId equals trt.Id
+                            where
+                                t.Id == ticketId && tu.UserId == userId
+                                
+                            select (
+                                new TeamRoleType()
+                                {
+                                    Id = trt.Id,
+                                    Name = trt.Name ,
+                                    Description = trt.Description
+                                })
+                            )
+                            .Distinct()
+                            .ToListAsync() ;
+
+            return roles;
+        }
     }
 }

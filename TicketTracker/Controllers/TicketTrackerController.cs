@@ -26,6 +26,8 @@ using NuGet.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using TicketTracker.Domain.Entities;
 using System.Linq;
+using TicketTracker.Application.Tickets.Queries.GetUserRolesRelatedToTicketId;
+using TicketTracker.Application.Tickets;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -35,10 +37,6 @@ namespace TicketTracker.MVC.Controllers
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        private readonly int _readOnlyTicketRole = 1;
-        private readonly int _createTicketRole = 2;
-        private readonly int _workOnTicketRole = 3;
-        private readonly int _CommentAddTicketRole = 4;
 
         public TicketTrackerController(IMediator mediator, IMapper mapper)
         {
@@ -69,105 +67,72 @@ namespace TicketTracker.MVC.Controllers
         }
 
 
-
-
-
-
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
-        {
-            var currentTicketUserRoles = new Dictionary<int, bool>
-            {
-                { _readOnlyTicketRole, false },
-                { _createTicketRole, false },
-                { _workOnTicketRole, true },
-                { _CommentAddTicketRole, true }
-            };
+        {     
 
-
-
-            //---------------------------------------------------
-            //1 spr. usera
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
 
-            //2 spr. role usera bazując na ticketId 
-            //var currentUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId));
-            //var currentUserRoles = new List<int> { };//{_readOnlyTicketRole, _createTicketRole, _workOnTicketRole, _CommentAddOnlyTicketRole};
-            
-            var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+            var foundUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId, currentUser.UserId));
 
-            if (currentTicketUserRoles.IsNullOrEmpty())
+            TicketDetailsDto ticketDetailsDto = null;
+
+
+
+            if (foundUserRoles.Read == false && foundUserRoles.Edit == false)
             {                
                 return RedirectToAction(nameof(AccessDenied));
             }
             else
             {
-                if (currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == true)
+                ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+                
+                if (foundUserRoles.Read == true)                
                 {
                     ticketDetailsDto.IsEditable = false;
                 }
                 else
                 {
-                    if (currentTicketUserRoles.ContainsKey(_workOnTicketRole) && currentTicketUserRoles[_workOnTicketRole] == true)
+                    if (foundUserRoles.Edit == true)
                     {
                         ticketDetailsDto.IsEditable = true;
                     }
                 }
                 
-                if (currentTicketUserRoles.ContainsKey(_CommentAddTicketRole) && currentTicketUserRoles[_CommentAddTicketRole] == true)
+                if (foundUserRoles.Comment == true || foundUserRoles.Edit == true)
                 {
                     ticketDetailsDto.IsCommentable = true;
                 }
             }
+
+            
             return View(ticketDetailsDto);
         }
-
-
-
-
-
-
 
 
         [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
-            var currentTicketUserRoles = new Dictionary<int, bool>
-            {
-                //{ _readOnlyTicketRole, true },
-                
-                { _workOnTicketRole, true },
-                { _CommentAddTicketRole, false }
-            };
+            var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
 
-            var ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+            var foundUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId, currentUser.UserId));
 
-            if (currentTicketUserRoles.IsNullOrEmpty())
+            TicketDetailsDto? ticketDetailsDto = null;
+
+
+            if (foundUserRoles.Edit == false)
             {
                 return RedirectToAction(nameof(AccessDenied));
             }
             else
-            {
-                if (currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == true 
-                    || currentTicketUserRoles.ContainsKey(_readOnlyTicketRole) && currentTicketUserRoles[_readOnlyTicketRole] == false)
-                {
-                   // ticketDetailsDto.IsEditable = false;
-                    return RedirectToAction(nameof(AccessDenied));
-                }
-                else
-                {
-                    if (currentTicketUserRoles.ContainsKey(_workOnTicketRole) && currentTicketUserRoles[_workOnTicketRole] == true)
-                    {
-                        ticketDetailsDto.IsEditable = true;
-                    }else
-                    {
-                        return RedirectToAction(nameof(AccessDenied));
-                    }
-                }
-
-                if (currentTicketUserRoles.ContainsKey(_CommentAddTicketRole) && currentTicketUserRoles[_CommentAddTicketRole] == true)
+            {                   
+                ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+                
+                ticketDetailsDto.IsEditable = true;
+                
+                if (foundUserRoles.Edit == true)
                 {
                     ticketDetailsDto.IsCommentable = true;
                 }
