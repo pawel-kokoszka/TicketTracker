@@ -36,6 +36,8 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.EditorUser)
                         .Include(t => t.AssignedUser)
                         .Include(t => t.TicketStatuses)
+                        .Include(ticket => ticket.AssignedTeam)
+                        .Include(ticket => ticket.AssigningTeam)
                         .ToListAsync();
 
         public async Task<Ticket> GetTicketById(int ticketId) 
@@ -52,7 +54,9 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(t => t.AssignedUser)
                         .Include(t => t.TicketStatuses)
                         .Include(t => t.TicketService)
-                        .Include(t => t.TicketSubService)                        
+                        .Include(t => t.TicketSubService)
+                        .Include(ticket => ticket.AssignedTeam)
+                        .Include(ticket => ticket.AssigningTeam)
                         .FirstAsync(t => t.Id == ticketId);
 
 
