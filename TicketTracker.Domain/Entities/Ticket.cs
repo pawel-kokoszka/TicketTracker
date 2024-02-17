@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketTracker.Domain.Entities
+﻿namespace TicketTracker.Domain.Entities
 {
     public class Ticket
     {
@@ -21,16 +14,25 @@ namespace TicketTracker.Domain.Entities
 
         public string? CreatedByUserId { get; set; }
 
-        public int AssigningTeamId { get; set; }
-        public ApplicationUser? CreatorUser { get; set; }
-
+        
         public string? EditedByUserId { get; set; }
         public ApplicationUser? EditorUser { get; set; }
+        
+        
+        
+        
+        public int AssigningTeamId { get; set; }
+        public Team? AssigningTeam { get; set; }
+
+
+        public ApplicationUser? CreatorUser { get; set; }
+
 
         public string? AssignedUserId { get; set; }
         public ApplicationUser? AssignedUser { get; set; }
 
         public int? AssignedTeamId { get; set; } 
+        public Team? AssignedTeam { get; set; }
 
         public bool IsDeleted { get; set; }
         
@@ -43,8 +45,8 @@ namespace TicketTracker.Domain.Entities
         public int TicketSlaConfigurationId { get; set; }
         public TicketSlaConfiguration? TicketSlaConfigurations { get; set; }
                
-        public int TicketStatusId { get; set; }
-               
+
+        public int TicketStatusId { get; set; }              
         public TicketStatus? TicketStatuses { get; set; }
 
         public int TicketServiceId { get; set; }

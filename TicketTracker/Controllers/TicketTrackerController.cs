@@ -76,7 +76,7 @@ namespace TicketTracker.MVC.Controllers
 
             var foundUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId, currentUser.UserId));
 
-            TicketDetailsDto ticketDetailsDto = null;
+            TicketDetailsDto? ticketDetailsDto = null;
 
 
 
