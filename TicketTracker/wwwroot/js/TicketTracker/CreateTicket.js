@@ -130,7 +130,7 @@ $(function () {
 
     })
 });
-//----------------------------------------------------------------------------------------------------
+
 $(function () {
     $("select#TicketTypes").change(function () {
 
@@ -141,7 +141,7 @@ $(function () {
 
         $.get(`/TicketTracker/GetAssigningTeam?ticketTypeConfigurationId=${id}&userId=${userid}`, function (iddata) {
 
-            
+
             $("#AssigningTeamId").val(iddata);
 
 
@@ -153,8 +153,26 @@ $(function () {
                 // Data is not empty, process and append options
                 $("select#AssignedUserId").append(`<option disabled selected >Click to assign Team Member.</option>`);
 
+                let teamId = 0;
+
+                const noUser = 0;
+
+                const teamOnlyMessage = "TICKET MANAGER";
+
                 $.each(tdata, function (i, item) {
-                    $("select#AssignedUserId").append(`<option value="${item.userId}" data-assignedteamid=${item.teamId} >${item.teamName} | ${item.userEmail}</option>`);
+                    if (teamId == 0) {
+                        teamId = item.teamId;
+                        $("select#AssignedUserId").append(`<option value="${noUser}" data-assignedteamid=${item.teamId} >${item.teamName} | ${teamOnlyMessage}</option>`);
+                    }
+
+                    if (teamId == item.teamId) {
+                        $("select#AssignedUserId").append(`<option value="${item.userId}" data-assignedteamid=${item.teamId} >${item.teamName} | ${item.userEmail}</option>`);
+                    } else {
+                        teamId = item.teamId;
+                        $("select#AssignedUserId").append(`<option value="${noUser}" data-assignedteamid=${item.teamId} >${item.teamName} | ${teamOnlyMessage}</option>`);
+                        $("select#AssignedUserId").append(`<option value="${item.userId}" data-assignedteamid=${item.teamId} >${item.teamName} | ${item.userEmail}</option>`);                        
+                    }
+
                 });
             } else {
                 $("select#AssignedUserId").empty();
@@ -165,7 +183,6 @@ $(function () {
         });
     })
 });
-
 $(function () {
     $("select#AssignedUserId").change(function () {
 

@@ -209,6 +209,11 @@ namespace TicketTracker.MVC.Controllers
                 return View(command);
             }
 
+            if (command.AssignedUserId == "0")
+            {
+                command.AssignedUserId = null;
+            }
+
             await _mediator.Send(command);
 
             this.SetNotification("success", $"Created Ticket: {command.ShortDescription}");
