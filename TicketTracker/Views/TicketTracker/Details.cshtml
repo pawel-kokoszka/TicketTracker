@@ -140,12 +140,34 @@
                                 </div>
                             </div>
 
-                   
+
 
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input asp-for="AssignedToUserName" class="form-control" readonly />
-                                    <label asp-for="AssignedToUserName">Assigned to:</label>
+                                    @if (Model.AssignedTeamId == null)
+                                    {
+                                        <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
+                                    }
+                                    else
+                                    {
+                                        <input class="form-control" asp-for="AssignedTeamName" readonly>
+                                    }
+                                    <label asp-for="AssignedTeamId">Assigned to Team:</label>
+
+
+                                </div>
+                                <div class="form-floating mb-3">
+                                    @if (Model.AssignedToUserId == null)
+                                    {
+                                        <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />                                        
+                                    }
+                                    else
+                                    {
+                                        <input asp-for="AssignedToUserName" class="form-control" readonly />
+                                
+                                    }
+
+                                    <label asp-for="AssignedToUserName">Assigned to User:</label>
                                 </div>
 
                                 <div class="form-floating mb-3">

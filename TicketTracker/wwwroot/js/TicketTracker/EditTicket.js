@@ -42,6 +42,21 @@ $(function () {
     });
 });
 
+$(function () {
+    $("select#AssignedToUserId").change(function () {
+
+        let teamid = $("#AssignedToUserId option:selected").data('assignedteamid');
+        let teamname = $("#AssignedToUserId option:selected").data('assignedteamname');
+
+
+
+        $("#AssignedTeamId").val(teamid);
+
+        
+        $("#AssignedTeamName").val(teamname);
+
+    });
+});
 /*-------------------------------------------------------------------*/
 
 //$("select#TicketServiceId").change(function () {

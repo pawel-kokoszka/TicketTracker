@@ -15,15 +15,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <input asp-for="CreatedByUserId" class="form-control" type="hidden" />
-            <input asp-for="AssignedToUserId" class="form-control" type="hidden" />
             <input asp-for="EditedByUserId" class="form-control" type="hidden" />
             <input asp-for="ProjectConfigurationId" class="form-control" type="hidden" />
-            @* <input asp-for="TicketSlaConfigurationId" class="form-control" type="hidden" /> *@
             <input asp-for="TypeId" class="form-control" type="hidden" />
             <input asp-for="TicketTypeConfigurationId" class="form-control" type="hidden" />
-            @* <input asp-for="TicketServiceId" class="form-control" type="hidden" />
-            <input asp-for="TicketSubServiceId" class="form-control" type="hidden" /> *@
-
+            <input asp-for="AssignedTeamId" class="form-control" id="AssignedTeamId" type="hidden" /> 
+            <input asp-for="AssigningTeamId" class="form-control" id="AssigningTeamId" type="hidden" />
+           @*  <input asp-for="AssignedToUserId" class="form-control" type="hidden" /> *@
+            
             <div class="row">
                 <div class="col-md-6">
 
@@ -132,6 +131,44 @@
 
                 <div class="col-md-6">
 
+
+                    <div class="form-floating mb-3">
+                                                    
+@*                         @if (Model.AssignedTeamId == null)
+                        {
+                            <input class="form-control"  id="AssignedTeamName" value="" readonly>
+                            
+                        } *@
+                        <input class="form-control" asp-for="AssignedTeamName" id="AssignedTeamName" readonly>
+                        <label asp-for="AssignedTeamName" >Assigned to Team:</label>
+
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="AssignedToUserId" asp-for="AssignedToUserId">
+
+                            
+                            @if (Model.AssignedToUserId == null)
+                            {
+                                <option value="@Model.AssignedToUserId" data-assignedteamid="@Model.AssignedTeamId" data-assignedteamname="@Model.AssignedTeamName">Waiting for assignment by Ticket Manager</option>
+                                foreach (var user in Model.UsersToAssign)
+                                {
+                                    <option value="@user.UserId" data-assignedteamid="@user.TeamId" data-assignedteamname="@user.TeamName">@user.TeamName | @user.UserEmail</option>
+                                }
+                            }
+                            else
+                            {   
+                                foreach (var user in Model.UsersToAssign)
+                                {
+                                    <option value="@user.UserId" data-assignedteamid="@user.TeamId" data-assignedteamname="@user.TeamName">@user.TeamName | @user.UserEmail</option>
+                                   
+                                }
+                            }
+
+                        </select>
+                        <label asp-for="AssignedToUserId">Assigned To User:</label>
+                    </div>
+
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="ShortDescription">
                         <label asp-for="ShortDescription">Short Description:</label>
@@ -145,7 +182,6 @@
                         <label asp-for="Description">Description:</label>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
-
                 </div>
             </div>
 

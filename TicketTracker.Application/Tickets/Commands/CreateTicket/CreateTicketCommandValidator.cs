@@ -22,6 +22,10 @@ namespace TicketTracker.Application.Tickets.Commands.CreateTicket
                 .NotEmpty()
                 .MinimumLength(3).WithMessage("Short Description should have at least 3 characters.")
                 .MaximumLength(100).WithMessage("Short Description should have maximum of 100 characters.");
+
+            RuleFor(t => t.AssignedUserId)
+                .NotEmpty().WithMessage("Please select Ticket Manager or specific User.");
+
         }
     }
 }
