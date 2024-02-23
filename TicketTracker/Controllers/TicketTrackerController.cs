@@ -105,8 +105,7 @@ namespace TicketTracker.MVC.Controllers
                     ticketDetailsDto.IsCommentable = true;
                 }
             }
-
-            
+                        
             return View(ticketDetailsDto);
         }
 
@@ -147,7 +146,11 @@ namespace TicketTracker.MVC.Controllers
 
             var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
                                                                                                            command.TicketStatusId));
-            command.TicketStatusDtos = ticketStatuses.ToList(); 
+            command.TicketStatusDtos = ticketStatuses.ToList();
+
+            var teamsAndUsersToAssign = await _mediator.Send(new GetTeamsAndUsersToAssignQuery(command.TicketTypeConfigurationId, command.AssigningTeamId));
+
+            command.UsersToAssign = teamsAndUsersToAssign.ToList();
 
             return View(command);
         }
@@ -178,7 +181,7 @@ namespace TicketTracker.MVC.Controllers
         {
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
             
-            var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId, new List<int>{ 2,3}));
+            var userProjects = await _mediator.Send(new GetProjectsForUserIdQuery(currentUser.UserId, new List<int>{ 2,3})); //to do: zmień żeby używane było GetUserRolesRelatedToTicketIdQuery
 
             CreateTicketCommand command = new CreateTicketCommand();
 
@@ -218,7 +221,8 @@ namespace TicketTracker.MVC.Controllers
 
             this.SetNotification("success", $"Created Ticket: {command.ShortDescription}");
 
-            return RedirectToAction(nameof(Index)); 
+            return RedirectToAction(nameof(Index));
+            //to do: add redirection do details view 
         }
 
 
@@ -278,7 +282,7 @@ namespace TicketTracker.MVC.Controllers
 
             //int val = assigningTeam.Result;
 
-            var teamsToAssign = await _mediator.Send(new GetTeamsToAssignQuery(ticketTypeConfigurationId, userId));
+            var teamsToAssign = await _mediator.Send(new GetTeamsAndUsersToAssignQuery(ticketTypeConfigurationId, userId));
 
             //teamsToAssign.ToList();
 

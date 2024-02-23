@@ -85,7 +85,8 @@
             <div class="form-floating mb-3">
                 <select class="form-select" id="AssignedUserId" asp-for="AssignedUserId">
                 </select>
-                <label id="AssignedUserId">Assign user:</label>
+                <label id="AssignedUserId" asp-for="AssignedUserId">Assign user:</label>
+                <span asp-validation-for="AssignedUserId" class="text-danger"></span>
             </div>
 
 

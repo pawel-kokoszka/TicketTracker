@@ -30,7 +30,9 @@ namespace TicketTracker.Domain.Interfaces
         Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId);
 
         Task<int> GetAssigningTeam(int ticketTypeConfigurationId, string? userId);
-        Task<IEnumerable<TeamDto>> GetTeamsToAssign(int ticketTypeConfigurationId, string? userId);
+        Task<List<TeamDto>> GetTeamsAndUsersToAssign(int ticketTypeConfigurationId, string? userId);
+        Task<List<TeamDto>> GetTeamsAndUsersToAssign(int ticketTypeConfigurationId, int? teamId);
+
         Task<List<TeamRoleType>> GetUserRolesRelatedToTicketId(int ticketId, string? userId);
     }
 }

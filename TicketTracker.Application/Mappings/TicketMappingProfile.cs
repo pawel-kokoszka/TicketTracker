@@ -60,7 +60,9 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<TicketDetailsDto,EditTicketCommand>(); //used in Edit action for single ticket
 
-            CreateMap<EditTicketCommand, Domain.Entities.Ticket>();
+            CreateMap<EditTicketCommand, Domain.Entities.Ticket>()
+                .ForMember(entity => entity.AssignedUserId, opt => opt.MapFrom(src => src.AssignedToUserId) )
+                ;
 
             
 
