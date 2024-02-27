@@ -11,6 +11,7 @@ namespace TicketTracker.Application.Tickets
         public bool Read { get; set; }
         public bool Create { get; set; }
         public bool Edit { get; set; }
+        //public bool Process { get; set; }
         public bool Comment { get; set; }
         
     }

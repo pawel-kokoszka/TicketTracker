@@ -97,17 +97,29 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="TicketStatusId" asp-for="TicketStatusId">
+                        @if (Model.IsAbleToProcess == false)
+                        {
+                            <input class="form-control" asp-for="TicketStatusName" readonly>
+                            <label asp-for="TicketStatusName">Ticket Status:</label>
 
-                            <option value="@Model.TicketStatusId">@Model.TicketStatusName</option>
+                            <input asp-for="TicketStatusId" class="form-control" id="TicketStatusId" type="hidden" />
+                        }else
+                        {
+                            <select class="form-select" id="TicketStatusId" asp-for="TicketStatusId">
+
+                                <option  value="@Model.TicketStatusId">@Model.TicketStatusName</option>
+                                @foreach (var status in Model.TicketStatusDtos)
+                                {
+                                    <option value="@status.StatusId">@status.Name</option>
+                                }
+
+                            </select>
+                            <label asp-for="TicketStatusId">Ticket Status:</label>
                             
-                            @foreach (var status in Model.TicketStatusDtos)
-                            {
-                                <option value="@status.StatusId">@status.Name</option>
-                            }
-
-                        </select>
-                        <label asp-for="TicketStatusId">Ticket Status:</label>
+                        }
+                        
+                        
+                        
                     </div>
 
                     <div class="form-floating mb-3">
@@ -131,23 +143,13 @@
 
                 <div class="col-md-6">
 
-
                     <div class="form-floating mb-3">
-                                                    
-@*                         @if (Model.AssignedTeamId == null)
-                        {
-                            <input class="form-control"  id="AssignedTeamName" value="" readonly>
-                            
-                        } *@
                         <input class="form-control" asp-for="AssignedTeamName" id="AssignedTeamName" readonly>
                         <label asp-for="AssignedTeamName" >Assigned to Team:</label>
-
                     </div>
                     
                     <div class="form-floating mb-3">
                         <select class="form-select" id="AssignedToUserId" asp-for="AssignedToUserId">
-
-                            
                             @if (Model.AssignedToUserId == null)
                             {
                                 <option value="@Model.AssignedToUserId" data-assignedteamid="@Model.AssignedTeamId" data-assignedteamname="@Model.AssignedTeamName">Waiting for assignment by Ticket Manager</option>
@@ -164,7 +166,6 @@
                                    
                                 }
                             }
-
                         </select>
                         <label asp-for="AssignedToUserId">Assigned To User:</label>
                     </div>
@@ -219,7 +220,7 @@
 <div class="row">
     <div class="col-md-6 mb-3">
         
-        @if (Model.IsCommentable == true || Model.IsEditable == true)
+        @if (Model.IsAbleToComment == true || Model.IsEditable == true)
         {
             <div class="">
                 <partial name="_AddNewComment"

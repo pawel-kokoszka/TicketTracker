@@ -363,5 +363,11 @@ namespace TicketTracker.Infrastructure.Repositories
 
             return roles;
         }
+
+        public async Task<IEnumerable<int>> GetUserTeamsIds(string userId)//todo - move to UserRpository 
+            => await _dbContext.TeamsUsers
+                        .Where(team => team.UserId == userId)
+                        .Select(columns => columns.TeamId)
+                        .ToListAsync();
     }
 }

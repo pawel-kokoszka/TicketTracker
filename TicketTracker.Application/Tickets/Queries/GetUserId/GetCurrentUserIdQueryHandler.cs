@@ -7,7 +7,7 @@ using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.Tickets.Queries.GetUserId
 {
-    internal class GetCurrentUserIdQueryHandler : IRequestHandler<GetCurrentUserIdQuery, UserIdDto>
+    internal class GetCurrentUserIdQueryHandler : IRequestHandler<GetCurrentUserIdQuery, UserDto>
     {
         //private readonly IUserRepsitory _userRepsitory; to nie jest potrzebne 
         private readonly IUserContext _userContext;
@@ -21,7 +21,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserId
             _mapper = mapper;
         }
 
-        public async Task<UserIdDto> Handle(GetCurrentUserIdQuery request, CancellationToken cancellationToken)
+        public async Task<UserDto> Handle(GetCurrentUserIdQuery request, CancellationToken cancellationToken)
         {
             var currentUser =  _userContext.GetCurrentUser();
             if (currentUser == null || (!currentUser.IsInRole("Admin") && !currentUser.IsInRole("App User")))
@@ -31,8 +31,12 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserId
             }
                         
 
-            UserIdDto user = new UserIdDto();
+            UserDto user = new UserDto();
             user.UserId = currentUser.Id;
+
+            var userTeams = await _userContext.GetUserTeamsIds(currentUser.Id);
+
+            user.TeamsList = userTeams.ToList();    
 
             return user;  
         }

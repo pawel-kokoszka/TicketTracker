@@ -5,16 +5,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.ApplicationUser
 {
     public class UserContext : IUserContext 
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IProjectConfigurationRepository _projectConfigurationRepository;
 
-        public UserContext(IHttpContextAccessor httpContextAccessor)
+        public UserContext(IHttpContextAccessor httpContextAccessor, IProjectConfigurationRepository projectConfigurationRepository)
         {
             _httpContextAccessor = httpContextAccessor;
+            _projectConfigurationRepository = projectConfigurationRepository;
+
         }
 
         public CurrentUser GetCurrentUser()
@@ -30,6 +34,13 @@ namespace TicketTracker.Application.ApplicationUser
             var roles = user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
 
             return new CurrentUser(id, email, roles);
+        }
+
+        public async Task<IEnumerable<int>> GetUserTeamsIds(string userId)
+        {
+            var teamsResult = await _projectConfigurationRepository.GetUserTeamsIds( userId); 
+
+            return teamsResult;
         }
     }
 }

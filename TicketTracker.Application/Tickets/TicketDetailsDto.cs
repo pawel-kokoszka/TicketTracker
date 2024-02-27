@@ -58,8 +58,12 @@
         public string? EnvironmentType { get; set; }
         public string? EnvironmentName { get; set; }
 
+
+        //user roles/priviliges to the tt, inherited from Team
         public bool IsEditable { get; set; } 
-        public bool IsCommentable { get; set; } 
+        public bool IsAbleToComment { get; set; } 
+
+        public bool IsAbleToProcess { get; set; }
 
 
         //public List<Comment>? Comments { get; set; }
