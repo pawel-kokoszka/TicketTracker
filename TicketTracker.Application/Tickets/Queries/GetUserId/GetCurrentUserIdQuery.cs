@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TicketTracker.Application.Tickets.Queries.GetUserGroup
 {
-    public class GetCurrentUserIdQuery : IRequest<UserIdDto>
+    public class GetCurrentUserIdQuery : IRequest<UserDto>
     {
     }
 }

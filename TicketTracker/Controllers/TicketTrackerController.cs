@@ -102,7 +102,7 @@ namespace TicketTracker.MVC.Controllers
                 
                 if (foundUserRoles.Comment == true || foundUserRoles.Edit == true)
                 {
-                    ticketDetailsDto.IsCommentable = true;
+                    ticketDetailsDto.IsAbleToComment = true;
                 }
             }
                         
@@ -119,9 +119,9 @@ namespace TicketTracker.MVC.Controllers
             var foundUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId, currentUser.UserId));
 
             TicketDetailsDto? ticketDetailsDto = null;
+            
 
-
-            if (foundUserRoles.Edit == false)
+            if (foundUserRoles.Edit == false)//1
             {
                 return RedirectToAction(nameof(AccessDenied));
             }
@@ -129,28 +129,56 @@ namespace TicketTracker.MVC.Controllers
             {                   
                 ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
                 
-                ticketDetailsDto.IsEditable = true;
+                ticketDetailsDto.IsEditable = true;//2
                 
+                                
                 if (foundUserRoles.Edit == true)
                 {
-                    ticketDetailsDto.IsCommentable = true;
+                    ticketDetailsDto.IsAbleToComment = true;
                 }
+
+                if (ticketDetailsDto.AssignedToUserId == null)//2a check if user can change tt status 
+                {
+                    ticketDetailsDto.IsAbleToProcess = false;//2a user cant change status, bc tt is not assigned to specific user 
+                }
+                else
+                {
+                    if (ticketDetailsDto.AssignedToUserId == currentUser.UserId
+                        || (ticketDetailsDto.AssignedToUserId != currentUser.UserId
+                            && currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId)))//2b check if current user is assigned to tt
+                                                                                                     //or CU belongs to team that is assigned to tt
+                    {
+                        ticketDetailsDto.IsAbleToProcess = true;//2b1 if this is the same user -> he can change tt status 
+
+                    }
+                    else
+                    {
+                        ticketDetailsDto.IsAbleToProcess = false;//2b2 if user is not from the team -> he cant change tt status                        
+                    }
+
+                }
+
+
             }
 
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
                         
+            
             var ticketSlas = await _mediator.Send(new GetTicketSlasForTicketTypeIdQuery(command.TicketTypeConfigurationId));
 
             command.TicketSlaDtos = ticketSlas.ToList();
 
+
             var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
-                                                                                                           command.TicketStatusId));
+                                                                                                            command.TicketStatusId));
             command.TicketStatusDtos = ticketStatuses.ToList();
+
 
             var teamsAndUsersToAssign = await _mediator.Send(new GetTeamsAndUsersToAssignQuery(command.TicketTypeConfigurationId, command.AssigningTeamId));
 
             command.UsersToAssign = teamsAndUsersToAssign.ToList();
+
 
             return View(command);
         }
