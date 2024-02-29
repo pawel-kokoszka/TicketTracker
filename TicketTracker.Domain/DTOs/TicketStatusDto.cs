@@ -1,4 +1,4 @@
-﻿namespace TicketTracker.Application.Tickets
+﻿namespace TicketTracker.Domain.DTOs
 {
     public class TicketStatusDto
     {

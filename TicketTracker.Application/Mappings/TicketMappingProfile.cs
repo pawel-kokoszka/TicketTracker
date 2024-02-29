@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Migrations.Operations.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,9 @@ using TicketTracker.Application.Comments;
 using TicketTracker.Application.Tickets;
 using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
+using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
+using TicketStatusDto = TicketTracker.Application.Tickets.TicketStatusDto;
 
 namespace TicketTracker.Application.Mappings
 {
@@ -74,7 +77,7 @@ namespace TicketTracker.Application.Mappings
 
            
 
-            CreateMap<Domain.DTOs.TicketTypeDto, TicketTypeDto>();
+            CreateMap<Domain.DTOs.TicketTypeDto, Application.Tickets.TicketTypeDto>();
             
             CreateMap<ProjectConfiguration, ProjectConfigurationDto>()
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.Project.Name))
@@ -92,7 +95,11 @@ namespace TicketTracker.Application.Mappings
             CreateMap<TicketSlaConfiguration, TicketSlaDto>();
 
             CreateMap<TicketFlowConfiguration, TicketStatusDto>(); //do spr. czy to jest gdzieś używane
-            
+
+            ///dodaj mapowanie do obu TicketStatusDto
+            CreateMap<Domain.DTOs.TicketStatusDto, Application.Tickets.TicketStatusDto>();
+
+
             CreateMap<TicketStatus, TicketStatusDto>()
                 .ForMember(dto => dto.StatusId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dto => dto.Name, opt => opt.MapFrom(src => src.Name)); 
