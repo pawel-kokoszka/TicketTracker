@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+//using TicketTracker.Application.Tickets;
 using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
@@ -125,7 +126,21 @@ namespace TicketTracker.Infrastructure.Repositories
                             Name = ts.TicketStatuses.Name
                         } )
 
-                        .ToListAsync(); 
+                        .ToListAsync();
+
+        public async Task<IEnumerable<TicketStatusDto>> GetTicketStatusesWithPrivilegesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
+    => await _dbContext.TicketFlowConfigurations
+                .Include(tfc => tfc.TicketStatuses)
+                .Where(tfc => tfc.TicketTypeConfigurationId == ticketTypeConfigurationId && tfc.StatusId == statusId)
+                .Select(ts => new TicketStatusDto
+                {
+                    StatusId = ts.NextStatusId,
+                    Name = ts.TicketStatuses.Name,
+                    CreatorCanChangeStatus = ts.CreatorCanChangeStatus,
+                    AssignedUserCanChangeStatus = ts.AssignedUserCanChangeStatus
+                })
+
+                .ToListAsync();
 
         public async Task<TicketFlowConfiguration> GetStatusForNewTicket(int ticketTypeConfigurationId)
             => await _dbContext.TicketFlowConfigurations

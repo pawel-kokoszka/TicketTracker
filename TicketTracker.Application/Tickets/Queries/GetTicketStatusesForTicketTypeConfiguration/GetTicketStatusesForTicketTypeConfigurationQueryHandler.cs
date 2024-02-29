@@ -16,7 +16,8 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketStatusesForTicketTy
         }
         public async Task<IEnumerable<TicketStatusDto>> Handle(GetTicketStatusesForTicketTypeConfigurationQuery request, CancellationToken cancellationToken)
         {
-            var ticketStatuses = await _projConfRepository.GetTicketStatusesForTicketTypeConfigurationId(request.TicketTypeConfigurationId, request.StatusId);
+            //var ticketStatuses = await _projConfRepository.GetTicketStatusesForTicketTypeConfigurationId(request.TicketTypeConfigurationId, request.StatusId);
+            var ticketStatuses = await _projConfRepository.GetTicketStatusesWithPrivilegesForTicketTypeConfigurationId(request.TicketTypeConfigurationId, request.StatusId);
             var ticketStatusesDtos = _mapper.Map<IEnumerable<TicketStatusDto>>(ticketStatuses);
 
             return ticketStatusesDtos;
