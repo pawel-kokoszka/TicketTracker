@@ -136,13 +136,18 @@ namespace TicketTracker.MVC.Controllers
                 {
                     ticketDetailsDto.IsAbleToComment = true;
                 }
+            
+                    /* trzeba najpierw spr. czy CurrentUser jest twórcą czy przydzielonym i na tej podstawie trzeba załadować 
+                       lub nie załadować nowe statusy do przydzielenia*/ 
 
+                //tt status checking section -> if user is able to edit it 
                 if (ticketDetailsDto.AssignedToUserId == null)//2a check if user can change tt status 
                 {
                     ticketDetailsDto.IsAbleToProcess = false;//2a user cant change status, bc tt is not assigned to specific user 
                 }
                 else
                 {
+
                     if (ticketDetailsDto.AssignedToUserId == currentUser.UserId
                         || (ticketDetailsDto.AssignedToUserId != currentUser.UserId
                             && currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId)))//2b check if current user is assigned to tt
@@ -155,12 +160,8 @@ namespace TicketTracker.MVC.Controllers
                     {
                         ticketDetailsDto.IsAbleToProcess = false;//2b2 if user is not from the team -> he cant change tt status                        
                     }
-
                 }
-
-
             }
-
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
                         

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketTracker.Infrastructure.DataBaseContext;
 
@@ -11,9 +12,11 @@ using TicketTracker.Infrastructure.DataBaseContext;
 namespace TicketTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(TicketTrackerDbContext))]
-    partial class TrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240229104010_TicketFlowConfiguration_column_UserCanChangeStatus_ADD")]
+    partial class TicketFlowConfiguration_column_UserCanChangeStatus_ADD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
