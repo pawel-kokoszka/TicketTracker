@@ -9,6 +9,10 @@
 
         public bool IsNewTicketFirstStatus { get; set; } 
 
+        public bool CreatorCanChangeStatus { get; set; }
+        public bool AssignedUserCanChangeStatus { get; set; }
+
+
         //EF
         public TicketStatus? TicketStatuses { get; set; }
         public TicketTypeConfiguration? TicketTypeConfigurations { get; set; }
