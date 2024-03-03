@@ -46,7 +46,7 @@
 
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="EditedByUserName" readonly>
-                        <label asp-for="EditedByUserName">Created by user:</label>                        
+                        <label asp-for="EditedByUserName">Edited by user:</label>                        
                     </div>
 
                     <div class="form-floating mb-3">
@@ -87,6 +87,8 @@
                             }
 
                         </select>
+                        @* <input class="form-control" asp-for="TicketSlaConfigurationId" readonly> *@
+
                         <label asp-for="TicketSlaConfigurationId">Priority Level: </label>
                     </div>
 
@@ -97,7 +99,75 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        @if (Model.IsAbleToProcess == false)
+                        @if (Model.IsUserInEditOnlyTeam)
+                        {
+                            <input class="form-control" asp-for="TicketStatusName" readonly>
+                            <label asp-for="TicketStatusName">Ticket Status:</label>
+                            <input asp-for="TicketStatusId" type="hidden" readonly>
+                        }
+                        else
+                        {
+                            <select class="form-select" id="TicketStatusId" asp-for="TicketStatusId">
+
+                                <option value="@Model.TicketStatusId">@Model.TicketStatusName</option> 
+                                 
+
+                                @foreach (var status in Model.TicketStatusDtos)
+                                {
+
+                                    if (Model.IsUserInCreatorTeam && Model.IsUserInAssignedTeam)
+                                    {
+                                        <option value="@status.StatusId">@status.Name</option>
+                                    }
+                                    else
+                                    {
+                                        @if (Model.IsUserInCreatorTeam && status.CreatorCanChangeStatus)
+                                        {
+                                            <option value="@status.StatusId">@status.Name</option>
+
+                                        }else
+                                        {
+                                            if (Model.IsUserInCreatorTeam && !status.CreatorCanChangeStatus)
+                                            {
+                                                <option disabled value="@status.StatusId">@status.Name</option>                                                                                
+                                            }
+                                        }
+
+
+                                        if (Model.IsUserInAssignedTeam && status.AssignedUserCanChangeStatus)
+                                        {
+                                            <option value="@status.StatusId">@status.Name</option>
+                                        }else
+                                        {
+                                            if (Model.IsUserInAssignedTeam && !status.AssignedUserCanChangeStatus)
+                                            {
+                                                <option disabled value="@status.StatusId">@status.Name</option>                                        
+                                            }
+
+                                        }                                    
+                                    }
+                                }
+
+                            </select>
+                            <label asp-for="TicketStatusId">Ticket Status:</label>                                
+                        }
+
+
+                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        @* @if (Model.IsAbleToProcess == false)
                         {
                             <input class="form-control" asp-for="TicketStatusName" readonly>
                             <label asp-for="TicketStatusName">Ticket Status:</label>
@@ -116,7 +186,7 @@
                             </select>
                             <label asp-for="TicketStatusId">Ticket Status:</label>
                             
-                        }
+                        } *@
                         
                         
                         

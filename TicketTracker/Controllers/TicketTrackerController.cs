@@ -136,31 +136,40 @@ namespace TicketTracker.MVC.Controllers
                 {
                     ticketDetailsDto.IsAbleToComment = true;
                 }
-            
-                    /* trzeba najpierw spr. czy CurrentUser jest twórcą czy przydzielonym i na tej podstawie trzeba załadować 
-                       lub nie załadować nowe statusy do przydzielenia*/ 
 
-                //tt status checking section -> if user is able to edit it 
-                if (ticketDetailsDto.AssignedToUserId == null)//2a check if user can change tt status 
+                
+                if (   currentUser.TeamsList.Contains((int)ticketDetailsDto.AssigningTeamId) 
+                    && currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId)   )
                 {
-                    ticketDetailsDto.IsAbleToProcess = false;//2a user cant change status, bc tt is not assigned to specific user 
+                    //cu jest twórcą i assigned to tt
+                    ticketDetailsDto.IsUserInCreatorTeam= true;
+                    ticketDetailsDto.IsUserInAssignedTeam= true;
+
                 }
                 else
                 {
-
-                    if (ticketDetailsDto.AssignedToUserId == currentUser.UserId
-                        || (ticketDetailsDto.AssignedToUserId != currentUser.UserId
-                            && currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId)))//2b check if current user is assigned to tt
-                                                                                                     //or CU belongs to team that is assigned to tt
+                    if (       currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId)
+                            && !currentUser.TeamsList.Contains((int)ticketDetailsDto.AssigningTeamId) )
                     {
-                        ticketDetailsDto.IsAbleToProcess = true;//2b1 if this is the same user -> he can change tt status 
-
+                        //cu jest assigned do tt
+                        ticketDetailsDto.IsUserInAssignedTeam = true;
                     }
                     else
                     {
-                        ticketDetailsDto.IsAbleToProcess = false;//2b2 if user is not from the team -> he cant change tt status                        
+                        if (    currentUser.TeamsList.Contains((int)ticketDetailsDto.AssigningTeamId) 
+                             && !currentUser.TeamsList.Contains((int)ticketDetailsDto.AssignedTeamId))
+                        {
+                            //cu jest twórcą tt
+                            ticketDetailsDto.IsUserInCreatorTeam = true;
+                        }
+                        else
+                        {
+                            ticketDetailsDto.IsUserInEditOnlyTeam = true; //user can only edit tt properties unrelated to tt status
+                        }              
+
                     }
                 }
+               
             }
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
