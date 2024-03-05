@@ -1,5 +1,18 @@
 var ticketservices;
-    $(function () {
+
+let jsonSlaData;
+
+function calculateFullHoursAndExtraMinutes(minutes) {
+    // Calculate the number of full hours
+    let hours = Math.floor(minutes / 60);
+
+    // Calculate the number of extra minutes
+    let extraMinutes = minutes % 60;
+
+    return { hours, extraMinutes };
+}
+
+$(function () {
         $("select#Projects").change(function () {
             var projectid = $(this).val();
             var userid = $("#CreatedByUserId").val();
@@ -33,6 +46,7 @@ var ticketservices;
             $("select#TicketSlas").empty();
             $("select#TicketServiceId").empty();
             $("select#TicketSubServiceId").empty();
+            $("#TicketSlaParams").val("");
 
             $.getJSON(`/TicketTracker/GetTicketTypes?projectConfiguratonId=${projectConfiguratonId}&userId=${userid}`, function (data) {
                 
@@ -56,6 +70,7 @@ var ticketservices;
             $("select#TicketServiceId").empty();
             $("select#TicketSubServiceId").empty();
             $("select#AssignedUserId").empty();
+            $("#TicketSlaParams").empty();
 
             $.getJSON(`/TicketTracker/GetTicketSlas?ticketTypeConfigurationId=${id}`, function (data) {
 
@@ -65,13 +80,14 @@ var ticketservices;
 
                     $.each(data, function (i, item) {
                         $("select#TicketSlas").append(`<option value="${item.id}">${item.name}</option>`);
+                        
                     });
                 } else {
                     $("select#TicketSlas").empty();
                     $("select#TicketSlas").append(`<option disabled selected >There is no SLA set for this ticket type, please contact Admin</option>`);
                 }
 
-
+                jsonSlaData = data;
             });
         })
     });
@@ -84,11 +100,49 @@ $(function () {
         $("select#TicketServiceId").empty();
         $("select#TicketSubServiceId").empty();
 
+        let priorityId = $(this).val();
+
+        let selectedSlaProp = jsonSlaData.find(function (sla) {
+            return sla.id == priorityId;
+        });
+
+        if (jsonSlaData && jsonSlaData.length > 0) {
+                        
+            
+            let result = calculateFullHoursAndExtraMinutes(selectedSlaProp.numberOfMinutes);
+
+            if (selectedSlaProp.numberOfDays > 0) {
+
+                if (result.hours > 0) {
+
+                    $("#TicketSlaParams").val(`${selectedSlaProp.numberOfDays} Days, ${result.hours} Hrs and ${result.extraMinutes} Min.`);
+                } else {
+                    $("#TicketSlaParams").val(`${selectedSlaProp.numberOfDays} Days, ${result.hours} Hrs and ${result.extraMinutes} Min.`);
+                }                
+
+            } else {
+
+                if (result.hours > 0) {
+
+                    $("#TicketSlaParams").val(`${result.hours} Hrs and ${result.extraMinutes} min.`);
+                } else {
+                    $("#TicketSlaParams").val(`${result.extraMinutes} min.`);                    
+                }
+
+
+                
+            }
+
+        } 
+
+        //-------------------------------------------------------------------------------------------------------------------
         $.getJSON(`/TicketTracker/GetTicketServices?ticketTypeConfigurationId=${id}`, function (data) {
 
             if (data && data.length > 0) {
                 // Data is not empty, process and append options
                 $("select#TicketServiceId").append(`<option disabled selected >Click to select Service.</option>`);
+
+                    
 
                 $.each(data, function (i, item) {
                     $("select#TicketServiceId").append(`<option value="${item.id}">${item.serviceName}</option>`);
@@ -112,7 +166,7 @@ $(function () {
         var selectedService;
             selectedService = jsonData.find(function (service) {
             return service.id == serviceId;
-        });
+             });
 
             if (jsonData && jsonData.length > 0) {
                 // Data is not empty, process and append options

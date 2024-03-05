@@ -64,10 +64,22 @@
                 <label id="TicketTypes">Ticket types:</label>
             </div>
 
-            <div class="form-floating mb-3">
-                <select class="form-select" id="TicketSlas" asp-for="TicketSlaConfigurationId">
-                </select>
-                <label id="TicketSlas">Select SLA:</label>
+            <div class="row">
+
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="TicketSlas" asp-for="TicketSlaConfigurationId">
+                        </select>
+                        <label id="TicketSlas">Select SLA:</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input id="TicketSlaParams" class="form-control" readonly />
+                        <label id="TicketSlaParams">Time to resolve:</label>
+                    </div>
+                </div>
+
             </div>
 
             <div class="form-floating mb-3">
