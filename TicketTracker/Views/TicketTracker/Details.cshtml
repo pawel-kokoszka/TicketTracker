@@ -115,8 +115,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />
-                                            <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
+                                            @if (Model.IsOverdue == true)
+                                            {
+                                                <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
+                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />                                    
+                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                            }
                                         </div>
 
                                         <div class="form-floating mb-3">
