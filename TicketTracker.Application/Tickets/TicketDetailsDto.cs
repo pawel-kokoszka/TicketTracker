@@ -41,7 +41,12 @@
         public int ProjectConfigurationId { get; set; }
         
         public int TicketSlaConfigurationId { get; set; }
-        public string? TicketSlaConfigurationName { get; set; }   
+        public string? TicketSlaConfigurationName { get; set; }
+        public string? TicketSlaTimeLeft { get; set; }
+        public string? TicketSlaResolutionDate { get; set; }
+
+        public bool IsOverdue { get; set; }
+
         
 
         public int TicketStatusId { get; set; }

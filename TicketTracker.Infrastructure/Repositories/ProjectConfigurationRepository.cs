@@ -114,7 +114,12 @@ namespace TicketTracker.Infrastructure.Repositories
                         .OrderBy(c => c.PriorityOrderValue)
                         .ToListAsync();
 
-        
+
+        //dodaj task na wyciąganie SLA po konkretnym ID 
+        public async Task<TicketSlaConfiguration> GetTicketSlaBySlaId(int slaId)
+            => await _dbContext.TicketSlaConfigurations
+                        .Where(tsc => tsc.Id == slaId)
+                        .FirstAsync();
 
         public async Task<IEnumerable<TicketStatus>> GetTicketStatusesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
             => await _dbContext.TicketFlowConfigurations

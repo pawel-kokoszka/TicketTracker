@@ -103,22 +103,35 @@
                                     </div>
                                     <div class="col-md-6">
                                             <div class="form-floating mb-3">
-                                                <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
-                                                <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
                                                 <input asp-for="TicketStatusName" class="form-control" readonly />
                                                 <label asp-for="TicketStatusName">Current status:</label>
                                             </div>
                                     </div>
                                     <div class="col-md-6">
+                                            <div class="form-floating mb-3">
+                                                <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
+                                                <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                            <input asp-for="TypeId" class="form-control" readonly />
-                                            <label asp-for="TypeId">SLA:</label>
+                                            <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />
+                                            <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
                                         </div>
 
+                                        <div class="form-floating mb-3">
+                                            @if (Model.IsOverdue == true)
+                                            {
+                                                <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
+                                                <label asp-for="TicketSlaTimeLeft" >Time ovedue:</label>
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
+                                                <label asp-for="TicketSlaTimeLeft">Time left:</label>                                    
+                                            }
+
+                                        </div>
                                     </div>
 
 
