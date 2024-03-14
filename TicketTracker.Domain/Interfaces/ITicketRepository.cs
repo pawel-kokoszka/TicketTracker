@@ -20,5 +20,7 @@ namespace TicketTracker.Domain.Interfaces
         /// </summary>
         /// <returns></returns>
         Task SaveToDb();
+
+        void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData);
     }
 }

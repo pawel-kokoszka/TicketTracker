@@ -28,8 +28,8 @@ namespace TicketTracker.Application.Mappings
            
 
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
-                .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm")))
-                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm")))
+                .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm:ss")))
+                .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName))
                 .ForMember(dto => dto.TicketSlaConfigurationName, opt => opt.MapFrom(src => src.TicketSlaConfigurations.Name))
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.ProjectConfiguration.Project.Name))
@@ -58,10 +58,31 @@ namespace TicketTracker.Application.Mappings
                 ;
 
             //CreateMap<>
-            //CreateMap<>
+           
 
 
             CreateMap<TicketDetailsDto,EditTicketCommand>(); //used in Edit action for single ticket
+
+            //to delete:
+            //manual mappin used instead of:
+            //CreateMap<Ticket, Ticket>(MemberList.None) //used in Edit action for single ticket oldTT <- newTT
+            //    .ForMember(newTT => newTT.AssignedTeamId, oldTT => oldTT.MapFrom(src => src.AssignedTeamId) )
+            //    .ForMember(newTT => newTT.AssignedUserId, oldTT => oldTT.MapFrom(src => src.AssignedUserId) )
+            //    .ForMember(newTT => newTT.DateEdited, oldTT => oldTT.MapFrom(src => src.DateEdited) )
+            //    .ForMember(newTT => newTT.Description, oldTT => oldTT.MapFrom(src => src.Description) )
+            //    .ForMember(newTT => newTT.EditedByUserId, oldTT => oldTT.MapFrom(src => src.EditedByUserId) )
+            //    .ForMember(newTT => newTT.IsDeleted, oldTT => oldTT.MapFrom(src => src.IsDeleted) )
+            //    .ForMember(newTT => newTT.ShortDescription, oldTT => oldTT.MapFrom(src => src.ShortDescription) )
+            //    .ForMember(newTT => newTT.TicketServiceId, oldTT => oldTT.MapFrom(src => src.TicketServiceId) )
+            //    .ForMember(newTT => newTT.TicketSlaConfigurationId, oldTT => oldTT.MapFrom(src => src.TicketSlaConfigurationId) )
+            //    .ForMember(newTT => newTT.TicketStatusId, oldTT => oldTT.MapFrom(src => src.TicketStatusId) )
+            //    .ForMember(newTT => newTT.TicketSubServiceId, oldTT => oldTT.MapFrom(src => src.TicketSubServiceId) )
+                
+            //    //.ForAllOtherMembers(opt => opt.Ignore())
+            //    ; 
+
+
+
 
             CreateMap<EditTicketCommand, Domain.Entities.Ticket>()
                 .ForMember(entity => entity.AssignedUserId, opt => opt.MapFrom(src => src.AssignedToUserId) )

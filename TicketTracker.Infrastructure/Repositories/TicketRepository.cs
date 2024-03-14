@@ -68,5 +68,31 @@ namespace TicketTracker.Infrastructure.Repositories
 
         public async Task SaveToDb()
             => await _dbContext.SaveChangesAsync();
+
+        public void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData)
+        {
+            if (newTicketData is null || oldTicketData is null)
+            {
+                throw new InvalidOperationException("Update New Ticket Data Operation Failed");
+            }
+            else
+            {
+                oldTicketData.AssignedTeamId = newTicketData.AssignedTeamId;
+                oldTicketData.AssignedUserId = newTicketData.AssignedUserId;
+                oldTicketData.DateEdited = newTicketData.DateEdited;
+                oldTicketData.Description = newTicketData.Description;
+                oldTicketData.EditedByUserId = newTicketData.EditedByUserId;
+                oldTicketData.IsDeleted = newTicketData.IsDeleted;
+                oldTicketData.ShortDescription = newTicketData.ShortDescription;
+                oldTicketData.TicketServiceId = newTicketData.TicketServiceId;
+                oldTicketData.TicketSlaConfigurationId = newTicketData.TicketSlaConfigurationId;
+                oldTicketData.TicketStatusId = newTicketData.TicketStatusId;
+                oldTicketData.TicketSubServiceId = newTicketData.TicketSubServiceId;
+            }
+        }
+
+                
+    
+    
     }
 }
