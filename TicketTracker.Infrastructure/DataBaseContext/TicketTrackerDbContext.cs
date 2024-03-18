@@ -15,6 +15,10 @@ namespace TicketTracker.Infrastructure.DataBaseContext
         }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<TicketHistory> TicketHistory { get; set; }
+        public DbSet<TicketHistoryDetail> TicketHistoryDetails { get; set; }
+
+            
 
 
 

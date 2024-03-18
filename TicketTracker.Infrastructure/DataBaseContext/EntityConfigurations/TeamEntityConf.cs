@@ -44,6 +44,12 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .HasForeignKey(ticket => ticket.AssignedTeamId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder
+                .HasMany(team => team.TicketHistory)
+                .WithOne(th => th.Team)
+                .HasForeignKey(th => th.TeamId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
         }
     }
 }

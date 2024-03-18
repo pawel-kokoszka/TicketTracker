@@ -62,6 +62,8 @@
 
 
         public List<Comment>? Comments { get; set; } //= new();
+        public List<TicketHistory>? TicketHistory { get; set; }
+
     }
 }
 

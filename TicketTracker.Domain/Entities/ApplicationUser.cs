@@ -16,7 +16,7 @@ namespace TicketTracker.Domain.Entities
 
         public List<TeamsUsers>? TeamsUsers { get; set; }
 
-
+        public List<TicketHistory>? TicketHistory { get; set; }
 
 
     }

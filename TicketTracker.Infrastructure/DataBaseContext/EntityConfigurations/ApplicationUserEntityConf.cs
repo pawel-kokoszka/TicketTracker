@@ -38,6 +38,13 @@ namespace TicketTracker.Infrastructure.DataBaseContext.EntityConfigurations
                 .WithOne(ut => ut.ApplicationUser)
                 .HasForeignKey(ut => ut.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasMany(th => th.TicketHistory)
+                .WithOne(u => u.User)
+                .HasForeignKey(th => th.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }
