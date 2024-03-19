@@ -28,6 +28,7 @@ using TicketTracker.Domain.Entities;
 using System.Linq;
 using TicketTracker.Application.Tickets.Queries.GetUserRolesRelatedToTicketId;
 using TicketTracker.Application.Tickets;
+using TicketTracker.Application.Tickets.Commands.LockTicket;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -121,15 +122,22 @@ namespace TicketTracker.MVC.Controllers
             TicketDetailsDto? ticketDetailsDto = null;
             
 
-            if (foundUserRoles.Edit == false)//1
+            if (foundUserRoles.Edit == false)
             {
                 return RedirectToAction(nameof(AccessDenied));
             }
             else
-            {                   
+            {
+                //command to lock the tt 
+
+                LockTicketCommand lockCommand = new LockTicketCommand(ticketId); 
+
+                await _mediator.Send(lockCommand);
+
+
                 ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
                 
-                ticketDetailsDto.IsEditable = true;//2
+                ticketDetailsDto.IsEditable = true;
                 
                                 
                 if (foundUserRoles.Edit == true)
@@ -171,6 +179,7 @@ namespace TicketTracker.MVC.Controllers
                 }
                
             }
+
 
             EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
                         
