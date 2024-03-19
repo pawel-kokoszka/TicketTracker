@@ -18,7 +18,7 @@
         public string? EditedByUserId { get; set; }
         public ApplicationUser? EditorUser { get; set; }
         
-        
+        public Guid? EditLockId { get; set; }
         
         
         public int AssigningTeamId { get; set; }
