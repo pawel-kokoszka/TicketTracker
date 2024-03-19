@@ -10,8 +10,10 @@
 
         
         public string? DateCreated { get; set; } 
-        public string? DateEdited { get; set; } 
-        
+        public string? DateEdited { get; set; }
+
+        public Guid? EditLockId { get; set; }
+
         public string? CreatedByUserId { get; set; }
         public string? CreatedByUserName { get; set; }
 
