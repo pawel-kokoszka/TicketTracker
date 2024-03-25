@@ -74,6 +74,12 @@
         public bool IsUserInEditOnlyTeam {  get; set; } //user can only edit tt properties unrelated to tt status
 
 
+        public bool IsTicketLocked { get; set; }
+        public bool IsTicketLockedByHolder { get; set; }
+
+
+        public string LockedByUserName { get; set; }
+
         //public List<Comment>? Comments { get; set; }
 
     }

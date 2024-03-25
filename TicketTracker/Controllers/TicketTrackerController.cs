@@ -29,6 +29,9 @@ using System.Linq;
 using TicketTracker.Application.Tickets.Queries.GetUserRolesRelatedToTicketId;
 using TicketTracker.Application.Tickets;
 using TicketTracker.Application.Tickets.Commands.LockTicket;
+using TicketTracker.Application.Tickets.Queries.GetTicketLock;
+using Microsoft.AspNetCore.Identity;
+using TicketTracker.Application.Tickets.Queries.GetUserNameByUserId;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -61,17 +64,33 @@ namespace TicketTracker.MVC.Controllers
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         public async Task<IActionResult> AccessDenied()
         {            
-            ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource :(";
-
+            ViewBag.AccessDeniedMessage = "Sorry, you don't have permisson to access this resource";
+            
             var tickets = await _mediator.Send(new GetAllTicketsQuery());
             return View("Index",tickets);
         }
+
+        //[Authorize(Roles = "App User,Ticket Maker,Admin")]
+        //public async Task<IActionResult> ResourceIsLocked(int ticketId)
+        //{
+        //    ViewBag.LockedResourceMessage = "Sorry, this resource is locked by another user";
+
+        //    //var tickets = await _mediator.Send(new GetAllTicketsQuery());
+        //    return View("Details", new { ticketId = ticketId });
+        //    //return RedirectToAction(nameof(Details), new { ticketId = ticketId });
+        //}
+        
 
 
         [Authorize(Roles = "App User,Ticket Maker,Admin")]
         [Route("TicketTracker/Details/{ticketId}")]
         public async Task<IActionResult> Details(int ticketId) 
-        {     
+        {
+            if (ticketId == 0 )// to del or make query to check if TT id exist
+            {
+                throw new InvalidOperationException("Detalis Action recieved Ticket ID = 0");
+            }
+
 
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
 
@@ -79,6 +98,7 @@ namespace TicketTracker.MVC.Controllers
 
             TicketDetailsDto? ticketDetailsDto = null;
 
+                        var ticketLockDetails = await _mediator.Send(new GetTicketLockQuery(ticketId));
 
 
             if (foundUserRoles.Read == false && foundUserRoles.Edit == false)
@@ -95,10 +115,35 @@ namespace TicketTracker.MVC.Controllers
                 }
                 else
                 {
-                    if (foundUserRoles.Edit == true)
+                    //checking EditLock
+                    if (ticketDetailsDto.EditLockId != null)
+                    {
+                        ticketDetailsDto.IsTicketLocked = true;
+
+                    }
+
+                    if (
+                        foundUserRoles.Edit == true && //ma prawa do Edycji
+                            (ticketDetailsDto.IsTicketLocked == false || //i tt nie jest zablokowany lub
+                                                    ( ticketDetailsDto.IsTicketLocked == true && (ticketLockDetails.UserId == currentUser.UserId) )  ) //jest zablokowany przez CU
+                       )
                     {
                         ticketDetailsDto.IsEditable = true;
+
+                        var userName = await _mediator.Send(new GetUserNameByUserIdQuery(currentUser.UserId));
+                        ticketDetailsDto.LockedByUserName = userName.UserName!;
+
+                        ticketDetailsDto.IsTicketLockedByHolder = true;
                     }
+                    else
+                    {
+                        var userName = await _mediator.Send(new GetUserNameByUserIdQuery(ticketLockDetails.UserId));
+                        ticketDetailsDto.LockedByUserName = userName.UserName!;
+
+                        ticketDetailsDto.IsTicketLockedByHolder = false;
+                    }
+
+
                 }
                 
                 if (foundUserRoles.Comment == true || foundUserRoles.Edit == true)
@@ -106,7 +151,7 @@ namespace TicketTracker.MVC.Controllers
                     ticketDetailsDto.IsAbleToComment = true;
                 }
             }
-                        
+
             return View(ticketDetailsDto);
         }
 
@@ -115,11 +160,15 @@ namespace TicketTracker.MVC.Controllers
         [Route("TicketTracker/Edit/{ticketId}")]
         public async Task<IActionResult> Edit(int ticketId)
         {
+            if (ticketId == 0)// to del or make query to check if TT id exist
+            {
+                throw new InvalidOperationException("Detalis Action recieved Ticket ID = 0");
+            }
+
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
 
             var foundUserRoles = await _mediator.Send(new GetUserRolesRelatedToTicketIdQuery(ticketId, currentUser.UserId));
 
-            TicketDetailsDto? ticketDetailsDto = null;
             
 
             if (foundUserRoles.Edit == false)
@@ -128,19 +177,42 @@ namespace TicketTracker.MVC.Controllers
             }
             else
             {
-                //command to lock the tt 
+                var ticketLockDetails = await _mediator.Send(new GetTicketLockQuery(ticketId));
 
-                LockTicketCommand lockCommand = new LockTicketCommand(ticketId); 
+                if (ticketLockDetails.IsLockNull == true)
+                {
+                    //jesli nie ma blokady to zakłądam nową blokadę 
+                    LockTicketCommand lockTicketCommand = new LockTicketCommand(ticketId); 
 
-                await _mediator.Send(lockCommand);
+                    await _mediator.Send(lockTicketCommand);
+
+                }
+                else
+                {
+                    //sprawdzam czy blokada jest na CU 
+                    if (ticketLockDetails.UserId != currentUser.UserId)
+                    {
+                        //jeśli nie to redircet na tt details view z komunikatem że tt jest zablokowany przez innego usera 
+                        return RedirectToAction("Details", new { ticketId = ticketId });
+
+                    }                   
+                     //jeśli tak to nie zakłądam nowej blokady i kontynuję edycję tt 
+                }
 
 
+                TicketDetailsDto? ticketDetailsDto = null;
                 ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
+
+                    var userName = await _mediator.Send(new GetUserNameByUserIdQuery(currentUser.UserId));
+                    ticketDetailsDto.LockedByUserName = userName.UserName!;
+                    ticketDetailsDto.IsTicketLockedByHolder = true;
+
                 
                 ticketDetailsDto.IsEditable = true;
                 
+
                                 
-                if (foundUserRoles.Edit == true)
+                if (foundUserRoles.Edit == true)//raczej IFa można wywalić, a zostawić tylko IsAbletoComment = true;
                 {
                     ticketDetailsDto.IsAbleToComment = true;
                 }
@@ -177,29 +249,31 @@ namespace TicketTracker.MVC.Controllers
 
                     }
                 }
+
+
                
-            }
 
-
-            EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
+                EditTicketCommand command = _mapper.Map<EditTicketCommand>(ticketDetailsDto);
                         
             
-            var ticketSlas = await _mediator.Send(new GetTicketSlasForTicketTypeIdQuery(command.TicketTypeConfigurationId));
+                var ticketSlas = await _mediator.Send(new GetTicketSlasForTicketTypeIdQuery(command.TicketTypeConfigurationId));
 
-            command.TicketSlaDtos = ticketSlas.ToList();
-
-
-            var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
-                                                                                                            command.TicketStatusId));
-            command.TicketStatusDtos = ticketStatuses.ToList();
+                command.TicketSlaDtos = ticketSlas.ToList();
 
 
-            var teamsAndUsersToAssign = await _mediator.Send(new GetTeamsAndUsersToAssignQuery(command.TicketTypeConfigurationId, command.AssigningTeamId));
+                var ticketStatuses = await _mediator.Send(new GetTicketStatusesForTicketTypeConfigurationQuery(command.TicketTypeConfigurationId, 
+                                                                                                                command.TicketStatusId));
+                command.TicketStatusDtos = ticketStatuses.ToList();
 
-            command.UsersToAssign = teamsAndUsersToAssign.ToList();
+
+                var teamsAndUsersToAssign = await _mediator.Send(new GetTeamsAndUsersToAssignQuery(command.TicketTypeConfigurationId, command.AssigningTeamId));
+
+                command.UsersToAssign = teamsAndUsersToAssign.ToList();
 
 
-            return View(command);
+                return View(command);
+            }
+
         }
 
         [Authorize(Roles = "App User,Admin")]

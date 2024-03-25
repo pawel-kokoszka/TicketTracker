@@ -21,6 +21,7 @@
             <input asp-for="TicketTypeConfigurationId" class="form-control" type="hidden" />
             <input asp-for="AssignedTeamId" class="form-control" id="AssignedTeamId" type="hidden" /> 
             <input asp-for="AssigningTeamId" class="form-control" id="AssigningTeamId" type="hidden" />
+            <input asp-for="LockedByUserName" class="form-control" id="LockedByUserName" type="hidden" />
            @*  <input asp-for="AssignedToUserId" class="form-control" type="hidden" /> *@
             
             <div class="row">
@@ -46,7 +47,7 @@
 
                     <div class="form-floating mb-3">
                         <input class="form-control" asp-for="EditedByUserName" readonly>
-                        <label asp-for="EditedByUserName">Edited by user:</label>                        
+                        <label asp-for="EditedByUserName">Last edited by user:</label>                        
                     </div>
 
                     <div class="form-floating mb-3">
@@ -86,8 +87,9 @@
                                 <option value="@sla.Id">@sla.Name</option>
                             }
 
+                           @*  <option value="2">Prio 2</option> *@
                         </select>
-                        @* <input class="form-control" asp-for="TicketSlaConfigurationId" readonly> *@
+                      
 
                         <label asp-for="TicketSlaConfigurationId">Priority Level: </label>
                     </div>
@@ -147,46 +149,16 @@
                                         }                                    
                                     }
                                 }
-
+                               @*  <option value="1" selected="selected">Opened</option> *@
                             </select>
                             <label asp-for="TicketStatusId">Ticket Status:</label>                                
                         }
 
 
-                       
 
 
 
 
-
-
-
-
-
-
-
-
-
-                        @* @if (Model.IsAbleToProcess == false)
-                        {
-                            <input class="form-control" asp-for="TicketStatusName" readonly>
-                            <label asp-for="TicketStatusName">Ticket Status:</label>
-
-                            <input asp-for="TicketStatusId" class="form-control" id="TicketStatusId" type="hidden" />
-                        }else
-                        {
-                            <select class="form-select" id="TicketStatusId" asp-for="TicketStatusId">
-
-                                <option  value="@Model.TicketStatusId">@Model.TicketStatusName</option>
-                                @foreach (var status in Model.TicketStatusDtos)
-                                {
-                                    <option value="@status.StatusId">@status.Name</option>
-                                }
-
-                            </select>
-                            <label asp-for="TicketStatusId">Ticket Status:</label>
-                            
-                        } *@
                         
                         
                         
@@ -236,6 +208,8 @@
                                    
                                 }
                             }
+
+                           @*  <option value="0501d923-94c5-4440-bfbc-719bc254871c" data-assignedteamid="1" data-assignedteamname="Line 1" selected="selected">Line 1 | diana.prince@L1.pl</option> *@
                         </select>
                         <label asp-for="AssignedToUserId">Assigned To User:</label>
                     </div>

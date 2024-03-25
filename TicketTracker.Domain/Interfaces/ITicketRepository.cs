@@ -11,6 +11,9 @@ namespace TicketTracker.Domain.Interfaces
     {
         Task Create(Ticket ticket);
 
+        Task CreateHistoryEntry(TicketHistory historyEntry);
+        Task<TicketHistory> GetTicketLockByTicketId(int ticketId);
+
         Task<IEnumerable<Ticket>> GetAll();
 
         Task<Ticket> GetTicketById(int ticketId);

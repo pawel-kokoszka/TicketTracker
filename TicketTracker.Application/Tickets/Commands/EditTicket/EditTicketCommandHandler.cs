@@ -38,7 +38,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             ticketEditedData.DateEdited = DateTime.UtcNow;            
             ticketEditedData.EditedByUserId = currentUser.Id;
 
-            var ticketEditedPropertiesList = UpdateEditedTicketProperties(ticketOryginalData, ticketEditedData);
+            //var ticketEditedPropertiesList = UpdateEditedTicketProperties(ticketOryginalData, ticketEditedData);
 
             _ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
 

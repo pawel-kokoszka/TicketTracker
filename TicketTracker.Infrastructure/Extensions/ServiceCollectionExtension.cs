@@ -26,6 +26,8 @@ namespace TicketTracker.Infrastructure.Extensions
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TicketTrackerDbContext>();
 
+            services.AddScoped<IUserRepsitory, UserRepsitory>();
+
             services.AddScoped<TicketTrackerSeeder>(); 
 
             services.AddScoped<ITicketRepository, TicketRepository>();
