@@ -143,6 +143,8 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.Comment, opt => opt.MapFrom(src => src.Any(role => role.Name == "Comment") ))
                 ;
 
+            CreateMap<TicketHistory, TicketEditLockDetailsDto>();
+
         }
 
 

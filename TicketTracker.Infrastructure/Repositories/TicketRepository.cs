@@ -23,6 +23,12 @@ namespace TicketTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();  
         }
 
+        public async Task CreateHistoryEntry(TicketHistory historyEntry)
+        {
+            _dbContext.Add(historyEntry);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Ticket>> GetAll()
             => await _dbContext.Tickets
                         .Include(t => t.TicketType)
@@ -59,12 +65,28 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Include(ticket => ticket.AssigningTeam)
                         .FirstAsync(t => t.Id == ticketId);
 
+        public async Task<TicketHistory> GetTicketLockByTicketId(int ticketId)
+            => await ( from t in _dbContext.Tickets 
+                         join th in _dbContext.TicketHistory on t.Id equals th.TicketId
+                             
+                       where t.Id == ticketId && t.EditLockId == th.EditLockId
 
+                       select (
+                            new TicketHistory 
+                                    {
+                                        Id = th.Id,
+                                        EditLockId = th.EditLockId,
+                                        IsApproved = th.IsApproved,
+                                        TicketId = th.TicketId,
+                                        DateEdited = th.DateEdited,
+                                        UserId = th.UserId,
+                                        //TeamId = th.TeamId,
+                                        SummaryComment = th.SummaryComment
+                                    })
 
-        //=> await _dbContext.Tickets.FirstAsync(t => t.Id == ticketId);
-
-
-        // => await _dbContext.Tickets.Include(t => t.Comments).FirstAsync(t => t.Id == ticketId);
+                         )
+                        .FirstOrDefaultAsync();
+        
 
         public async Task SaveToDb()
             => await _dbContext.SaveChangesAsync();
