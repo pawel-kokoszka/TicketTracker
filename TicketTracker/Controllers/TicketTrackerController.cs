@@ -119,7 +119,7 @@ namespace TicketTracker.MVC.Controllers
                     if (ticketDetailsDto.EditLockId != null)
                     {
                         ticketDetailsDto.IsTicketLocked = true;
-
+                        //trzeba dodać zabezpieczenia na wypadek fałszywego LockId bo wtedy dochodzi do przekazania null w ticketLockDetails.UserId
                     }
 
                     if (
@@ -130,17 +130,31 @@ namespace TicketTracker.MVC.Controllers
                     {
                         ticketDetailsDto.IsEditable = true;
 
-                        var userName = await _mediator.Send(new GetUserNameByUserIdQuery(currentUser.UserId));
-                        ticketDetailsDto.LockedByUserName = userName.UserName!;
+                        if (ticketDetailsDto.IsTicketLocked == true)
+                        {
+                            var userName = await _mediator.Send(new GetUserNameByUserIdQuery(currentUser.UserId));
+                            ticketDetailsDto.LockedByUserName = userName.Name!;
 
-                        ticketDetailsDto.IsTicketLockedByHolder = true;
+                            ticketDetailsDto.IsTicketLockedByHolder = true;
+                        }
+
                     }
                     else
                     {
-                        var userName = await _mediator.Send(new GetUserNameByUserIdQuery(ticketLockDetails.UserId));
-                        ticketDetailsDto.LockedByUserName = userName.UserName!;
 
-                        ticketDetailsDto.IsTicketLockedByHolder = false;
+                        if (ticketDetailsDto.IsTicketLocked == true)
+                        {
+                                if (ticketLockDetails.UserId == null)
+                                {
+                                    throw new InvalidOperationException("ticketLockDetails.UserId jest nullem ");// do wywalenia po całkowitej impl. historii
+                                }
+                            
+                            var lockingUser = await _mediator.Send(new GetUserNameByUserIdQuery(ticketLockDetails.UserId));
+                            ticketDetailsDto.LockedByUserName = lockingUser.Name!;
+
+                            ticketDetailsDto.IsTicketLockedByHolder = false;
+                        }
+
                     }
 
 
@@ -204,7 +218,7 @@ namespace TicketTracker.MVC.Controllers
                 ticketDetailsDto = await _mediator.Send(new GetTicketByIdQuery(ticketId));
 
                     var userName = await _mediator.Send(new GetUserNameByUserIdQuery(currentUser.UserId));
-                    ticketDetailsDto.LockedByUserName = userName.UserName!;
+                    ticketDetailsDto.LockedByUserName = userName.Name!;
                     ticketDetailsDto.IsTicketLockedByHolder = true;
 
                 

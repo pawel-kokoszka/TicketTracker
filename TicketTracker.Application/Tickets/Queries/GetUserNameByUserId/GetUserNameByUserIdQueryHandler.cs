@@ -26,8 +26,8 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserNameByUserId
 
             var userName = new UserNameDto();
 
-            userName.UserId = searchedUser.Id;
-            userName.UserName = searchedUser.UserName;
+            userName.Id = searchedUser.Id;
+            userName.Name = searchedUser.UserName;
 
             return userName;
         }
