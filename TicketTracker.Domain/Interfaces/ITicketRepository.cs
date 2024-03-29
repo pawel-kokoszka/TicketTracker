@@ -12,7 +12,10 @@ namespace TicketTracker.Domain.Interfaces
         Task Create(Ticket ticket);
 
         Task CreateHistoryEntry(TicketHistory historyEntry);
+        Task CreateHistoryDetails(List<TicketHistoryDetail> historyDetails);
+
         Task<TicketHistory> GetTicketLockByTicketId(int ticketId);
+        Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId);
 
         Task<IEnumerable<Ticket>> GetAll();
 

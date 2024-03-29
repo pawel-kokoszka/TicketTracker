@@ -176,7 +176,7 @@ namespace TicketTracker.MVC.Controllers
         {
             if (ticketId == 0)// to del or make query to check if TT id exist
             {
-                throw new InvalidOperationException("Detalis Action recieved Ticket ID = 0");
+                throw new InvalidOperationException("Edit Action recieved Ticket ID = 0");
             }
 
             var currentUser = await _mediator.Send(new GetCurrentUserIdQuery());
@@ -293,22 +293,39 @@ namespace TicketTracker.MVC.Controllers
         [Authorize(Roles = "App User,Admin")]
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
-        public async Task<IActionResult> Edit( EditTicketCommand command)
+        public async Task<IActionResult> EditSummary( EditTicketCommand command)
         {
-            //todo - dodaj sprawdzanie ról 
-
-
-
             if (!ModelState.IsValid)
             {
                 return View(command);
             }
-                       
+            
+            
+
             await _mediator.Send(command);
             
            return RedirectToAction("Details",new { ticketId = command.Id });          
         }
 
+
+        //[Authorize(Roles = "App User,Admin")]
+        //[HttpPost]
+        //[Route("TicketTracker/Edit/{ticketId}")]
+        //public async Task<IActionResult> Edit(EditTicketCommand command)
+        //{
+        //    //todo - dodaj sprawdzanie ról 
+
+
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(command);
+        //    }
+
+        //    await _mediator.Send(command);
+
+        //    return RedirectToAction("Details", new { ticketId = command.Id });
+        //}
 
         [Authorize(Roles = "App User,Admin")]
         //[Route("TicketTracker/CreateTicket")]
