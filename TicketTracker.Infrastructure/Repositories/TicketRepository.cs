@@ -23,6 +23,12 @@ namespace TicketTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();  
         }
 
+        public async Task CreateHistoryDetails(List<TicketHistoryDetail> historyDetails)
+        {
+             _dbContext.AddRange(historyDetails);
+            //await _dbContext.SaveChangesAsync();
+        }
+
         public async Task CreateHistoryEntry(TicketHistory historyEntry)
         {
             _dbContext.Add(historyEntry);
@@ -86,7 +92,33 @@ namespace TicketTracker.Infrastructure.Repositories
 
                          )
                         .FirstOrDefaultAsync();
-        
+
+
+        //nie używane do refactoru 
+        public async Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId)
+            => await (from t in _dbContext.Tickets
+                      join th in _dbContext.TicketHistory on t.Id equals th.TicketId
+                      join thd in _dbContext.TicketHistoryDetails on th.Id equals thd.TicketHistoryId
+
+                      where t.Id == ticketId && t.EditLockId == th.EditLockId
+
+                      select (
+                           new TicketHistory
+                           {
+                               Id = th.Id,
+                               EditLockId = th.EditLockId,
+                               IsApproved = th.IsApproved,
+                               TicketId = th.TicketId,
+                               DateEdited = th.DateEdited,
+                               UserId = th.UserId,
+                               //TeamId = th.TeamId,
+                               SummaryComment = th.SummaryComment
+                               
+                           })
+
+                         )
+                        .FirstOrDefaultAsync();
+
 
         public async Task SaveToDb()
             => await _dbContext.SaveChangesAsync();
