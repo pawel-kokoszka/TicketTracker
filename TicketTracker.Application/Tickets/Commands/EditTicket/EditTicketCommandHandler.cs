@@ -54,8 +54,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             var ticketEditedPropertiesList = GetEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
 
 
-            //ad3
-            //historyEntry.HistoryDetails = ticketEditedPropertiesList;
+            //ad3            
             await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
 
 

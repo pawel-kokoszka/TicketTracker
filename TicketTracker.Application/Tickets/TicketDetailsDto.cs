@@ -78,7 +78,7 @@
         public bool IsTicketLockedByHolder { get; set; }
 
 
-        public string LockedByUserName { get; set; }
+        public string? LockedByUserName { get; set; }
 
         //public List<Comment>? Comments { get; set; }
 

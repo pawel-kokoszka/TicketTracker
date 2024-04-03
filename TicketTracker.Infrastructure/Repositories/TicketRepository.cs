@@ -85,8 +85,7 @@ namespace TicketTracker.Infrastructure.Repositories
                                         IsApproved = th.IsApproved,
                                         TicketId = th.TicketId,
                                         DateEdited = th.DateEdited,
-                                        UserId = th.UserId,
-                                        //TeamId = th.TeamId,
+                                        UserId = th.UserId,                                        
                                         SummaryComment = th.SummaryComment
                                     })
 
@@ -96,28 +95,45 @@ namespace TicketTracker.Infrastructure.Repositories
 
         //nie używane do refactoru 
         public async Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId)
-            => await (from t in _dbContext.Tickets
-                      join th in _dbContext.TicketHistory on t.Id equals th.TicketId
-                      join thd in _dbContext.TicketHistoryDetails on th.Id equals thd.TicketHistoryId
-
-                      where t.Id == ticketId && t.EditLockId == th.EditLockId
-
-                      select (
-                           new TicketHistory
-                           {
-                               Id = th.Id,
-                               EditLockId = th.EditLockId,
-                               IsApproved = th.IsApproved,
-                               TicketId = th.TicketId,
-                               DateEdited = th.DateEdited,
-                               UserId = th.UserId,
-                               //TeamId = th.TeamId,
-                               SummaryComment = th.SummaryComment
-                               
-                           })
-
-                         )
+            => await _dbContext.TicketHistory
+                        .Include(th => th.Ticket)
+                        .Where(th => th.TicketId == ticketId) 
+                        .Where(th => th.TicketId == th.Ticket.Id && th.EditLockId == th.Ticket.EditLockId)
+                        .Select(th => new TicketHistory {
+                                        Id =  th.Id,
+                                        EditLockId = th.EditLockId,
+                                        IsApproved = th.IsApproved,
+                                        TicketId = th.TicketId,
+                                        DateEdited = th.DateEdited,
+                                        UserId = th.UserId,
+                                        SummaryComment = th.SummaryComment,
+                                        HistoryDetails = th.HistoryDetails.ToList()
+                                    })
                         .FirstOrDefaultAsync();
+
+
+        public async Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId2(int ticketId)
+    => await (from t in _dbContext.Tickets
+              join th in _dbContext.TicketHistory on t.Id equals th.TicketId
+
+              where t.Id == ticketId && t.EditLockId == th.EditLockId
+
+              select (
+                   new TicketHistory
+                   {
+                       Id = th.Id,
+                       EditLockId = th.EditLockId,
+                       IsApproved = th.IsApproved,
+                       TicketId = th.TicketId,
+                       DateEdited = th.DateEdited,
+                       UserId = th.UserId,
+                       //TeamId = th.TeamId,
+                       SummaryComment = th.SummaryComment
+                   })
+
+                 )
+                .FirstOrDefaultAsync();
+
 
 
         public async Task SaveToDb()
