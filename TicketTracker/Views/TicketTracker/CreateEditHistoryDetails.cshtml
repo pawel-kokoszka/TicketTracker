@@ -1,0 +1,238 @@
+﻿@model TicketTracker.Application.Tickets.Commands.EditTicketSummary.EditTicketSummaryCommand
+
+@{
+    ViewData["Title"] = "Summary";
+}
+
+<h1>CreateEditHistoryDetails</h1>
+
+<h4>EditTicketSummaryCommand</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateEditHistoryDetails">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeId" class="control-label"></label>
+                <input asp-for="TypeId" class="form-control" />
+                <span asp-validation-for="TypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketTypeName" class="control-label"></label>
+                <input asp-for="TicketTypeName" class="form-control" />
+                <span asp-validation-for="TicketTypeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketTypeConfigurationId" class="control-label"></label>
+                <input asp-for="TicketTypeConfigurationId" class="form-control" />
+                <span asp-validation-for="TicketTypeConfigurationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <input asp-for="DateCreated" class="form-control" />
+                <span asp-validation-for="DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateEdited" class="control-label"></label>
+                <input asp-for="DateEdited" class="form-control" />
+                <span asp-validation-for="DateEdited" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditLockId" class="control-label"></label>
+                <input asp-for="EditLockId" class="form-control" />
+                <span asp-validation-for="EditLockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedByUserId" class="control-label"></label>
+                <input asp-for="CreatedByUserId" class="form-control" />
+                <span asp-validation-for="CreatedByUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedByUserName" class="control-label"></label>
+                <input asp-for="CreatedByUserName" class="form-control" />
+                <span asp-validation-for="CreatedByUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditedByUserId" class="control-label"></label>
+                <input asp-for="EditedByUserId" class="form-control" />
+                <span asp-validation-for="EditedByUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditedByUserName" class="control-label"></label>
+                <input asp-for="EditedByUserName" class="form-control" />
+                <span asp-validation-for="EditedByUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssigningTeamId" class="control-label"></label>
+                <input asp-for="AssigningTeamId" class="form-control" />
+                <span asp-validation-for="AssigningTeamId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssigningTeamName" class="control-label"></label>
+                <input asp-for="AssigningTeamName" class="form-control" />
+                <span asp-validation-for="AssigningTeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedToUserId" class="control-label"></label>
+                <input asp-for="AssignedToUserId" class="form-control" />
+                <span asp-validation-for="AssignedToUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedToUserName" class="control-label"></label>
+                <input asp-for="AssignedToUserName" class="form-control" />
+                <span asp-validation-for="AssignedToUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedTeamId" class="control-label"></label>
+                <input asp-for="AssignedTeamId" class="form-control" />
+                <span asp-validation-for="AssignedTeamId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedTeamName" class="control-label"></label>
+                <input asp-for="AssignedTeamName" class="form-control" />
+                <span asp-validation-for="AssignedTeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectConfigurationId" class="control-label"></label>
+                <input asp-for="ProjectConfigurationId" class="form-control" />
+                <span asp-validation-for="ProjectConfigurationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSlaConfigurationId" class="control-label"></label>
+                <input asp-for="TicketSlaConfigurationId" class="form-control" />
+                <span asp-validation-for="TicketSlaConfigurationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSlaConfigurationName" class="control-label"></label>
+                <input asp-for="TicketSlaConfigurationName" class="form-control" />
+                <span asp-validation-for="TicketSlaConfigurationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSlaTimeLeft" class="control-label"></label>
+                <input asp-for="TicketSlaTimeLeft" class="form-control" />
+                <span asp-validation-for="TicketSlaTimeLeft" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSlaResolutionDate" class="control-label"></label>
+                <input asp-for="TicketSlaResolutionDate" class="form-control" />
+                <span asp-validation-for="TicketSlaResolutionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsOverdue" /> @Html.DisplayNameFor(model => model.IsOverdue)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketStatusId" class="control-label"></label>
+                <input asp-for="TicketStatusId" class="form-control" />
+                <span asp-validation-for="TicketStatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketStatusName" class="control-label"></label>
+                <input asp-for="TicketStatusName" class="form-control" />
+                <span asp-validation-for="TicketStatusName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketServiceId" class="control-label"></label>
+                <input asp-for="TicketServiceId" class="form-control" />
+                <span asp-validation-for="TicketServiceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketServiceName" class="control-label"></label>
+                <input asp-for="TicketServiceName" class="form-control" />
+                <span asp-validation-for="TicketServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSubServiceId" class="control-label"></label>
+                <input asp-for="TicketSubServiceId" class="form-control" />
+                <span asp-validation-for="TicketSubServiceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketSubServiceName" class="control-label"></label>
+                <input asp-for="TicketSubServiceName" class="form-control" />
+                <span asp-validation-for="TicketSubServiceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnvironmentType" class="control-label"></label>
+                <input asp-for="EnvironmentType" class="form-control" />
+                <span asp-validation-for="EnvironmentType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnvironmentName" class="control-label"></label>
+                <input asp-for="EnvironmentName" class="form-control" />
+                <span asp-validation-for="EnvironmentName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsEditable" /> @Html.DisplayNameFor(model => model.IsEditable)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAbleToComment" /> @Html.DisplayNameFor(model => model.IsAbleToComment)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsUserInCreatorTeam" /> @Html.DisplayNameFor(model => model.IsUserInCreatorTeam)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsUserInAssignedTeam" /> @Html.DisplayNameFor(model => model.IsUserInAssignedTeam)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsUserInEditOnlyTeam" /> @Html.DisplayNameFor(model => model.IsUserInEditOnlyTeam)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsTicketLocked" /> @Html.DisplayNameFor(model => model.IsTicketLocked)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsTicketLockedByHolder" /> @Html.DisplayNameFor(model => model.IsTicketLockedByHolder)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="LockedByUserName" class="control-label"></label>
+                <input asp-for="LockedByUserName" class="form-control" />
+                <span asp-validation-for="LockedByUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
