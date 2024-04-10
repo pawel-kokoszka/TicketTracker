@@ -85,8 +85,29 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
                     object valueOld = property.GetValue(oryginalTicket)!;
                     object valueNew = property.GetValue(editedTicket)!;
 
-                    if (valueNew is null) { continue; }
 
+                    //edge cases skip rules:
+                    if (property.Name == "DateCreated" || property.Name == "DateEdited")
+                    {
+                        continue;
+                    }
+
+                    if (valueNew is null) { continue; }//because checked value did not changed
+
+                    if (property.Name == "AssignedUserId" && (valueOld is null && valueNew is not null) )
+                    {
+                        editedTicketProperties.Add(new TicketHistoryDetail
+                        {
+                            TicketPropertyName = property.Name,
+                            PropertyOldValue = null,
+                            PropertyNewValue = property.GetValue(editedTicket)!.ToString(),
+                            TicketHistoryId = historyEntryId
+                        });
+                        continue;
+                    }
+
+
+                    //standard cases 
                     if (!valueOld.Equals(valueNew))
                     {
                         editedTicketProperties.Add( new TicketHistoryDetail 
