@@ -1,0 +1,273 @@
+﻿@model TicketTracker.Application.Tickets.Commands.EditTicketSummary.EditTicketSummaryCommand
+
+@{
+    ViewData["Title"] = "Summary";
+}
+
+<h1>CreateEditHistoryDetails</h1>
+
+<h4>EditTicketSummaryCommand</h4>
+<hr />
+<form asp-action="SaveEditHistoryDetails">
+    <div class="row mb-3">
+        <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TicketTypeName" class="control-label"></label>
+                    <input asp-for="TicketTypeName" class="form-control" />
+                    <span asp-validation-for="TicketTypeName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="DateCreated" class="control-label"></label>
+                    <input asp-for="DateCreated" class="form-control" />
+                    <span asp-validation-for="DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateEdited" class="control-label"></label>
+                    <input asp-for="DateEdited" class="form-control" />
+                    <span asp-validation-for="DateEdited" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="CreatedByUserName" class="control-label"></label>
+                    <input asp-for="CreatedByUserName" class="form-control" />
+                    <span asp-validation-for="CreatedByUserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="EditedByUserName" class="control-label"></label>
+                    <input asp-for="EditedByUserName" class="form-control" />
+                    <span asp-validation-for="EditedByUserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="AssigningTeamName" class="control-label"></label>
+                    <input asp-for="AssigningTeamName" class="form-control" />
+                    <span asp-validation-for="AssigningTeamName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="AssignedToUserName" class="control-label"></label>
+                    <input asp-for="AssignedToUserName" class="form-control" />
+                    <span asp-validation-for="AssignedToUserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AssignedTeamId" class="control-label"></label>
+                    <input asp-for="AssignedTeamId" class="form-control" />
+                    <span asp-validation-for="AssignedTeamId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AssignedTeamName" class="control-label"></label>
+                    <input asp-for="AssignedTeamName" class="form-control" />
+                    <span asp-validation-for="AssignedTeamName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectName" class="control-label"></label>
+                    <input asp-for="ProjectName" class="form-control" />
+                    <span asp-validation-for="ProjectName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TicketSlaConfigurationName" class="control-label"></label>
+                    <input asp-for="TicketSlaConfigurationName" class="form-control" />
+                    <span asp-validation-for="TicketSlaConfigurationName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TicketSlaTimeLeft" class="control-label"></label>
+                    <input asp-for="TicketSlaTimeLeft" class="form-control" />
+                    <span asp-validation-for="TicketSlaTimeLeft" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TicketSlaResolutionDate" class="control-label"></label>
+                    <input asp-for="TicketSlaResolutionDate" class="form-control" />
+                    <span asp-validation-for="TicketSlaResolutionDate" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="TicketStatusName" class="control-label"></label>
+                    <input asp-for="TicketStatusName" class="form-control" />
+                    <span asp-validation-for="TicketStatusName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TicketServiceName" class="control-label"></label>
+                    <input asp-for="TicketServiceName" class="form-control" />
+                    <span asp-validation-for="TicketServiceName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="TicketSubServiceName" class="control-label"></label>
+                    <input asp-for="TicketSubServiceName" class="form-control" />
+                    <span asp-validation-for="TicketSubServiceName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EnvironmentType" class="control-label"></label>
+                    <input asp-for="EnvironmentType" class="form-control" />
+                    <span asp-validation-for="EnvironmentType" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EnvironmentName" class="control-label"></label>
+                    <input asp-for="EnvironmentName" class="form-control" />
+                    <span asp-validation-for="EnvironmentName" class="text-danger"></span>
+                </div>
+        </div>
+        <div class="col md-4">
+        
+                <h5>Edited ticket proprties by you</h5>
+
+        
+        
+       
+                @foreach (var prop in Model.TicketHistory.HistoryDetails)
+                    {
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" value="@prop.PropertyOldValue" readonly>
+                                    <label >@prop.TicketPropertyName Old Value</label>
+                                    
+
+                                </div>
+                           
+                            </div>
+                            -->
+                            <div class="col-md-3">
+                                <div class="form-floating mb-3 alert-warning">
+                                    <input class="form-control" value="@prop.PropertyNewValue" readonly>
+                                    <label>@prop.TicketPropertyName New Value</label>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+        
+        </div>
+
+        <div class="col md-4">
+            
+            @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
+            {
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input type="hidden" class="form-control" asp-for="@Model.TicketHistory.HistoryDetails[i].Id">
+                           
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input class="form-control"  asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId">
+                            <label asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId"></label>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName">
+                            <label asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName"></label>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="@Model.TicketHistory.HistoryDetails[i].PropertyOldValue">
+                            <label asp-for="@Model.TicketHistory.HistoryDetails[i].PropertyOldValue"></label>
+
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="@Model.TicketHistory.HistoryDetails[i].PropertyNewValue">
+                            <label asp-for="@Model.TicketHistory.HistoryDetails[i].PropertyNewValue"></label>
+
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" asp-for="@Model.TicketHistory.HistoryDetails[i].Comment">
+                            <label asp-for="@Model.TicketHistory.HistoryDetails[i].Comment"></label>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+@*             @foreach (var prop in Model.TicketHistory.HistoryDetails)
+            {
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="form-floating mb-3">
+                            <input   readonly>
+                            <label>@prop.TicketPropertyName Old Value</label>
+
+
+                        </div>
+
+                    </div>
+                    -->
+                    <div class="col-md-3">
+                        <div class="form-floating mb-3 alert-warning">
+                            <input class="form-control" value="@prop.PropertyNewValue" readonly>
+                            <label>@prop.TicketPropertyName New Value</label>
+
+                        </div>
+                    </div>
+                </div>
+            } *@
+
+        </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+</div>
+        </form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

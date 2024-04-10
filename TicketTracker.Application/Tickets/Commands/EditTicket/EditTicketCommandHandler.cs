@@ -55,12 +55,13 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
 
 
             //ad3            
-            await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
+           await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
 
 
-
+            //zmień mapticket.. żeby zmiany zapisywała do tabeli tymaczowej z edtytowanymi zmianami 
             _ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
 
+            //zamiast zapisywać ticketOryginalData to trzeba zapisać do tymaczsowej tabeli 
             await _ticketRepository.SaveToDb();
 
             return Unit.Value;

@@ -42,7 +42,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             // albo jakąś inno metodą 
             //_ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
 
-            //2 dodaj metodę do zapisywania/mapowania props z historydetails na ticket 
+            //2 dodaj metodę do zapisywania/mapowania props z historydetails na ticket ----------------------------------------------------
 
 
             await _ticketRepository.SaveToDb();
