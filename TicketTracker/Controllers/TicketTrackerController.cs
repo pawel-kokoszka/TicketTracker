@@ -295,7 +295,7 @@ namespace TicketTracker.MVC.Controllers
         [Authorize(Roles = "App User,Admin")]
         [HttpPost]
         [Route("TicketTracker/Edit/{ticketId}")]
-        public async Task<IActionResult> CreateEditHistoryDetails( EditTicketCommand command)
+        public async Task<IActionResult> ViewEditHistoryDetails( EditTicketCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -305,9 +305,11 @@ namespace TicketTracker.MVC.Controllers
             await _mediator.Send(command);
 
             //1 pobieram nowym query dane o tt i history details w jednym obiekcie 
+            //ad1 zamiast z history details to muszę pobrać zmiany z tymczasowej tabeli edytowanych zmian 
             var ticketWithHistory = await _mediator.Send(new GetTicketWithHistoryByIdQuery(command.Id));
 
             //2 jeśli się da to query zwraca EditTicketSummaryCommand i przekazuję tą Command do widoku
+            //ad2 zmmianić tak comm żeby obsługiwał obiek z tab tymczasowej 
             EditTicketSummaryCommand editTicketSummaryCommand = _mapper.Map<EditTicketSummaryCommand>(ticketWithHistory);
 
 
@@ -316,11 +318,42 @@ namespace TicketTracker.MVC.Controllers
             //3 na nowym widoku dodaję komentarz i zatwierdzam lub odrzucam zmiany
             //4 w nowej akcji która dostaje zatwierdzony/odrzucony tt wysyłam command do ostatecznego zapisania zmian w tt i zwolnienia blokady
 
-
+            //5 w widoku zabezpieczyć przekazywanie danych 
             return View(editTicketSummaryCommand);
             // old  //return RedirectToAction("Details",new { ticketId = command.Id });          
         }
 
+        [Authorize(Roles = "App User,Admin")]
+        [HttpPost]
+        //[Route("TicketTracker/SaveEdit")]
+        public async Task<IActionResult> SaveEditHistoryDetails(EditTicketSummaryCommand editTicketSummaryCommand)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(editTicketSummaryCommand);
+            }
+
+            await _mediator.Send(editTicketSummaryCommand);
+
+            //1 pobieram nowym query dane o tt i history details w jednym obiekcie 
+            //ad1 zamiast z history details to muszę pobrać zmiany z tymczasowej tabeli edytowanych zmian 
+            //var ticketWithHistory = await _mediator.Send(new GetTicketWithHistoryByIdQuery(command.Id));
+
+            //2 jeśli się da to query zwraca EditTicketSummaryCommand i przekazuję tą Command do widoku
+            //ad2 zmmianić tak comm żeby obsługiwał obiek z tab tymczasowej 
+            //      EditTicketSummaryCommand editTicketSummaryCommand = _mapper.Map<EditTicketSummaryCommand>(ticketWithHistory);
+
+
+
+            //zamiast  RedirectToAction("Details",new { ticketId = command.Id }); 
+            //3 na nowym widoku dodaję komentarz i zatwierdzam lub odrzucam zmiany
+            //4 w nowej akcji która dostaje zatwierdzony/odrzucony tt wysyłam command do ostatecznego zapisania zmian w tt i zwolnienia blokady
+
+            //5 w widoku zabezpieczyć przekazywanie danych 
+            
+            return RedirectToAction("Details", new { ticketId = editTicketSummaryCommand.Id });
+            // old  //return RedirectToAction("Details",new { ticketId = command.Id });          
+        }
 
         //[Authorize(Roles = "App User,Admin")]
         //[HttpPost]
