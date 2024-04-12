@@ -345,12 +345,12 @@ namespace TicketTracker.MVC.Controllers
 
 
 
-            //zamiast  RedirectToAction("Details",new { ticketId = command.Id }); 
             //3 na nowym widoku dodaję komentarz i zatwierdzam lub odrzucam zmiany
             //4 w nowej akcji która dostaje zatwierdzony/odrzucony tt wysyłam command do ostatecznego zapisania zmian w tt i zwolnienia blokady
 
             //5 w widoku zabezpieczyć przekazywanie danych 
             
+            //zamiast  RedirectToAction("Details",new { ticketId = command.Id }); 
             return RedirectToAction("Details", new { ticketId = editTicketSummaryCommand.Id });
             // old  //return RedirectToAction("Details",new { ticketId = command.Id });          
         }

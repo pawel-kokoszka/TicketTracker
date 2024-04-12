@@ -48,21 +48,15 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             //ad1
             var historyEntry = await _ticketRepository.GetTicketLockByTicketId(request.Id);
 
-
-
             //ad2
             var ticketEditedPropertiesList = GetEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
 
-
             //ad3            
-           await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
+            await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
 
+            //_ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
 
-            //zmień mapticket.. żeby zmiany zapisywała do tabeli tymaczowej z edtytowanymi zmianami 
-            _ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
-
-            //zamiast zapisywać ticketOryginalData to trzeba zapisać do tymaczsowej tabeli 
-            await _ticketRepository.SaveToDb();
+            //await _ticketRepository.SaveToDb();
 
             return Unit.Value;
         }
@@ -86,7 +80,8 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
                     object valueNew = property.GetValue(editedTicket)!;
 
 
-                    //edge cases skip rules:
+
+                    // rules to skip cases :
                     if (property.Name == "DateCreated" || property.Name == "DateEdited")
                     {
                         continue;
