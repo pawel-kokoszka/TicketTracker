@@ -26,7 +26,7 @@ namespace TicketTracker.Infrastructure.Repositories
         public async Task CreateHistoryDetails(List<TicketHistoryDetail> historyDetails)
         {
              _dbContext.AddRange(historyDetails);
-            //await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(); //nie wiem dlaczego to zakomentowałem 
         }
 
         public async Task CreateHistoryEntry(TicketHistory historyEntry)
