@@ -15,7 +15,7 @@
             @if (Model.IsTicketLocked == true)
                     
                     {
-                        <div class="col-3">
+                        <div class="col-md-6">
                             @if (Model.IsTicketLockedByHolder == true)
                             {
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating mb-3">
-                                        <input class="form-control" asp-for="EnvironmentType" readonly>
+                                            <input class="form-control" asp-for="EnvironmentType" readonly>
                                             <label asp-for="EnvironmentType">Environment Type:</label>
 
                                         </div>
