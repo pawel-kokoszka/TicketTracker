@@ -34,6 +34,7 @@ using Microsoft.AspNetCore.Identity;
 using TicketTracker.Application.Tickets.Queries.GetUserNameByUserId;
 using TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById;
 using TicketTracker.Application.Tickets.Commands.EditTicketSummary;
+using TicketTracker.Application.Tickets.Commands.UnlockTicket;
 
 namespace TicketTracker.MVC.Controllers
 {
@@ -335,20 +336,9 @@ namespace TicketTracker.MVC.Controllers
 
             await _mediator.Send(editTicketSummaryCommand);
 
-            //1 pobieram nowym query dane o tt i history details w jednym obiekcie 
-            //ad1 zamiast z history details to muszę pobrać zmiany z tymczasowej tabeli edytowanych zmian 
-            //var ticketWithHistory = await _mediator.Send(new GetTicketWithHistoryByIdQuery(command.Id));
+            //dodaj zdejmowanie blokady edycji z tt 
+            await _mediator.Send(new UnlockTicketCommand(editTicketSummaryCommand.Id));
 
-            //2 jeśli się da to query zwraca EditTicketSummaryCommand i przekazuję tą Command do widoku
-            //ad2 zmmianić tak comm żeby obsługiwał obiek z tab tymczasowej 
-            //      EditTicketSummaryCommand editTicketSummaryCommand = _mapper.Map<EditTicketSummaryCommand>(ticketWithHistory);
-
-
-
-            //3 na nowym widoku dodaję komentarz i zatwierdzam lub odrzucam zmiany
-            //4 w nowej akcji która dostaje zatwierdzony/odrzucony tt wysyłam command do ostatecznego zapisania zmian w tt i zwolnienia blokady
-
-            //5 w widoku zabezpieczyć przekazywanie danych 
             
             //zamiast  RedirectToAction("Details",new { ticketId = command.Id }); 
             return RedirectToAction("Details", new { ticketId = editTicketSummaryCommand.Id });
