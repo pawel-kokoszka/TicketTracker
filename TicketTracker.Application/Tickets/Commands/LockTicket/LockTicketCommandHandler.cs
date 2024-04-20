@@ -44,7 +44,7 @@ namespace TicketTracker.Application.Tickets.Commands.LockTicket
 
             var historyEntry = new TicketHistory();
 
-            historyEntry.HistoryDetails = new List<TicketHistoryDetail>();
+            //historyEntry.HistoryDetails = new List<TicketHistoryDetail>();
 
             historyEntry.EditLockId = lockID; 
 
@@ -53,8 +53,7 @@ namespace TicketTracker.Application.Tickets.Commands.LockTicket
             historyEntry.DateEdited = DateTime.UtcNow;
 
             historyEntry.UserId = currentUser.Id;
-            
-                //historyEntry.TeamId = 1; //to delete from dto and db 
+                          
 
             //historyEntry.HistoryDetails.Add(new TicketHistoryDetail());//trzeba dodać warunek, jesli nie zmienionych żadnych prop to niech nie tworzy Listy 
 

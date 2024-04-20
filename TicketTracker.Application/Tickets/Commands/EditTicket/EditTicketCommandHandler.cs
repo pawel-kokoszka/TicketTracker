@@ -34,24 +34,13 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             var ticketEditedData = new Ticket(); 
 
             _mapper.Map(request,ticketEditedData);
-
-            ticketEditedData.DateEdited = DateTime.UtcNow;            
-            ticketEditedData.EditedByUserId = currentUser.Id;
-
-            //1 pobieramy history entry po lockID i ttID 
-            //2 sprawdzamy które prop w tt zostały zmienione jeśli nic nie zostało zmienione nie wprowadzamy żadnych zman
-            //  i trzeba userowi jakoś przekazać że nic nie zmienił 
-            //3 zapisujemy zmienione prop jako odzielne rekordy w history detalis 
-            //4 w akcji edit summary tworzymy widok z EditsummaryCommand lub redirect to EditSummary(właściwą/oddzielną scieżką) action 
-            //5 na widoku są widoczne nie edytowalne informacje i lista zmian oraz pole z komentarzem na podsumowanie
-
-            //ad1
+                      
             var historyEntry = await _ticketRepository.GetTicketLockByTicketId(request.Id);
 
-            //ad2
+            
             var ticketEditedPropertiesList = GetEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
 
-            //ad3            
+                        
             await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
 
             //_ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
@@ -82,13 +71,16 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
 
 
                     // rules to skip cases :
-                    if (property.Name == "DateCreated" || property.Name == "DateEdited")
+                    //#1
+                    if (property.Name == "DateCreated" || property.Name == "DateEdited" || property.Name == "EditedByUserId")
                     {
                         continue;
                     }
 
+                    //#2
                     if (valueNew is null) { continue; }//because checked value did not changed
-
+                    
+                    //#3
                     if (property.Name == "AssignedUserId" && (valueOld is null && valueNew is not null) )
                     {
                         editedTicketProperties.Add(new TicketHistoryDetail

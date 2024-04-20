@@ -30,8 +30,8 @@
             }
 
             <div class="form-floating mb-3">
-                <textarea class="form-control" placeholder="Leave a comment here"  style="height: 100px" asp-for="ShortDescription"></textarea>
-                <label asp-for="ShortDescription">ShortDescription</label>
+                <input class="form-control" placeholder="Insert short description of the ticket"   asp-for="ShortDescription">
+                <label asp-for="ShortDescription">Short Description</label>
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
 
