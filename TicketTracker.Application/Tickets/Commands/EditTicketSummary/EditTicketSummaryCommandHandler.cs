@@ -33,62 +33,74 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             var ticketEditedData = request.TicketHistory;
 
 
-            //1 dorób mapowanie z TicketEditSummaryDto na ticket z historią 
-            //_mapper.Map(request, ticketEditedData);
-            // albo jakąś inno metodą 
-            //_ticketRepository.MapTicketProperties(ticketEditedData, ticketOryginalData);
+            var numberOfChangedProperties = WriteChangedProperiesToTicket(ticketOryginalData, ticketEditedData.HistoryDetails!);
+            if (numberOfChangedProperties == 0)
+            {
+                return Unit.Value;
+            }
 
-            //2 dodaj metodę do zapisywania/mapowania props z historydetails na ticket ----------------------------------------------------
-            WriteChangedProperiesToTicket(ticketOryginalData, ticketEditedData.HistoryDetails!);
+
+            var currentHistoryEntry = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.Id);
+            currentHistoryEntry.SummaryComment = request.TicketHistory.SummaryComment;
+
+            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);
 
             await _ticketRepository.SaveToDb();
 
             return Unit.Value;
         }
 
-        private void WriteChangedProperiesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetail> changedProperties)
+        private int WriteChangedProperiesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetail> changedProperties)
         {
-            if (ticketOryginalData is null || (changedProperties is null || changedProperties.Count == 0))
+            int numberOfChanges = 0;
+
+            if (ticketOryginalData is null)
             {
                 throw new InvalidOperationException("Writing Edited Data to Ticket - Failed");
             }
             else
             {
-                List<PropertyInfo> ticketProperties = new List<PropertyInfo>(ticketOryginalData.GetType().GetProperties());
-
-                foreach (TicketHistoryDetail changedProperty in changedProperties) 
+                if (changedProperties is null || changedProperties.Count == 0)
                 {
-                    var propertyToChange = ticketProperties.Find(prop => prop.Name == changedProperty.TicketPropertyName);
+                    return 0;
+                }
+                else
+                {
+                    List<PropertyInfo> ticketProperties = new List<PropertyInfo>(ticketOryginalData.GetType().GetProperties());
 
+                    foreach (TicketHistoryDetail changedProperty in changedProperties) 
+                    {
+                        numberOfChanges++;
 
-                    var propertyToChangeType = propertyToChange!.PropertyType;
+                        var propertyToChange = ticketProperties.Find(prop => prop.Name == changedProperty.TicketPropertyName);
 
+                        var propertyToChangeType = propertyToChange!.PropertyType;
 
-                    //do przetestowania 
+                        if (propertyToChangeType !=  changedProperty.PropertyNewValue!.GetType()) //czyli nie równa się string bo PropertyNewValue to string
+                        {                        
 
-                    if (propertyToChangeType !=  changedProperty.PropertyNewValue!.GetType()) //czyli nie równa się string bo PropertyNewValue to string
-                    {                        
-
-                        int liczba;
+                            int liczba;
  
-                        if (int.TryParse(changedProperty.PropertyNewValue, out liczba))
-                        {
-                            propertyToChange.SetValue(ticketOryginalData, liczba, null);
-                        }
-                        else
-                        {
-                            throw new InvalidOperationException("TryParse nie dało rady");
+                            if (int.TryParse(changedProperty.PropertyNewValue, out liczba))
+                            {
+                                propertyToChange.SetValue(ticketOryginalData, liczba, null);
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException("TryParse nie dało rady");
+                            }
+
+                            continue;
                         }
 
-                        continue;
+                        propertyToChange.SetValue(ticketOryginalData, changedProperty.PropertyNewValue, null);
                     }
-
-                    propertyToChange.SetValue(ticketOryginalData, changedProperty.PropertyNewValue, null);
-
                 }
 
 
             }
+
+            return numberOfChanges;
         }
     }
 }

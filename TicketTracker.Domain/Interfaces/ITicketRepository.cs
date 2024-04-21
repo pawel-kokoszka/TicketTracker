@@ -26,6 +26,7 @@ namespace TicketTracker.Domain.Interfaces
         /// </summary>
         /// <returns></returns>
         Task SaveToDb();
+        Task UpdateHistoryEntry(TicketHistory historyEntry);
 
         void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData);
     }

@@ -336,7 +336,7 @@ namespace TicketTracker.MVC.Controllers
 
             await _mediator.Send(editTicketSummaryCommand);
 
-            //dodaj zdejmowanie blokady edycji z tt 
+            
             await _mediator.Send(new UnlockTicketCommand(editTicketSummaryCommand.Id));
 
             

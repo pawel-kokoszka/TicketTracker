@@ -286,11 +286,15 @@
 
                     </div>
                 <br/>
+                }
+                <div class="col-md-12">
+                    <div class ="form-floating mb-3">
+                        <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.SummaryComment"></textarea>
+                        <label asp-for="TicketHistory.SummaryComment">Summary comment:</label>
+                    </div>
+                </div>
 
-            }
-
-
-            <div class="form-group">
+                <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>
             </div>
