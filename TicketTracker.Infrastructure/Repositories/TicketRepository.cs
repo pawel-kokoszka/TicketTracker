@@ -23,6 +23,12 @@ namespace TicketTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();  
         }
 
+        public async Task UpdateHistoryEntry(TicketHistory historyEntry)
+        {
+            _dbContext.Update(historyEntry);
+            await _dbContext.SaveChangesAsync(); //nie wiem dlaczego to zakomentowałem 
+        }
+
         public async Task CreateHistoryDetails(List<TicketHistoryDetail> historyDetails)
         {
              _dbContext.AddRange(historyDetails);
