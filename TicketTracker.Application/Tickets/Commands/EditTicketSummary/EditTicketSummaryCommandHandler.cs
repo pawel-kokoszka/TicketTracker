@@ -42,8 +42,9 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
 
             var currentHistoryEntry = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.Id);
             currentHistoryEntry.SummaryComment = request.TicketHistory.SummaryComment;
+            currentHistoryEntry.IsApproved = true;
 
-            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);
+            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry); 
 
             await _ticketRepository.SaveToDb();
 
