@@ -51,7 +51,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             return Unit.Value;
         }
 
-        private int WriteChangedProperiesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetail> changedProperties)
+        private int WriteChangedProperiesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetailDto> changedProperties)
         {
             int numberOfChanges = 0;
 
@@ -69,7 +69,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                 {
                     List<PropertyInfo> ticketProperties = new List<PropertyInfo>(ticketOryginalData.GetType().GetProperties());
 
-                    foreach (TicketHistoryDetail changedProperty in changedProperties) 
+                    foreach (TicketHistoryDetailDto changedProperty in changedProperties) 
                     {
                         numberOfChanges++;
 
@@ -88,7 +88,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                             }
                             else
                             {
-                                throw new InvalidOperationException("TryParse nie dało rady");
+                                throw new InvalidOperationException("TryParse from string to int failure");
                             }
 
                             continue;

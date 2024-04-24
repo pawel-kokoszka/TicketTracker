@@ -50,6 +50,8 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             return Unit.Value;
         }
 
+
+
         private List<TicketHistoryDetail> GetEditedHistoryDetails(Ticket oryginalTicket, Ticket editedTicket, int historyEntryId)
         {
             if (oryginalTicket is null || editedTicket is null )

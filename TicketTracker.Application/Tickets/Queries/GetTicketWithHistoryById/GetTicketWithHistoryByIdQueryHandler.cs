@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
@@ -34,7 +35,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
             var ticketDetailsDto = _mapper.Map<TicketEditSummaryDto>(ticket);
 
             var ticketSla = await _projectConfigurationRepository.GetTicketSlaBySlaId(ticketDetailsDto.TicketSlaConfigurationId);
-
+                        
             var slaTime = new TimeSpan(ticketSla.NumberOfDays, 0, ticketSla.NumberOfMinutes, 0);
 
 
@@ -56,10 +57,33 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
                 ticketDetailsDto.IsOverdue = true;
             }
 
-            var ticketHistoryWithDetails = _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.TicketId);
+            var ticketHistoryWithDetails = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.TicketId);
 
-            ticketDetailsDto.TicketHistory = ticketHistoryWithDetails.Result;
+            //ticketHistoryWithDetails.Result;
+            ticketDetailsDto.TicketHistory = _mapper.Map<TicketHistoryDto>(ticketHistoryWithDetails);
 
+            var historyPropertyDetails = ticketDetailsDto.TicketHistory.HistoryDetails;
+
+            foreach (var property in historyPropertyDetails!)
+            {
+
+
+                switch (property.TicketPropertyName)
+                {
+                    case "TicketSlaConfigurationId":
+                        //repository get slaOld albo oba pola na raz
+                        var slaPair = await _projectConfigurationRepository.GetTicketSlaBySlaIdPair(new List<int>() { int.Parse(property.PropertyOldValue!), int.Parse(property.PropertyNewValue!) });
+                        //przypisz nazwę do pola slaOld 
+                        property.PropertyOldDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyOldValue!))!.Name;
+                        //przypisz nazwę do pola slaNew 
+                        property.PropertyNewDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyNewValue!))!.Name;
+
+                        break;
+
+
+                }
+
+            }
 
             //trzeba dorobić mapowanie ticketHistoryWithDetails( TicketHistory ) na TicketEditSummaryDto 
             //var ticketEditSummaryDto = _mapper.Map<TicketEditSummaryDto>(ticketHistoryWithDetails);
