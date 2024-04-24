@@ -244,9 +244,9 @@
             
                 @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
                 {
-                                <input type="hidden"  asp-for="@Model.TicketHistory.HistoryDetails[i].Id">
-                                <input type="hidden"   asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId">
-                                <input type="hidden"  asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName">
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].Id" readonly>
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId" readonly>
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName" readonly>
               
                     
               
@@ -255,13 +255,23 @@
 
                     <div class="card  mb-3">
 
-                        <h5 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyName</h5>
+                        <h5 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyName | @Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</h5>
                         <div class="row g-0">
                             <div class="col-md-6">
                                 <div class="card-body">
                                     <h5 class="card-title">Before changes</h5>
                                     <p class="card-text">
-                                        <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly></textarea>
+                                        <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly>
+
+                                        @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
+                                        {
+                                            <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly></textarea>                                            
+                                        }
+                                        else
+                                        {
+                                            <input class="form-control" asp-for="TicketHistory.HistoryDetails[i].PropertyOldDisplayValue" readonly>
+                                        }                                    
+                                    
                                     </p>
                                 </div>
                             </div>
@@ -270,8 +280,17 @@
                                 <div class="card-body">
                                     <h5 class="card-title">After changes</h5>
                                     <p class="card-text">
-                                    <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly></textarea>
+                                       <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly>
                                     
+                                        @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
+                                        {
+                                            <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly></textarea>                                            
+                                        }
+                                        else
+                                        {
+                                            <input class="form-control" asp-for="TicketHistory.HistoryDetails[i].PropertyNewDisplayValue" readonly>
+                                        }
+
                                     </p>                                    
                                 </div>
                             </div>

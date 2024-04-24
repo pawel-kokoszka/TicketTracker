@@ -307,7 +307,7 @@ namespace TicketTracker.MVC.Controllers
 
             var ticketWithHistory = await _mediator.Send(new GetTicketWithHistoryByIdQuery(command.Id));
 
-            if (ticketWithHistory.TicketHistory.HistoryDetails.Count == 0)
+            if (ticketWithHistory.TicketHistory.HistoryDetails!.Count == 0)
             {                
                 await _mediator.Send(new UnlockTicketCommand(ticketWithHistory.Id));
              

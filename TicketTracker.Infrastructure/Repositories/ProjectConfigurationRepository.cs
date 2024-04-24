@@ -115,11 +115,16 @@ namespace TicketTracker.Infrastructure.Repositories
                         .ToListAsync();
 
 
-        //dodaj task na wyciąganie SLA po konkretnym ID 
+     
         public async Task<TicketSlaConfiguration> GetTicketSlaBySlaId(int slaId)
             => await _dbContext.TicketSlaConfigurations
                         .Where(tsc => tsc.Id == slaId)
                         .FirstAsync();
+
+        public async Task<List<TicketSlaConfiguration>> GetTicketSlaBySlaIdPair(List<int> slaIds)
+            => await _dbContext.TicketSlaConfigurations                        
+                        .Where(tsc => slaIds.Contains(tsc.Id))
+                        .ToListAsync();
 
         public async Task<IEnumerable<TicketStatus>> GetTicketStatusesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
             => await _dbContext.TicketFlowConfigurations

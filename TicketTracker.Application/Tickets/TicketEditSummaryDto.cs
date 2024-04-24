@@ -9,7 +9,7 @@ namespace TicketTracker.Application.Tickets
 {
     public class TicketEditSummaryDto : TicketDetailsDto
     {
-        public TicketHistory TicketHistory { get; set; } = new TicketHistory();
+        public TicketHistoryDto? TicketHistory { get; set; } 
                 
     }
 }

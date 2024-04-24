@@ -175,6 +175,16 @@ namespace TicketTracker.Application.Mappings
 
             CreateMap<TicketHistory, TicketEditLockDetailsDto>();
 
+            CreateMap<TicketHistory, TicketHistoryDto>()
+                .ForMember(dto => dto.Ticket, opt => opt.MapFrom(src => src.Ticket));
+
+            CreateMap<TicketHistoryDto, TicketHistory>()
+                .ForMember(dto => dto.Ticket, opt => opt.MapFrom(src => src.Ticket));
+            //CreateMap<>
+
+            CreateMap<TicketHistoryDetail, TicketHistoryDetailDto>();
+
+
             //CreateMap<TicketHistory, TicketEditSummaryDto>()
             //     .ForMember(dto => dto.TicketHistory.Id, opt => opt.MapFrom(src => src.Id))
             //     .ForMember(dto => dto.TicketHistory.EditLockId, opt => opt.MapFrom(src => src.EditLockId))
