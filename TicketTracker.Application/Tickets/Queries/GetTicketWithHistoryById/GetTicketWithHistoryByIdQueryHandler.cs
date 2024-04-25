@@ -71,15 +71,37 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
                 switch (property.TicketPropertyName)
                 {
                     case "TicketSlaConfigurationId":
-                        //repository get slaOld albo oba pola na raz
-                        var slaPair = await _projectConfigurationRepository.GetTicketSlaBySlaIdPair(new List<int>() { int.Parse(property.PropertyOldValue!), int.Parse(property.PropertyNewValue!) });
-                        //przypisz nazwę do pola slaOld 
-                        property.PropertyOldDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyOldValue!))!.Name;
-                        //przypisz nazwę do pola slaNew 
-                        property.PropertyNewDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyNewValue!))!.Name;
+                        property.TicketPropertyDisplayName = "Priority Level:";
 
+                        var slaPair = await _projectConfigurationRepository.GetTicketSlaBySlaIdPair(new List<int>() { int.Parse(property.PropertyOldValue!), int.Parse(property.PropertyNewValue!) });
+                        
+                        property.PropertyOldDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyOldValue!))!.Name;
+                        property.PropertyNewDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyNewValue!))!.Name;
                         break;
 
+                    case "Description":
+                        property.TicketPropertyDisplayName = "Description";
+
+                        property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();                        
+                        property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString(); 
+                        break;
+
+                    case "ShortDescription":
+                        property.TicketPropertyDisplayName = "Short Description";
+
+                        property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();
+                        property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString();
+                        break;
+
+                    case "TicketStatusId":
+                        property.TicketPropertyDisplayName = "Ticket Status:";
+
+                        var statusPair = await _projectConfigurationRepository.GetTicketStatusesForIdList(new List<int>() { int.Parse(property.PropertyOldValue!), int.Parse(property.PropertyNewValue!) });
+
+                        property.PropertyOldDisplayValue = statusPair.Find(sla => sla.Id == int.Parse(property.PropertyOldValue!))!.Name;
+                        property.PropertyNewDisplayValue = statusPair.Find(sla => sla.Id == int.Parse(property.PropertyNewValue!))!.Name;
+                        break;
+                        
 
                 }
 

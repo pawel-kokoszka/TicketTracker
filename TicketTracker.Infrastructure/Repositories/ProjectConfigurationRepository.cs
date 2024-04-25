@@ -138,6 +138,11 @@ namespace TicketTracker.Infrastructure.Repositories
 
                         .ToListAsync();
 
+        public async Task<List<TicketStatus>> GetTicketStatusesForIdList(List<int> statusIds)
+            => await _dbContext.TicketStatuses                        
+                        .Where(ts => statusIds.Contains(ts.Id))
+                        .ToListAsync();
+
         public async Task<IEnumerable<TicketStatusDto>> GetTicketStatusesWithPrivilegesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId)
     => await _dbContext.TicketFlowConfigurations
                 .Include(tfc => tfc.TicketStatuses)
