@@ -66,8 +66,51 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
 
             AddPropertiesDisplayNames(ticketDetailsDto.TicketHistory.HistoryDetails!);
 
+            FlagChangedProperties(ticketDetailsDto.TicketHistory.HistoryDetails!, ticketDetailsDto);
+
 
             return ticketDetailsDto;
+        }
+
+        private void FlagChangedProperties(List<TicketHistoryDetailDto> historyPropertyDetails, TicketEditSummaryDto ticketDetailsDto)
+        {
+            foreach (var property in historyPropertyDetails!)
+            {
+                switch (property.TicketPropertyName)
+                {
+                    case "TicketSlaConfigurationId":
+                        ticketDetailsDto.IsTicketSlaChanged = true;
+                        break;
+
+                    case "Description":
+                        ticketDetailsDto.IsDescriptionChanged = true;   
+                        break;
+
+                    case "ShortDescription":
+                        ticketDetailsDto.IsShortDescriptionChanged = true;
+                        break;
+
+                    case "TicketStatusId":
+                        ticketDetailsDto.IsTicketStatusChanged = true;  
+                        break;
+
+                    case "TicketServiceId":
+                        ticketDetailsDto.IsTicketServiceCategoryChanged = true;
+                        break;
+
+                    case "TicketSubServiceId":
+                        ticketDetailsDto.IsTicketSubServiceChanged = true;
+                        break;
+
+                    case "AssignedTeamId":
+                        ticketDetailsDto.IsAssignedTeamChanged = true;
+                        break;
+
+                    case "AssignedUserId":
+                        ticketDetailsDto.IsAssignedUserChanged = true;
+                        break;
+                }
+            }
         }
 
         private async void AddPropertiesDisplayNames(List<TicketHistoryDetailDto> historyPropertyDetails)

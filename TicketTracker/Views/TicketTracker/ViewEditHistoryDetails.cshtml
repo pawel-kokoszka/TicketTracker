@@ -113,115 +113,145 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input asp-for="TicketStatusName" class="form-control" readonly />
-                            <label asp-for="TicketStatusName">Current status:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
-                            <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            @if (Model.IsOverdue == true)
-                            {
-                                <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
-                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
-                            }
-                            else
-                            {
-                                <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />
-                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
-                            }
-                        </div>
 
-                        <div class="form-floating mb-3">
-                            @if (Model.IsOverdue == true)
-                            {
-                                <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
-                                <label asp-for="TicketSlaTimeLeft">Time ovedue:</label>
-                            }
-                            else
-                            {
-                                <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
-                                <label asp-for="TicketSlaTimeLeft">Time left:</label>
-                            }
+                    @if (Model.IsTicketStatusChanged != true)
+                    {
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="TicketStatusName" class="form-control" readonly />
+                                <label asp-for="TicketStatusName">Current status:</label>
+                            </div>
+                        </div>                        
+                    }
 
+                    @if (Model.IsTicketSlaChanged != true)
+                    {
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
+                                <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                @if (Model.IsOverdue == true)
+                                {
+                                    <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
+                                    <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
+                                }
+                                else
+                                {
+                                    <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />
+                                    <label asp-for="TicketSlaResolutionDate">Resolution date:</label>
+                                }
+                            </div>
 
+                            <div class="form-floating mb-3">
+                                @if (Model.IsOverdue == true)
+                                {
+                                    <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
+                                    <label asp-for="TicketSlaTimeLeft">Time ovedue:</label>
+                                }
+                                else
+                                {
+                                    <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
+                                    <label asp-for="TicketSlaTimeLeft">Time left:</label>
+                                }
+
+                            </div>
+                        </div>
+                    }
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-floating mb-3">
-                            <input asp-for="TicketServiceName" class="form-control" readonly />
-                            <label asp-for="TicketServiceName">Service:</label>
-                        </div>
-                    </div>
 
+                 <div class="row">
+                 
+                 @if (Model.IsTicketServiceCategoryChanged != true)
+                 {
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input asp-for="TicketServiceName" class="form-control" readonly />
+                                <label asp-for="TicketServiceName">Service:</label>
+                            </div>
+                        </div>
+                 }
+
+                 @if (Model.IsTicketSubServiceChanged != true)
+                 {
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input asp-for="TicketSubServiceName" class="form-control" readonly />
                             <label asp-for="TicketSubServiceName">Sub-Service:</label>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-floating mb-3">
-                            <input class="form-control" asp-for="ShortDescription" readonly>
-                            <label asp-for="ShortDescription">Short Description:</label>
-                        </div>
-                    </div>
+                 }
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-floating mb-3">
-                            <textarea class="form-control" style="height: 280px" asp-for="Description" readonly></textarea>
-                            <label asp-for="Description">Description:</label>                        
-                        </div>                    
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-floating mb-3">
-                            @if (Model.AssignedTeamId == null)
-                            {
-                                <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
-                            }
-                            else
-                            {
-                                <input asp-for="AssignedTeamName" class="form-control" readonly>
-                            }
-                            <label asp-for="AssignedTeamId">Assigned to Team:</label>
+
+                @if (Model.IsShortDescriptionChanged != true)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                <input class="form-control" asp-for="ShortDescription" readonly>
+                                <label asp-for="ShortDescription">Short Description:</label>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
                 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-floating mb-3">
-                            @if (Model.AssignedToUserId == null)
-                            {
-                                <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
-                            }
-                            else
-                            {
-                                <input class="form-control" asp-for="AssignedToUserName" readonly />
-
-                            }
-                            <label asp-for="AssignedToUserName">Assigned to User:</label>
+                @if (Model.IsDescriptionChanged != true)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" style="height: 280px" asp-for="Description" readonly></textarea>
+                                <label asp-for="Description">Description:</label>                        
+                            </div>                    
                         </div>
                     </div>
-                </div>
+                }
 
+                
+                @if (Model.IsAssignedTeamChanged != true)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                @if (Model.AssignedTeamId == null)
+                                {
+                                    <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
+                                }
+                                else
+                                {
+                                    <input asp-for="AssignedTeamName" class="form-control" readonly>
+                                }
+                                <label asp-for="AssignedTeamId">Assigned to Team:</label>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+                @if (Model.IsAssignedUserChanged != true)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                @if (Model.AssignedToUserId == null)
+                                {
+                                    <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
+                                }
+                                else
+                                {
+                                    <input class="form-control" asp-for="AssignedToUserName" readonly />
+
+                                }
+                                <label asp-for="AssignedToUserName">Assigned to User:</label>
+                            </div>
+                        </div>
+                    </div>
+                }
 
 
 
