@@ -241,6 +241,8 @@
 
 
              <div class="col-md-8">
+
+                 <h5>Your changes:</h5>
             
                 @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
                 {
@@ -255,11 +257,11 @@
 
                     <div class="card  mb-3">
 
-                        <h5 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyName | @Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</h5>
+                        <h6 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</h6>
                         <div class="row g-0">
                             <div class="col-md-6">
                                 <div class="card-body">
-                                    <h5 class="card-title">Before changes</h5>
+                                    <h6 class="card-title">Before changes:</h6>
                                     <p class="card-text">
                                         <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly>
 
@@ -278,7 +280,7 @@
 
                             <div class="col-md-6">
                                 <div class="card-body">
-                                    <h5 class="card-title">After changes</h5>
+                                    <h6 class="card-title">After changes:</h6>
                                     <p class="card-text">
                                        <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly>
                                     
@@ -314,7 +316,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
                 </div>
             </div>
     </form>

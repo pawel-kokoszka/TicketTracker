@@ -23,7 +23,7 @@ namespace TicketTracker.Domain.Interfaces
 
         Task<IEnumerable<TicketSlaConfiguration>> GetTicketSlasForTicketTypeId(int ticketTypeConfigurationId);
         Task<TicketSlaConfiguration> GetTicketSlaBySlaId(int slaId);        
-        Task<List<TicketSlaConfiguration>> GetTicketSlaBySlaIdPair(List<int> slaIds);
+        Task<List<TicketSlaConfiguration>> GetTicketSlaForSlaList(List<int> slaIds);
 
         Task<IEnumerable<TicketStatus>> GetTicketStatusesForTicketTypeConfigurationId(int ticketTypeConfigurationId, int statusId);
         Task<List<TicketStatus>> GetTicketStatusesForIdList(List<int> statusIds);
@@ -31,10 +31,15 @@ namespace TicketTracker.Domain.Interfaces
 
         Task<TicketFlowConfiguration> GetStatusForNewTicket(int ticketTypeConfigurationId);
         Task<IEnumerable<TicketService>> GetTicektServicesForTicketConfigurationId(int ticketTypeConfigurationId);
+        Task<List<TicketService>> GetTicketServicesForIdList(List<int> serviceIds);
 
         Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId);
-
+        Task<List<TicketSubService>> GetTicketSubServicesForIdList(List<int> subServiceIds);
         Task<int> GetAssigningTeam(int ticketTypeConfigurationId, string? userId);
+
+        Task<List<Team>> GetTeamsForIdList(List<int> teamIds);
+
+        Task<List<ApplicationUser>> GetUsersForIdList(List<string> userIds);
         Task<List<TeamDto>> GetTeamsAndUsersToAssign(int ticketTypeConfigurationId, string? userId);
         Task<List<TeamDto>> GetTeamsAndUsersToAssign(int ticketTypeConfigurationId, int? teamId);
 
