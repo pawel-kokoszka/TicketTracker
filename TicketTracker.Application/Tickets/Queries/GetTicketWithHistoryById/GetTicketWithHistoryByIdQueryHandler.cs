@@ -62,8 +62,16 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
             //ticketHistoryWithDetails.Result;
             ticketDetailsDto.TicketHistory = _mapper.Map<TicketHistoryDto>(ticketHistoryWithDetails);
 
-            var historyPropertyDetails = ticketDetailsDto.TicketHistory.HistoryDetails;
+            //var historyPropertyDetails = ticketDetailsDto.TicketHistory.HistoryDetails;
 
+            AddPropertiesDisplayNames(ticketDetailsDto.TicketHistory.HistoryDetails!);
+
+
+            return ticketDetailsDto;
+        }
+
+        private async void AddPropertiesDisplayNames(List<TicketHistoryDetailDto> historyPropertyDetails)
+        {
             foreach (var property in historyPropertyDetails!)
             {
 
@@ -74,7 +82,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
                         property.TicketPropertyDisplayName = "Priority Level:";
 
                         var slaPair = await _projectConfigurationRepository.GetTicketSlaForSlaList(new List<int>() { int.Parse(property.PropertyOldValue!), int.Parse(property.PropertyNewValue!) });
-                        
+
                         property.PropertyOldDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyOldValue!))!.Name;
                         property.PropertyNewDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(property.PropertyNewValue!))!.Name;
                         break;
@@ -82,8 +90,8 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
                     case "Description":
                         property.TicketPropertyDisplayName = "Description";
 
-                        property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();                        
-                        property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString(); 
+                        property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();
+                        property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString();
                         break;
 
                     case "ShortDescription":
@@ -134,7 +142,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
 
                         var userPair = await _projectConfigurationRepository.GetUsersForIdList(new List<string>() { property.PropertyOldValue!, property.PropertyNewValue! });
 
-                        if (property.PropertyOldValue == null )
+                        if (property.PropertyOldValue == null)
                         {
                             property.PropertyOldDisplayValue = "Ticket Manager";
                         }
@@ -146,13 +154,10 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
 
                         property.PropertyNewDisplayValue = userPair.Find(user => user.Id == (property.PropertyNewValue))!.Email;
                         break;
-                        
-
                 }
 
             }
-            
-            return ticketDetailsDto;
         }
+
     }
 }
