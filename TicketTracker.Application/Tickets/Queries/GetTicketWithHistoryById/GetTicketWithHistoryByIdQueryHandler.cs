@@ -134,7 +134,16 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
 
                         var userPair = await _projectConfigurationRepository.GetUsersForIdList(new List<string>() { property.PropertyOldValue!, property.PropertyNewValue! });
 
-                        property.PropertyOldDisplayValue = userPair.Find(user => user.Id == (property.PropertyOldValue))!.Email;
+                        if (property.PropertyOldValue == null )
+                        {
+                            property.PropertyOldDisplayValue = "Ticket Manager";
+                        }
+                        else
+                        {
+                            property.PropertyOldDisplayValue = userPair.Find(user => user.Id == (property.PropertyOldValue))!.Email;
+
+                        }
+
                         property.PropertyNewDisplayValue = userPair.Find(user => user.Id == (property.PropertyNewValue))!.Email;
                         break;
                         
