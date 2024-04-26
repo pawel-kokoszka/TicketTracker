@@ -160,9 +160,9 @@ namespace TicketTracker.Infrastructure.Repositories
                 oldTicketData.EditedByUserId = newTicketData.EditedByUserId;
                 oldTicketData.IsDeleted = newTicketData.IsDeleted;
                 oldTicketData.ShortDescription = newTicketData.ShortDescription;
-                oldTicketData.TicketServiceId = newTicketData.TicketServiceId;
                 oldTicketData.TicketSlaConfigurationId = newTicketData.TicketSlaConfigurationId;
                 oldTicketData.TicketStatusId = newTicketData.TicketStatusId;
+                oldTicketData.TicketServiceId = newTicketData.TicketServiceId;
                 oldTicketData.TicketSubServiceId = newTicketData.TicketSubServiceId;
             }
         }

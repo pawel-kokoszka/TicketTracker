@@ -121,7 +121,7 @@ namespace TicketTracker.Infrastructure.Repositories
                         .Where(tsc => tsc.Id == slaId)
                         .FirstAsync();
 
-        public async Task<List<TicketSlaConfiguration>> GetTicketSlaBySlaIdPair(List<int> slaIds)
+        public async Task<List<TicketSlaConfiguration>> GetTicketSlaForSlaList(List<int> slaIds)
             => await _dbContext.TicketSlaConfigurations                        
                         .Where(tsc => slaIds.Contains(tsc.Id))
                         .ToListAsync();
@@ -180,11 +180,23 @@ namespace TicketTracker.Infrastructure.Repositories
             return result;
         }
 
+
+        public async Task<List<TicketService>> GetTicketServicesForIdList(List<int> serviceIds)
+            => await _dbContext.TicketServices
+                        .Where(service => serviceIds.Contains(service.Id))
+                        .ToListAsync();
+
         public async Task<IEnumerable<TicketSubService>> GetTicektSubServicesForServiceId(int serviceId)
             => await _dbContext.TicketSubService
                     .Where(tss => tss.TicketServiceId == serviceId)
                     .OrderBy(tss => tss.DisplayOrderValue)
                     .ToListAsync();
+
+        public async Task<List<TicketSubService>> GetTicketSubServicesForIdList(List<int> subServiceIds)
+            => await _dbContext.TicketSubService
+                        .Where(subService => subServiceIds.Contains(subService.Id))
+                        .ToListAsync();
+
 
         public async Task<IEnumerable<TeamDto>> GetTeamsToAssign3(int ticketTypeConfigurationId, int assigningTeamId)
         {
@@ -349,7 +361,16 @@ namespace TicketTracker.Infrastructure.Repositories
 
             return teamsToAssign;
         }
-        //-------------------------------------------------------------------------------------------------------------------
+
+        public async Task<List<Team>> GetTeamsForIdList(List<int> teamIds)
+            => await _dbContext.Teams
+                        .Where(team => teamIds.Contains(team.Id))
+                        .ToListAsync();
+
+        public async Task<List<ApplicationUser>> GetUsersForIdList(List<string> userIds)
+            => await _dbContext.Users
+                        .Where(user => userIds.Contains(user.Id))
+                        .ToListAsync();
         public async Task<IEnumerable<Ticket>> GetTeamsToAssign4(int ticketTypeConfigurationId, string? userId)
             {
                 //assigningTeamId = 1; //await GetAssigningTeam(ticketTypeConfigurationId, userId);
