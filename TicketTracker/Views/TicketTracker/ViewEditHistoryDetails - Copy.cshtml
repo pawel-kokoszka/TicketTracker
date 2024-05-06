@@ -272,106 +272,83 @@
 
              <div class="col-md-8">
 
-                 
-                <div class="card border-warning mb-3">
-                <h6 class="card-header">Your edit changes:</h6>
+                 <h5>Your changes:</h5>
             
-                    @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
-                    {
-                        <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].Id" readonly>
-                        <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId" readonly>
-                        <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName" readonly>
+                @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
+                {
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].Id" readonly>
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketHistoryId" readonly>
+                    <input type="hidden" asp-for="@Model.TicketHistory.HistoryDetails[i].TicketPropertyName" readonly>
               
                     
               
 
 
 
-                            <h6 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</h6>
+                    <div class="card  mb-3">
 
-                            <div class="row g-0">
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <p class="card-title">Before change:</p>
-                                        <p class="card-text">
-                                            <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly>
+                        <h6 class="card-header">@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</h6>
+                        <div class="row g-0">
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h6 class="card-title">Before change:</h6>
+                                    <p class="card-text">
+                                        <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly>
 
-
-                                            @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
-                                            {
-                                                <div class="form-floating mb-3">
-                                                    <textarea asp-for="TicketHistory.HistoryDetails[i].PropertyOldDisplayValue" class="form-control" style="height: 212px" readonly></textarea>
-                                                    <label>@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</label>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="form-floating mb-3">
-                                                    <input asp-for="TicketHistory.HistoryDetails[i].PropertyOldDisplayValue" class="form-control" readonly />
-                                                    <label>@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</label>
-                                                </div>
-                                            }
-
+                                        @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
+                                        {
+                                            <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyOldValue" readonly></textarea>                                            
+                                        }
+                                        else
+                                        {
+                                            <input class="form-control" asp-for="TicketHistory.HistoryDetails[i].PropertyOldDisplayValue" readonly>
+                                        }                                    
+                                    
                                     </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="card-body">
-                                        <p class="card-title">After change:</p>
-                                        <p class="card-text">
-                                           <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly>
-
-
-                                            @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
-                                            {                                               
-                                                <div class="form-floating mb-3">
-                                                    <textarea asp-for="TicketHistory.HistoryDetails[i].PropertyNewDisplayValue" class="form-control" style="height: 212px" readonly></textarea>
-                                                    <label>@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</label>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div class="form-floating mb-3">
-                                                    <input asp-for="TicketHistory.HistoryDetails[i].PropertyNewDisplayValue" class="form-control" readonly />
-                                                    <label >@Model.TicketHistory.HistoryDetails[i].TicketPropertyDisplayName</label>
-                                                </div>
-                                            }
-
-                                        </p>                                    
-                                    </div>
                                 </div>
                             </div>
-                            @* <div class="row g-0">
-                                <div class="col-md-12">
-                                    <div class="card-body">
-                                        <textarea class="form-control" placeholder="Optional related comment" asp-for="@Model.TicketHistory.HistoryDetails[i].Comment"></textarea>
-                                    </div>
+
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h6 class="card-title">After change:</h6>
+                                    <p class="card-text">
+                                       <input type="hidden" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly>
+                                    
+                                        @if (@Model.TicketHistory.HistoryDetails[i].TicketPropertyName == "Description")
+                                        {
+                                            <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.HistoryDetails[i].PropertyNewValue" readonly></textarea>                                            
+                                        }
+                                        else
+                                        {
+                                            <input class="form-control" asp-for="TicketHistory.HistoryDetails[i].PropertyNewDisplayValue" readonly>
+                                        }
+
+                                    </p>                                    
                                 </div>
-                            </div> *@
-
-                
-                    }
-
-
-
-
-                    <div class="card-body">
-                         <div class="row g-0">
-                                <div class="col-md-12">
-                                    <div class ="form-floating mb-3">
-                                        <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.SummaryComment"></textarea>
-                                        <label asp-for="TicketHistory.SummaryComment">Summary comment:</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="submit" value="Save Changes" class="btn btn-primary" />
-                                </div>
+                            </div>
                         </div>
+                        <div class="row g-0">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <textarea class="form-control" placeholder="Optional related comment" asp-for="@Model.TicketHistory.HistoryDetails[i].Comment"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                <br/>
+                }
+                <div class="col-md-12">
+                    <div class ="form-floating mb-3">
+                        <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.SummaryComment"></textarea>
+                        <label asp-for="TicketHistory.SummaryComment">Summary comment:</label>
                     </div>
                 </div>
-             </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                </div>
+            </div>
     </form>
 
 
