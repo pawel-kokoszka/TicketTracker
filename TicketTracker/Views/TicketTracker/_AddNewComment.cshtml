@@ -1,8 +1,8 @@
 ﻿@model TicketTracker.Application.Comments.Commands.CreateCommentCommand
 
 
-<div class="row" id="AddCommentCollapse" aria-labelledby="AddCommentCollapse" aria-hidden="true">
-    <div class="col ms-0">
+<div  id="AddCommentCollapse" aria-labelledby="AddCommentCollapse" aria-hidden="true">
+    
         <form asp-action="CreateComment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -10,38 +10,47 @@
 
             <input asp-for="TicketId" class="form-control" type="hidden" />
 
-            <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#newcommentcollapse" aria-expanded="false" aria-controls="newcommentcollapse">
-                Add Comment
-            </button>
            
-            <div class="collapse mb-3 " id="newcommentcollapse">
-                <div class="card card-body " style="height: 260px;">
+                <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" 
+                        data-bs-target="#newcommentcollapse" aria-expanded="false" aria-controls="newcommentcollapse">
+                    Add Comment
+                </button>
+
+           
+
+ 
+
+           
+                 <div class="collapse" id="newcommentcollapse">
+                    <div class="card " >
+                        <div class="card-body " style="height: 260px;">
 
                     
 
                         
-                        <div class="form-floating mb-3">
-                        <textarea input asp-for="Message" class="form-control mb-3" id="messagetext" style="min-height: 170px;max-height: 170px;"></textarea>
-                            <label asp-for="Message">Comment:</label>
+                            <div class="form-floating mb-3">
+                            <textarea input asp-for="Message" class="form-control mb-3" id="messagetext" style="min-height: 170px;max-height: 170px;"></textarea>
+                                <label asp-for="Message">Comment:</label>
                         
 
-                        <input class="btn btn-primary mb-3" type="submit" value="Create">
+                            <input class="btn btn-primary mb-3" type="submit" value="Create">
 
-                        <button class="btn btn-secondary mb-3" type="reset" data-bs-toggle="collapse"
-                                data-bs-target="#newcommentcollapse">
-                            Cancel
-                        </button>
+                            <button class="btn btn-secondary mb-3" type="reset" data-bs-toggle="collapse"
+                                    data-bs-target="#newcommentcollapse">
+                                Cancel
+                            </button>
+
+                            </div>
 
                         </div>
-                </div>
-            </div>
+                    </div>
+                 </div>
         </form>
 
 
 
 
-    </div>
+    
 </div>
 
 

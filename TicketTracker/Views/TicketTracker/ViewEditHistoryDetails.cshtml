@@ -1,7 +1,7 @@
 ﻿@model TicketTracker.Application.Tickets.Commands.EditTicketSummary.EditTicketSummaryCommand
 
 @{
-    ViewData["Title"] = "Summary";
+    ViewData["Title"] = "Changes Summary";
 }
 
 <div class="container">
@@ -9,7 +9,12 @@
     <div class="row">
 
 
-            <div class="col-md-4">
+            <div class="col-md-5">
+
+                <div class="card mb-3">
+                    <h6 class="card-header">Ticket properties:</h6>
+
+                    <div class="card-body">
 
                 <div class="row">
 
@@ -267,14 +272,16 @@
 
 
    
+                    </div>  
+                 </div>  
             </div>
 
 
-             <div class="col-md-8">
+             <div class="col-md-7">
 
                  
                 <div class="card border-warning mb-3">
-                <h6 class="card-header">Your edit changes:</h6>
+                <h6 class="card-header">Edited properties:</h6>
             
                     @for (int i = 0; i < Model.TicketHistory.HistoryDetails.Count; i++)
                     {
@@ -360,7 +367,7 @@
                          <div class="row g-0">
                                 <div class="col-md-12">
                                     <div class ="form-floating mb-3">
-                                        <textarea class="form-control" style="height: 212px" asp-for="TicketHistory.SummaryComment"></textarea>
+                                        <textarea class="form-control" style="height: 96px" asp-for="TicketHistory.SummaryComment"></textarea>
                                         <label asp-for="TicketHistory.SummaryComment">Summary comment:</label>
                                     </div>
                                 </div>
