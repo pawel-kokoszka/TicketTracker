@@ -6,274 +6,313 @@
 }
 
 <div class="container ">
+     <div class="col">
 
-        <h3>Ticket @Model.Id Details</h3>
-
-           <div class="row">
-
-                <div class="row mb-3">
-            @if (Model.IsTicketLocked == true)
-                    
-                    {
-                        <div class="col-md-6">
-                            @if (Model.IsTicketLockedByHolder == true)
-                            {
-                                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <label>
-                                        This resource is locked by you.
-                                    </label>
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <label>
-                                        Sorry, this resource is locked by user @Model.LockedByUserName
-                                    </label>
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>                        
-                            }
-                            
-                            
-                            
-                            
-                        </div>
-                    }
-
-                </div>
-
-                <div class="col-lg">
         
-                        <div class="row">
-                             <div class="col-md-6">                                
-                                <div class="row">
-
-                                    <div class="col-md-12">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="ProjectName" readonly>
-                                            <label  asp-for="ProjectName" >Project</label>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <div class="row">
-
- 
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="EnvironmentName" readonly>
-                                            <label asp-for="EnvironmentName">Environment name:</label>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" asp-for="EnvironmentType" readonly>
-                                            <label asp-for="EnvironmentType">Environment Type:</label>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" asp-for="CreatedByUserName" readonly>
-                                                    <label asp-for="CreatedByUserName">Created by user:</label>
-                        
-                                                </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control"  asp-for="DateCreated" readonly>
-                                                    <label asp-for="DateCreated">Date Created:</label>
-                       
-                                                </div>
-                                    </div>
-
-
-                                </div>
-
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" asp-for="EditedByUserName" readonly>
-                                                <label asp-for="EditedByUserName">Last edited by user:</label>
-
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" asp-for="DateEdited" readonly>
-                                                <label asp-for="DateEdited">Last time edited:</label>
-
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-
-                                <div class="row">
-
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input asp-for="TicketTypeName" class="form-control" readonly />
-                                                <label asp-for="TicketTypeName">Ticket type:</label>
-                                            </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input asp-for="TicketStatusName" class="form-control" readonly />
-                                                <label asp-for="TicketStatusName">Current status:</label>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
-                                                <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            @if (Model.IsOverdue == true)
-                                            {
-                                                <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
-                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
-                                            }
-                                            else
-                                            {
-                                                <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />                                    
-                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
-                                            }
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            @if (Model.IsOverdue == true)
-                                            {
-                                                <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
-                                                <label asp-for="TicketSlaTimeLeft" >Time ovedue:</label>
-                                            }
-                                            else
-                                            {
-                                                <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
-                                                <label asp-for="TicketSlaTimeLeft">Time left:</label>                                    
-                                            }
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                            <input asp-for="TicketServiceName" class="form-control" readonly />
-                                            <label asp-for="TicketServiceName">Service:</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-floating mb-3">
-                                                <input asp-for="TicketSubServiceName" class="form-control" readonly />
-                                                <label asp-for="TicketSubServiceName">Sub Service:</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    @if (Model.AssignedTeamId == null)
-                                    {
-                                        <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
-                                    }
-                                    else
-                                    {
-                                        <input class="form-control" asp-for="AssignedTeamName" readonly>
-                                    }
-                                    <label asp-for="AssignedTeamId">Assigned to Team:</label>
-
-
-                                </div>
-                                <div class="form-floating mb-3">
-                                    @if (Model.AssignedToUserId == null)
-                                    {
-                                        <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />                                        
-                                    }
-                                    else
-                                    {
-                                        <input asp-for="AssignedToUserName" class="form-control" readonly />
-                                
-                                    }
-
-                                    <label asp-for="AssignedToUserName">Assigned to User:</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                <input class="form-control" asp-for="ShortDescription" readonly>
-                                    <label asp-for="ShortDescription">Short Description:</label>
-                                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
-                                </div>
-
-
-
-                                <div class="form-floating mb-3">
-                                    <textarea class="form-control" style="height: 280px" asp-for="Description" readonly></textarea>
-                                    <label asp-for="Description">Description:</label>
-                                    <span asp-validation-for="Description" class="text-danger"></span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                </div>
-        </div>
-
-
-        <div>
-        @if (Model.IsEditable == true)
-        {
-            <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
-        }    
-    
-        </div>
-
-
-         <h3>Comments:</h3>
 
             <div class="row">
-                <div class="col-md-6 mb-3">
-                    @if (Model.IsAbleToComment == true || Model.IsEditable == true)
-                    {
-                        <div class="">
-                            <partial name="_AddNewComment"
-                            model="new CreateCommentCommand() {TicketId = Model.Id}" />
-                        </div>
-                    }
-                     <div class="">
-                        <div id="comments" class="row" data-id="@Model.Id"></div>
+
+                <div class="col-lg">
+
+                    <div class="row">
+
+                        @if (Model.IsTicketLocked == true)                    
+                        {
+                            <div class="col">
+                                @if (Model.IsTicketLockedByHolder == true)
+                                {
+                                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                        <label>
+                                            This resource is locked by you.
+                                        </label>
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <label>
+                                            Sorry, this resource is locked by user @Model.LockedByUserName
+                                        </label>
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>                        
+                                }
+                            
+                                                     
+                            
+                            </div>
+                        }
+
                     </div>
-                </div>
+       
+                    <div class="card mb-3">
+                       
+                        <h6 class="card-body">Ticket Information Details:</h6>
 
-            </div>
+                    </div>
 
+        
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                            <div class="row">
+                                
+                                        <div class="col-lg-3">                                
+
+
+
+                                                        <div class="row">
+
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="ProjectName" readonly>
+                                                                    <label  asp-for="ProjectName" >Project</label>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div class="row">                                            
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="EnvironmentName" readonly>
+                                                                    <label asp-for="EnvironmentName">Environment name:</label>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="EnvironmentType" readonly>
+                                                                    <label asp-for="EnvironmentType">Environment Type:</label>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                        
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="CreatedByUserName" readonly>
+                                                                    <label asp-for="CreatedByUserName">Created by user:</label>                        
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control"  asp-for="DateCreated" readonly>
+                                                                    <label asp-for="DateCreated">Date Created:</label>                       
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="EditedByUserName" readonly>
+                                                                    <label asp-for="EditedByUserName">Last edited by user:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input class="form-control" asp-for="DateEdited" readonly>
+                                                                    <label asp-for="DateEdited">Last time edited:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                    <div class="form-floating mb-3">
+                                                                        <input asp-for="TicketTypeName" class="form-control" readonly />
+                                                                        <label asp-for="TicketTypeName">Ticket type:</label>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">                                
+                                                            <div class="col">
+                                                                    <div class="form-floating mb-3">
+                                                                        <input asp-for="TicketStatusName" class="form-control" readonly />
+                                                                        <label asp-for="TicketStatusName">Current status:</label>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                    <div class="form-floating mb-3">
+                                                                        <input asp-for="TicketSlaConfigurationName" class="form-control" readonly />
+                                                                        <label asp-for="TicketSlaConfigurationName">Priority Level:</label>
+                                                                    </div>
+                                                            </div>
+                                                        </div>  
+
+
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    @if (Model.IsOverdue == true)
+                                                                    {
+                                                                        <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
+                                                                        <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />                                    
+                                                                        <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                                                    }
+                                                                </div>
+
+                                                                <div class="form-floating mb-3">
+                                                                    @if (Model.IsOverdue == true)
+                                                                    {
+                                                                        <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
+                                                                        <label asp-for="TicketSlaTimeLeft" >Time ovedue:</label>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
+                                                                        <label asp-for="TicketSlaTimeLeft">Time left:</label>                                    
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating mb-3">
+                                                                    <input asp-for="TicketServiceName" class="form-control" readonly />
+                                                                    <label asp-for="TicketServiceName">Service:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="form-floating ">
+                                                                        <input asp-for="TicketSubServiceName" class="form-control" readonly />
+                                                                        <label asp-for="TicketSubServiceName">Sub Service:</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                        </div>
+
+
+
+                                        <div class="col-lg-9">
+
+                                    
+                                       
+                                        
+                                                    <div class="form-floating mb-3">
+                                                        @if (Model.AssignedTeamId == null)
+                                                        {
+                                                            <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="form-control" asp-for="AssignedTeamName" readonly>
+                                                        }
+                                                        <label asp-for="AssignedTeamId">Assigned to Team:</label>
+
+
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        @if (Model.AssignedToUserId == null)
+                                                        {
+                                                            <input class="form-control" value="Waiting for assignment by Ticket Manager" readonly />                                        
+                                                        }
+                                                        else
+                                                        {
+                                                            <input asp-for="AssignedToUserName" class="form-control" readonly />
+                                
+                                                        }
+
+                                                        <label asp-for="AssignedToUserName">Assigned to User:</label>
+                                                    </div>
+
+                                                    <div class="form-floating mb-3">
+                                                    <input class="form-control" asp-for="ShortDescription" readonly>
+                                                        <label asp-for="ShortDescription">Short Description:</label>
+                                                        <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                                                    </div>
+
+
+
+                                                    <div class="form-floating ">
+                                                        <textarea class="form-control" style="height: 280px" asp-for="Description" readonly></textarea>
+                                                        <label asp-for="Description">Description:</label>
+                                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                                    </div>
+                                        
+                                  
+
+                                
+                                         </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                    <div class="row">
+
+                            <div>
+                            @if (Model.IsEditable == true)
+                            {
+                                <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
+                            }    
+    
+                            </div>
+
+                    </div>
+
+                    
+                    <div class="card" >
+                            <h6 class="card-header">Comments:</h6>
+               
+                                <div class="col">
+                    
+                                    <div class="card-body" >
+                                    @if (Model.IsAbleToComment == true || Model.IsEditable == true)
+                                    {
+                                            <partial name="_AddNewComment"
+                                                     model="new CreateCommentCommand() {TicketId = Model.Id}" />
+                                    }
+
+                                        <div  id="comments" data-id="@Model.Id">
+                                        
+                                        </div>
+
+                                    </div>
+                                </div>
+               
+                    </div>
+                    
+        
+
+
+                </div> 
+
+        </div>
+
+        
+     </div>   
 </div>
 
 @section Scripts {

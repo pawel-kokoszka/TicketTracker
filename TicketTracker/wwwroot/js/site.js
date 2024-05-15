@@ -5,16 +5,19 @@
     for (const comment of comments) {
         container.prepend(
             
-            `<div class="card text-bg-primary mb-2" style="">
-                <div class="row card-header pt-2 pb-1 ">
+            `<div class="card border-success mb-2" style="">
+                <div class="card-header text-success pt-2 pb-1 ">
+                
+                <div class="row">
                     <label class="col text-sm">#${commentNumber}    ${comment.createdDate}</label>
       
-                    <label class="col text-sm-end">user: ${comment.userName}</label>
-        
+                    <label class="col text-sm-end">user: ${comment.userName}</label>        
+                </div>
+                
                 </div>
              
-                <div class="card-body text-wrap text-break">
-                    <p class="card-text">${comment.message.replace(/[\r]/g, '<br>') }</p>
+                <div class="card-body  text-wrap text-break">
+                    <p >${comment.message.replace(/[\r]/g, '<br>') }</p>
                 </div>
              </div>`)
         commentNumber++; 
