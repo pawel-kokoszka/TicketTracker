@@ -5,14 +5,14 @@
     for (const comment of comments) {
         container.prepend(
             
-            `<div class="card border-success mb-2" style="">
-                <div class="card-header text-success pt-2 pb-1 ">
+            `<div class="card text-bg-primary mb-2" style="">
+                <div class="card-header pt-2 pb-1 ">
                 
-                <div class="row">
-                    <label class="col text-sm">#${commentNumber}    ${comment.createdDate}</label>
+                    <div class="row">
+                        <label class="col text-sm">#${commentNumber}    ${comment.createdDate}</label>
       
-                    <label class="col text-sm-end">user: ${comment.userName}</label>        
-                </div>
+                        <label class="col text-sm-end">user: ${comment.userName}</label>        
+                    </div>
                 
                 </div>
              
