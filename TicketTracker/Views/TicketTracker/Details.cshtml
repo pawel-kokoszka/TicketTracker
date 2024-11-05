@@ -49,13 +49,13 @@
        
                     <div class="card mb-3">
                        
-                        <h6 class="card-body">Ticket Information Details:</h6>
+                        <h6 class="card-header">Ticket Information Details:</h6>
 
                     </div>
 
         
                                 <div class="card mb-3">
-                                    <div class="card-body">
+                                    <div class="card-header">
                             <div class="row">
                                 
                                         <div class="col-lg-3">                                
@@ -287,13 +287,13 @@
                             <h6 class="card-header">Comments:</h6>
                
                                 <div class="col">
-                    
-                                    <div class="card-body" >
-                                    @if (Model.IsAbleToComment == true || Model.IsEditable == true)
-                                    {
-                                            <partial name="_AddNewComment"
-                                                     model="new CreateCommentCommand() {TicketId = Model.Id}" />
-                                    }
+
+                                    <div class="card-header">
+                                        @if (Model.IsAbleToComment == true || Model.IsEditable == true)
+                                        {
+                                                <partial name="_AddNewComment" 
+                                                         model="new CreateCommentCommand() {TicketId = Model.Id}" />
+                                        }
 
                                         <div  id="comments" data-id="@Model.Id">
                                         
