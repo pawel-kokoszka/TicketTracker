@@ -512,7 +512,16 @@ namespace TicketTracker.MVC.Controllers
 
             return Ok(commentsData);
         }
-        
+
+        [HttpGet]
+        [Authorize(Roles = "App User,Admin")]
+        [Route("TicketTracker/History/{ticketId}")]
+        public async Task<IActionResult> GetTicketHistory(int ticketId)
+        {
+            var commentsData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId });
+
+            return Ok(commentsData);
+        }
 
     }
 }
