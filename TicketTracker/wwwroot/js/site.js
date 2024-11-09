@@ -48,6 +48,30 @@ const LoadCommentsForTicketId = () => {
 
 }
 
+//only for testing
+const LoadHistoryForTicketId = () => { 
+    const container = $("#tickethistory")
+    const ticketid = 3270//container.data("id");
+
+    $.ajax({
+        url: `/TicketTracker/Comments/${ticketid}`,
+        type: 'get',
+        success: function (data) {
+            if (!data.length) {
+                container.html("There are no comments for this ticket")
+            } else {
+                RenderComments(data, container)
+
+            }
+        },
+        error: function () {
+            toastr["error"]("Something went wrong during Loading of Comments")
+        }
+
+    })
+
+}
+
 const HideCollapse = () => {
     const collapse = $("#newcommentcollapse");
 
