@@ -513,15 +513,25 @@ namespace TicketTracker.MVC.Controllers
             return Ok(commentsData);
         }
 
-        [HttpGet]
+        //do usunięcia po implementacji wyświetlania historii ticketu
+        [HttpGet] 
         [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/History/{ticketId}")]
-        public async Task<IActionResult> GetTicketHistory(int ticketId)
+        public async Task<IActionResult> GetTicketHistoryOld(int ticketId)
         {
             var commentsData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId });
 
             return Ok(commentsData);
         }
 
+        
+        [Authorize(Roles = "App User,Admin")]
+        [Route("TicketTracker/History/{ticketId}")]
+        public async Task<IActionResult> TicketHistoryDetails(int ticketId)
+        {
+            var commentsData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = 3270 }); //ticketId });
+
+            return PartialView(commentsData);
+        }
     }
 }
