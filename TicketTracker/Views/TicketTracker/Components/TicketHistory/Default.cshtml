@@ -1,4 +1,35 @@
-﻿<div>
-    srodek view componentu 
+﻿@using TicketTracker.Application.Comments;
+@model IEnumerable<CommentDetailsDto>
+
+<div>
+    View component: 
+
+    @{
+        int commentNumber = 1;
+    }
+
+    @foreach(var comment in Model)
+    {
+        <div class="card text-bg-primary mb-2" style="">
+            <div class="card-header pt-2 pb-1 ">
+
+                <div class="row">
+                    <label class="col text-sm">#@commentNumber    @comment.CreatedDate </label>
+
+                    <label class="col text-sm-end">Created by: @comment.UserName</label>
+                </div>
+
+            </div>
+
+            <div class="card-body  text-wrap text-break">
+
+                @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
+                
+            </div>
+        </div>
+
+        commentNumber++; 
+    }
+
 
 </div>

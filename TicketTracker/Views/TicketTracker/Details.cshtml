@@ -307,7 +307,7 @@
                     <br />
                     <div id="tickethistory">
                         tu powinien się pojawić partial view:
-                    @await Component.InvokeAsync("TicketHistory")
+                    @await Component.InvokeAsync("TicketHistory", new { ticketId = Model.Id })
                     </div>
         
 
