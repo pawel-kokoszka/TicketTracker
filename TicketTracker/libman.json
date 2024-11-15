@@ -5,6 +5,11 @@
     {
       "library": "toastr.js@2.1.4",
       "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/dist"
     }
   ]
 }
