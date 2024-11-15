@@ -21,3 +21,19 @@ body {
   margin-bottom: 60px;
 }
 
+.nav-pills .custom-pill {
+    background-color: white; /* Custom background color */
+    color: #000000; /* Text color */
+}
+
+/* Active pill state */
+.nav-pills .custom-pill.active {
+    background-color: #808080; /* Darker shade for active pill */
+    color: white; /* Active text color */
+}
+
+/* Hover effect */
+.nav-pills .custom-pill:hover {
+    background-color: #258cfb;
+    color: #ffffff;
+}

@@ -47,12 +47,14 @@
 
                     </div>
        
-                    <div class="card mb-3">
-                       
-                        <h6 class="card-header">Ticket Information Details:</h6>
+                    <div class="card mb-4 shadow">
+                        <div class="card-body ">
+                        
+                            <h5>Ticket Information Details:</h5>
 
+                        </div>
                     </div>
-
+                            
         
                                 <div class="card secondary mb-3 shadow">
                                     <div class="card-body">
@@ -275,7 +277,7 @@
                             <div>
                             @if (Model.IsEditable == true)
                             {
-                                <a class="btn btn-primary mb-3 " asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
+                                <a class="btn btn-primary mb-3 shadow" asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
                             }    
     
                             </div>
@@ -306,7 +308,7 @@
                     <br />
                     <br />
                     <div id="tickethistory">
-                        tu powinien się pojawić partial view:
+                   
                     @await Component.InvokeAsync("TicketHistory", new { ticketId = Model.Id })
                     </div>
         
