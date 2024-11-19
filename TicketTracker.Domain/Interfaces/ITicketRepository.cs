@@ -29,5 +29,7 @@ namespace TicketTracker.Domain.Interfaces
         Task UpdateHistoryEntry(TicketHistory historyEntry);
 
         void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData);
+
+        Task<IEnumerable<TicketHistory>>GetHistoryByTicketId(int ticketId);
     }
 }

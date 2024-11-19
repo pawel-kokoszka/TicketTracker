@@ -1,16 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Migrations.Operations.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TicketTracker.Application.Comments;
 using TicketTracker.Application.Tickets;
 using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Tickets.Commands.EditTicket;
 using TicketTracker.Application.Tickets.Commands.EditTicketSummary;
-using TicketTracker.Domain.DTOs;
 using TicketTracker.Domain.Entities;
 using TicketStatusDto = TicketTracker.Application.Tickets.TicketStatusDto;
 
@@ -121,10 +113,9 @@ namespace TicketTracker.Application.Mappings
             
 
 
-            CreateMap<CreateCommentDto, Domain.Entities.Comment>();
+           
 
-            CreateMap<Domain.Entities.Comment, CommentDetailsDto>()
-                .ForMember(dto => dto.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate.ToString("yyyy-MM-dd HH:mm")) );
+            
 
            
 

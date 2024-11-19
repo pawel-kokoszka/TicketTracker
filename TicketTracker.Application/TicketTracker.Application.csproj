@@ -23,4 +23,8 @@
     <ProjectReference Include="..\TicketTracker.Domain\TicketTracker.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="HistoryItems\Commands\" />
+  </ItemGroup>
+
 </Project>

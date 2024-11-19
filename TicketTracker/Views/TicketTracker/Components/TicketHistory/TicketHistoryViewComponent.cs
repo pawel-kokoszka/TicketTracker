@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TicketTracker.Application.Comments.Queries.GetTicketComments;
+using TicketTracker.Application.HistoryItems.Queries;
 
 namespace TicketTracker.MVC.Views.TicketTracker.Components.TicketHistory
 {
@@ -19,8 +20,16 @@ namespace TicketTracker.MVC.Views.TicketTracker.Components.TicketHistory
 
         public async Task<IViewComponentResult> InvokeAsync(int ticketId)
         {
-            var commentsData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId });
+            var commentsData = await _mediator.Send(new GetHistoryItemsQuery() { TicketId = ticketId });
+
+            //var historyData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId+1 });
+            //var combinedData = await _mediator.Send(new GetTicketCommentsQuery() { TicketId = ticketId+2 });
+
+
+
             return View(commentsData);
         }
     }
+
+
 }
