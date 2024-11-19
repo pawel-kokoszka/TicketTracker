@@ -140,6 +140,26 @@ namespace TicketTracker.Infrastructure.Repositories
                  )
                 .FirstOrDefaultAsync();
 
+        public async Task<IEnumerable<TicketHistory>>GetHistoryByTicketId(int ticketId)
+        => await(from t in _dbContext.Tickets
+                 join th in _dbContext.TicketHistory on t.Id equals th.TicketId
+
+                 where t.Id == ticketId && th.IsApproved == true
+
+                 select (
+                      new TicketHistory
+                      {
+                          Id = th.Id,
+                          EditLockId = th.EditLockId,
+                          IsApproved = th.IsApproved,
+                          TicketId = th.TicketId,
+                          DateEdited = th.DateEdited,
+                          UserId = th.UserId,                          
+                          SummaryComment = th.SummaryComment,
+                          HistoryDetails = th.HistoryDetails,
+                          User = th.User
+                      })
+                 ).ToListAsync();
 
 
         public async Task SaveToDb()
@@ -167,8 +187,5 @@ namespace TicketTracker.Infrastructure.Repositories
             }
         }
 
-                
-    
-    
     }
 }
