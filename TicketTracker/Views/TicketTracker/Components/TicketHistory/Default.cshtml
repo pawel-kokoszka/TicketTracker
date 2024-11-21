@@ -1,9 +1,14 @@
 ﻿@using TicketTracker.Application.Comments;
+@using TicketTracker.Application.HistoryItems;
 @model IEnumerable<HistoryItemDto>
 
 <div>
     @{
-        int commentNumber = 1;
+        int commentsNumberTabCombined, commentsNumberTabOnly; 
+            commentsNumberTabCombined = commentsNumberTabOnly = Model.Count(historyItem => historyItem.ItemType == HistoryItem.Comment);
+        
+        int historyItemsNumberTabCombined, historyItemsNumberTabOnly;
+            historyItemsNumberTabCombined = historyItemsNumberTabOnly = Model.Count(historyItem => historyItem.ItemType == HistoryItem.HistoryEvent);
     }
 
     <ul class="nav nav-pills mb-4 nav-justified shadow" id="pills-tab" role="tablist">
@@ -21,29 +26,107 @@
         <div class="tab-pane fade show active" id="pills-comments" role="tabpanel" tabindex="0">
             @foreach (var comment in Model)
             {
-                <div class="card text-bg-primary mb-2" style="">
-                    <div class="card-header pt-2 pb-1 ">
+                @if (@comment.ItemType == HistoryItem.Comment) 
+                {
+                        <div class="card text-bg-info mb-3 ">
+                            <div class="card-header pt-2 pb-1 ">
 
-                        <div class="row">
-                            <label class="col text-sm">#@commentNumber    @comment.CreatedDate </label>
+                                <div class="row">
+                                <label class="col text-sm">#@commentsNumberTabOnly    @comment.CreatedDate </label>
 
-                            <label class="col text-sm-end">Created by: @comment.UserName</label>
+                                    <label class="col text-sm-end">Created by: @comment.UserName</label>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body  text-wrap text-break">
+
+                                @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
+
+                            </div>
                         </div>
 
-                    </div>
-
-                    <div class="card-body  text-wrap text-break">
-
-                        @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
-
-                    </div>
-                </div>
-
-                commentNumber++;
+                        commentsNumberTabOnly--;
+                }
+               
             }
         </div>
-        <div class="tab-pane fade" id="pills-history" role="tabpanel" tabindex="0">...history...</div>
-        <div class="tab-pane fade" id="pills-combined" role="tabpanel" tabindex="0">...comments and history...</div>
+        <div class="tab-pane fade" id="pills-history" role="tabpanel" tabindex="0">
+            @foreach (var comment in Model)
+            {                
+                @if (@comment.ItemType == HistoryItem.HistoryEvent)
+                {
+                    <div class="card text-bg-warning mb-3 ">
+                        <div class="card-header pt-2 pb-1 ">
+
+                            <div class="row">
+                                <label class="col text-sm">#@historyItemsNumberTabOnly   @comment.CreatedDate </label>
+
+                                <label class="col text-sm-end">Edited by: @comment.UserName</label>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body  text-wrap text-break">
+
+                            @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
+
+                        </div>
+                    </div>
+
+                    historyItemsNumberTabOnly--;
+                }
+            }
+        </div>
+        <div class="tab-pane fade" id="pills-combined" role="tabpanel" tabindex="0">
+            @foreach (var comment in Model)
+            {
+                @if (@comment.ItemType == HistoryItem.Comment)
+                {
+                    <div class="card text-bg-info mb-3 ">
+                        <div class="card-header pt-2 pb-1 ">
+
+                            <div class="row">
+                                <label class="col text-sm">#@commentsNumberTabCombined    @comment.CreatedDate </label>
+
+                                <label class="col text-sm-end">Created by: @comment.UserName</label>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body  text-wrap text-break">
+
+                            @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
+
+                        </div>
+                    </div>
+
+                    commentsNumberTabCombined--;
+                }
+                @if (@comment.ItemType == HistoryItem.HistoryEvent)
+                {
+                    <div class="card text-bg-warning mb-3 ">
+                        <div class="card-header pt-2 pb-1 ">
+
+                            <div class="row">
+                                <label class="col text-sm">#@historyItemsNumberTabCombined   @comment.CreatedDate </label>
+
+                                <label class="col text-sm-end">Edited by: @comment.UserName</label>
+                            </div>
+
+                        </div>
+
+                        <div class="card-body  text-wrap text-break">
+
+                            @Html.Raw(@comment.Message!.Replace("\n", "<br />"))
+
+                        </div>
+                    </div>
+
+                    historyItemsNumberTabCombined--;
+                }
+            }
+        </div>
     </div>
 
 </div>

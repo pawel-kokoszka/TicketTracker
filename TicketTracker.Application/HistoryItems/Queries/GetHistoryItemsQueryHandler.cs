@@ -58,6 +58,7 @@ namespace TicketTracker.Application.HistoryItems.Queries
             historyItems.AddRange(items);
             //var items2 = _mapper.Map<IEnumerable<HistoryItemDto>>(historyEvents);
 
+            var sortedHistoryItems = historyItems.OrderByDescending(historyItem => historyItem.CreatedDate ).ToList();
 
             //z ticketRepo pobrać historię
             //dodać elementy history do items 
@@ -65,7 +66,7 @@ namespace TicketTracker.Application.HistoryItems.Queries
 
             //var items = new List<HistoryItemDto>();
 
-            return historyItems; 
+            return sortedHistoryItems; 
         }
     }
 }
