@@ -27,11 +27,9 @@ namespace TicketTracker.Application.HistoryItems.Queries
         {
             var comments = await _commentRepository.GetCommmentsByTicketId(request.TicketId);
             var historyEvents = await _ticketRepository.GetHistoryByTicketId(request.TicketId);
-            //mapowanie z comments na historyItem 
-            //dodać comments do items 
+
             var items = _mapper.Map<IEnumerable<HistoryItemDto>>(comments);
 
-            //i oznaczyć je jakoś jako comments 
             foreach (var item in items)
             {
                 item.ItemType = HistoryItem.Comment;
@@ -59,6 +57,20 @@ namespace TicketTracker.Application.HistoryItems.Queries
             //var items2 = _mapper.Map<IEnumerable<HistoryItemDto>>(historyEvents);
 
             var sortedHistoryItems = historyItems.OrderByDescending(historyItem => historyItem.CreatedDate ).ToList();
+
+            var currentDate = DateTime.UtcNow;
+
+            foreach (var historyItem in sortedHistoryItems)
+            {
+                var itemDate = DateTime.Parse(historyItem.CreatedDate!);
+
+                var timeDifference = currentDate - itemDate;
+
+                if (timeDifference < TimeSpan.FromMinutes(5))
+                {
+                    historyItem.IsNew = true;
+                }
+            }
 
             //z ticketRepo pobrać historię
             //dodać elementy history do items 

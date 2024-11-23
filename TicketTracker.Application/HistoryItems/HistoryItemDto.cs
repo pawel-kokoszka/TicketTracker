@@ -20,6 +20,8 @@ namespace TicketTracker.Application.Comments
 
         public string? CreatedDate { get; set; }
 
+        public bool IsNew { get; set; }
+
         public string? Message { get; set; }
 
         public HistoryItem ItemType { get; set; }
