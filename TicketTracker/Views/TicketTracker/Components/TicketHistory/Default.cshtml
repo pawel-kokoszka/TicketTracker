@@ -33,8 +33,14 @@
                     {
                         @if (@comment.ItemType == HistoryItem.Comment) 
                         {
-                                <div class="card text-bg-info mb-3 ">
+                            <div class="card text-bg-info mb-3 @(comment.IsNew == true ? "ms-3" : "" )">
                                     <div class="card-header pt-2 pb-1 ">
+                                        @if (comment.IsNew == true)
+                                        {
+                                            <span class=" badge position-absolute top-0 start-0 translate-middle p-1 text-bg-secondary  border border-light rounded">
+                                                New
+                                            </span>                                        
+                                        }
 
                                         <div class="row">
                                         <label class="col text-sm">#@commentsNumberCommentsTabOnly    @comment.CreatedDate </label>
@@ -61,8 +67,15 @@
                     {                
                         @if (@comment.ItemType == HistoryItem.HistoryEvent)
                         {
-                            <div class="card text-bg-warning mb-3 ">
+                            <div class="card text-bg-warning mb-3 @(comment.IsNew == true ? "ms-3" : "" )">
                                 <div class="card-header pt-2 pb-1 ">
+
+                                    @if (comment.IsNew == true)
+                                    {
+                                        <span class=" badge position-absolute top-0 start-0 translate-middle p-1 text-bg-secondary  border border-light rounded">
+                                            New
+                                        </span>
+                                    }
 
                                     <div class="row">
                                         <label class="col text-sm">#@historyItemsNumberHistoryTabOnly   @comment.CreatedDate </label>
@@ -88,8 +101,15 @@
                     {
                         @if (@comment.ItemType == HistoryItem.Comment)
                         {
-                            <div class="card text-bg-info mb-3 ">
-                                <div class="card-header pt-2 pb-1 ">
+                            <div class="card text-bg-info mb-3 @(comment.IsNew == true ? "ms-3" : "" )  ">
+                                <div class="card-header pt-2 pb-1  ">
+
+                                    @if (comment.IsNew == true)
+                                    {
+                                        <span class=" badge position-absolute top-0 start-0 translate-middle p-1 text-bg-secondary  border border-light rounded">
+                                            New
+                                        </span>
+                                    }
 
                                     <div class="row">
                                         <label class="col text-sm">#@commentsNumberTabCombined    @comment.CreatedDate </label>
@@ -110,8 +130,15 @@
                         }
                         @if (@comment.ItemType == HistoryItem.HistoryEvent)
                         {
-                            <div class="card text-bg-warning mb-3 ">
+                            <div class="card text-bg-warning mb-3 @(comment.IsNew == true ? "ms-3" : "" )">
                                 <div class="card-header pt-2 pb-1 ">
+
+                                    @if (comment.IsNew == true)
+                                    {
+                                        <span class=" badge position-absolute top-0 start-0 translate-middle p-1 text-bg-secondary  border border-light rounded">
+                                            New
+                                        </span>
+                                    }
 
                                     <div class="row">
                                         <label class="col text-sm">#@historyItemsNumberTabCombined   @comment.CreatedDate </label>
