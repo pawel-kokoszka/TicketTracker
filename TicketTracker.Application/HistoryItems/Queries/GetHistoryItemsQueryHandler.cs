@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Application.Comments;
+using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 
 namespace TicketTracker.Application.HistoryItems.Queries
@@ -25,60 +26,72 @@ namespace TicketTracker.Application.HistoryItems.Queries
 
         public async Task<IEnumerable<HistoryItemDto>> Handle(GetHistoryItemsQuery request, CancellationToken cancellationToken)
         {
+            var historyItemsCombined = new List<HistoryItemDto>();
+
             var comments = await _commentRepository.GetCommmentsByTicketId(request.TicketId);
             var historyEvents = await _ticketRepository.GetHistoryByTicketId(request.TicketId);
 
-            var items = _mapper.Map<IEnumerable<HistoryItemDto>>(comments);
 
-            foreach (var item in items)
-            {
-                item.ItemType = HistoryItem.Comment;
-            }
+            var historyItemComments = _mapper.Map<IEnumerable<HistoryItemDto>>(comments);
+            AddHistoryItemType(historyItemComments, HistoryItem.Comment);
 
-            var historyItems = new List<HistoryItemDto>();
+            var historyItemEvents = MapHistoryEvents(historyEvents);
 
-            foreach (var historyEvent in historyEvents)
-            {
-                var message = "";
-                    
-                foreach (var detail in historyEvent.HistoryDetails!)
-                {
-                    message += $"Propery: {detail.TicketPropertyName} changed to {detail.PropertyNewValue} from {detail.PropertyOldValue}.\n";
-                }
+            historyItemsCombined.AddRange(historyItemEvents);
+            historyItemsCombined.AddRange(historyItemComments);
 
-                var historyItem = _mapper.Map<HistoryItemDto>(historyEvent);
-                historyItem.Message = message;
-                historyItem.ItemType = HistoryItem.HistoryEvent;
+            var sortedHistoryItems = historyItemsCombined.OrderByDescending(historyItem => historyItem.CreatedDate ).ToList();
 
-                historyItems.Add(historyItem);
-            }
+            CheckNewItems(sortedHistoryItems,5);
 
-            historyItems.AddRange(items);
-            //var items2 = _mapper.Map<IEnumerable<HistoryItemDto>>(historyEvents);
+            return sortedHistoryItems; 
+        }
 
-            var sortedHistoryItems = historyItems.OrderByDescending(historyItem => historyItem.CreatedDate ).ToList();
-
+        private void CheckNewItems(List<HistoryItemDto> historyItems, int minutes)
+        {
             var currentDate = DateTime.UtcNow;
 
-            foreach (var historyItem in sortedHistoryItems)
+            foreach (var historyItem in historyItems)
             {
                 var itemDate = DateTime.Parse(historyItem.CreatedDate!);
 
                 var timeDifference = currentDate - itemDate;
 
-                if (timeDifference < TimeSpan.FromMinutes(5))
+                if (timeDifference < TimeSpan.FromMinutes(minutes))
                 {
                     historyItem.IsNew = true;
                 }
             }
+        }
+        private List<HistoryItemDto> MapHistoryEvents(IEnumerable<TicketHistory> historyEvents)
+        {
+            var historyItems = new List<HistoryItemDto>();
 
-            //z ticketRepo pobrać historię
-            //dodać elementy history do items 
-            //i oznaczyć je jako hist event
+                foreach (var historyEvent in historyEvents)
+                {
+                    var message = "";
 
-            //var items = new List<HistoryItemDto>();
+                    foreach (var detail in historyEvent.HistoryDetails!)
+                    {
+                        message += $"Propery: {detail.TicketPropertyName} changed to {detail.PropertyNewValue} from {detail.PropertyOldValue}.\n";
+                    }
 
-            return sortedHistoryItems; 
+                    var historyItem = _mapper.Map<HistoryItemDto>(historyEvent);
+                    historyItem.Message = message;
+                    historyItem.ItemType = HistoryItem.HistoryEvent;
+
+                    historyItems.Add(historyItem);
+                }
+
+            return historyItems;
+        }
+        private void AddHistoryItemType(IEnumerable<HistoryItemDto> historyItems, HistoryItem historyItemType)
+        {
+            foreach (var historyItem in historyItems)
+            {
+                historyItem.ItemType = historyItemType;
+            }
+
         }
     }
 }
