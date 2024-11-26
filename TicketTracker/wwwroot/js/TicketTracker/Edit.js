@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     LoadServices();
-    LoadCommentsForTicketId();
+    //LoadCommentsForTicketId();
 
     $("#AddCommentCollapse form").submit(function (event) {
         event.preventDefault();
@@ -12,8 +12,9 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function (data) {
 
-                LoadCommentsForTicketId()
-                toastr["success"]("Comment - added")
+                LoadHistoryForTicketId();
+                //LoadCommentsForTicketId()
+                //toastr["success"]("Comment - added")
                 HideCollapse()
 
 

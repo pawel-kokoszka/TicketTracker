@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    LoadCommentsForTicketId();
+    //LoadCommentsForTicketId();
 
     $("#AddCommentCollapse form").submit(function (event) {
         event.preventDefault();
@@ -11,10 +11,10 @@ $(document).ready(function () {
             type: $(this).attr('method'),
             data: $(this).serialize(),
             success: function (data) {
-
-                LoadCommentsForTicketId()
-                toastr["success"]("Comment - added")
-                HideCollapse()
+                HideCollapse();
+                LoadHistoryForTicketId();
+                //LoadCommentsForTicketId()
+                //toastr["success"]("Comment - added")
 
                 
             },
@@ -25,5 +25,16 @@ $(document).ready(function () {
         })
     });
 
+    
 
 });
+
+
+////wydziel do oddzielnej funkcji 
+//$(document).ready(function () {
+//    $("#reloadButton").click(function () {
+
+//        LoadHistoryForTicketId();
+        
+//    });
+//});
