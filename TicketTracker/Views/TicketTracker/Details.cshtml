@@ -12,7 +12,7 @@
 
             <div class="row">
 
-                <div class="col-lg">
+                <d class="col-lg">
 
                     <div class="row">
 
@@ -56,7 +56,7 @@
                     </div>
 
 
-                    <div class="card text-bg-light mb-3 shadow">
+                    <div class="card text-bg-light mb-4 shadow">
                             <div class="card-body">
                                 <div class="row">
                                 
@@ -277,7 +277,7 @@
                             <div>
                             @if (Model.IsEditable == true)
                             {
-                                <a class="btn btn-primary mb-3 shadow" asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
+                                <a class="btn btn-primary mb-4 shadow" asp-controller="TicketTracker" asp-route-Id="@Model.Id" asp-action="Edit" >Edit this ticket</a>            
                             }    
     
                             </div>
@@ -285,29 +285,28 @@
                     </div>
 
                     
-                    <div class="card" >
-                            <h6 class="card-header">Comments:</h6>
+                   
                
-                                <div class="col">
+                    <div class="row">
 
-                                    <div class="card-header">
-                                        @if (Model.IsAbleToComment == true || Model.IsEditable == true)
-                                        {
-                                                <partial name="_AddNewComment" 
-                                                         model="new CreateCommentCommand() {TicketId = Model.Id}" />
-                                        }
+                            @if (Model.IsAbleToComment == true || Model.IsEditable == true)
+                            {
+                                    <partial name="_AddNewComment" 
+                                                model="new CreateCommentCommand() {TicketId = Model.Id}" />
+                            }
 
-                                        <div  id="comments" data-id="@Model.Id">
+                            <div  id="comments" data-id="@Model.Id">
                                         
-                                        </div>
+                            </div>
 
-                                    </div>
-                                </div>
-               
                     </div>
-                    <br />
-                    <br />
-                    <div id="tickethistory">
+                        @* <div class="row">
+                            <button id="reloadButton" class="btn btn-primary">Reload Tickets</button>
+                        </div> *@
+               
+                    
+
+                    <div id="tickethistory" data-id="@Model.Id">
                    
                     @await Component.InvokeAsync("TicketHistory", new { ticketId = Model.Id })
                     </div>

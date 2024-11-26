@@ -505,6 +505,19 @@ namespace TicketTracker.MVC.Controllers
 
         [HttpGet]
         [Authorize(Roles = "App User,Admin")]
+        [Route("TicketTracker/HistoryItems/{ticketId}")]
+        public async Task<IActionResult> TicketHistoryItemsReloadView(int ticketId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return ViewComponent("TicketHistory",ticketId);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "App User,Admin")]
         [Route("TicketTracker/Comments/{ticketId}")]
         public async Task<IActionResult> GetTicketComments(int ticketId)
         {
