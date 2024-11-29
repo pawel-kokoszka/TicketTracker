@@ -38,7 +38,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
             var historyEntry = await _ticketRepository.GetTicketLockByTicketId(request.Id);
 
             
-            var ticketEditedPropertiesList = GetEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
+            var ticketEditedPropertiesList = ExtractEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
 
             //AddPropertiesDisplayNames
             // tutaj trzaba dodać sprawdzanie czy coś się zmieniło w każdej ticket property i jeśli tak jakoś to mergować 
@@ -51,7 +51,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
 
 
 
-        private List<TicketHistoryDetail> GetEditedHistoryDetails(Ticket oryginalTicket, Ticket editedTicket, int historyEntryId)
+        private List<TicketHistoryDetail> ExtractEditedHistoryDetails(Ticket oryginalTicket, Ticket editedTicket, int historyEntryId)
         {
             if (oryginalTicket is null || editedTicket is null )
             {
