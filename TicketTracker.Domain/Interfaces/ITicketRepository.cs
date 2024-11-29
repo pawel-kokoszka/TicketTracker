@@ -13,6 +13,7 @@ namespace TicketTracker.Domain.Interfaces
 
         Task CreateHistoryEntry(TicketHistory historyEntry);
         Task CreateHistoryDetails(List<TicketHistoryDetail> historyDetails);
+        //Task GetHistoryDetailsForEditLockId(List<TicketHistoryDetail> historyDetails);
 
         Task<TicketHistory> GetTicketLockByTicketId(int ticketId);
         Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId);
