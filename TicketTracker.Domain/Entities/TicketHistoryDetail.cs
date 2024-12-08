@@ -11,6 +11,7 @@ namespace TicketTracker.Domain.Entities
         public int Id { get; set; }
         public int TicketHistoryId { get; set; }
         public Guid EditLockId { get; set; }
+        public bool IsDiscarded { get; set; }
         public string? TicketPropertyName { get; set; }
         public string? PropertyNewValue { get; set; }
         //public string? PropertyNewDisplayValue { get; set; }

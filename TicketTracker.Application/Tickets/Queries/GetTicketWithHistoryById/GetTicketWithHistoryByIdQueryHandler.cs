@@ -57,9 +57,10 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
                 ticketDetailsDto.IsOverdue = true;
             }
 
+            //history of the ticket with details for the current edit lockId
             var ticketHistoryWithDetails = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.TicketId);
 
-            //ticketHistoryWithDetails.Result;
+            //full ticket with history 
             ticketDetailsDto.TicketHistory = _mapper.Map<TicketHistoryDto>(ticketHistoryWithDetails);
 
             //var historyPropertyDetails = ticketDetailsDto.TicketHistory.HistoryDetails;

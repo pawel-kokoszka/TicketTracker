@@ -16,7 +16,9 @@ namespace TicketTracker.Domain.Interfaces
         //Task GetHistoryDetailsForEditLockId(List<TicketHistoryDetail> historyDetails);
 
         Task<TicketHistory> GetTicketLockByTicketId(int ticketId);
-        Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId);
+        Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketHistoryId);
+
+        Task<List<TicketHistoryDetail>> GetUnsavedTicketProperties(int ticketHistoryId);
 
         Task<IEnumerable<Ticket>> GetAll();
 
@@ -32,5 +34,6 @@ namespace TicketTracker.Domain.Interfaces
         void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData);
 
         Task<IEnumerable<TicketHistory>>GetHistoryByTicketId(int ticketId);
+        Task SaveChangesToAlredyEditedHistoryDetails(IEnumerable<TicketHistoryDetail> DiscardedPropertyChangesInEditSession);
     }
 }

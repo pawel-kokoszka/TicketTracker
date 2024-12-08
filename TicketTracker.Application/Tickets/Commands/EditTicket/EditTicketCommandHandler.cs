@@ -37,19 +37,83 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicket
                       
             var historyEntry = await _ticketRepository.GetTicketLockByTicketId(request.Id);
 
-            
-            var ticketEditedPropertiesList = ExtractEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
+            //extracted edited ticket properties entered by user on edit ticket form - not yet saved in DB 
+            var newEditedProperties = ExtractEditedHistoryDetails(ticketOryginalData, ticketEditedData, historyEntry.Id);
+
+
+            //already edited ticket properties, that are saved in DB and are related to current ticket lockId
+            var alreadyEditedPropertiesInSession = await _ticketRepository.GetUnsavedTicketProperties(historyEntry.Id);
+
+            if (alreadyEditedPropertiesInSession.Count == 0)
+            {
+                await _ticketRepository.CreateHistoryDetails(newEditedProperties);
+            }
+            else
+            {
+                RemoveDuplicates(alreadyEditedPropertiesInSession, newEditedProperties);
+                //porównać czy w ticketEditedPropertiesList znajduje się jakieś alreadyEditedPropertiesInSession
+                //jeśli tak to usunąć je z ticketEditedPropertiesList
+                await _ticketRepository.CreateHistoryDetails(newEditedProperties);
+
+                //spr. czt w alreadyEditedPropertiesInSession któryś element został przesawiony na IsDiscarded == true
+
+                var isChanged = alreadyEditedPropertiesInSession.Any(thd => thd.IsDiscarded == true);
+
+                if (isChanged == true)
+                {
+                    //wykonaj update na ticekt history detail użwyając alreadyEditedPropertiesInSession
+                    await _ticketRepository.SaveChangesToAlredyEditedHistoryDetails(alreadyEditedPropertiesInSession);
+                }
+
+                //if (alreadyEditedPropertiesInSession.Count != 0) 
+                //{
+                //    await _ticketRepository.DiscardHistoryDetails(alreadyEditedPropertiesInSession);
+                //}
+
+            }
 
             //AddPropertiesDisplayNames
             // tutaj trzaba dodać sprawdzanie czy coś się zmieniło w każdej ticket property i jeśli tak jakoś to mergować 
             //i albo updetować istniejący rekord albo dodawać nowy (pewnie też kaswać poprzedni)
 
-            await _ticketRepository.CreateHistoryDetails(ticketEditedPropertiesList);
 
             return Unit.Value;
         }
 
+        private void RemoveDuplicates(List<TicketHistoryDetail> alreadyEditedPropertiesInSession, List<TicketHistoryDetail> newEditedPropertiesList)
+        {
+            foreach (var alreadyEdited in alreadyEditedPropertiesInSession)
+            {
+                foreach (var newlyEdited in newEditedPropertiesList)
+                {
+                    if (alreadyEdited.TicketPropertyName == newlyEdited.TicketPropertyName)
+                    {
+                        //możliwe przypadki
+                        //1. nowe i stare property  jest takie samo - skasuj nowe
+                        //2. nowe i stare różnią się - skasuj stare 
 
+                        if (newlyEdited.PropertyOldValue == alreadyEdited.PropertyOldValue && newlyEdited.PropertyNewValue != alreadyEdited.PropertyNewValue)
+                        {                            
+                            //discard or delete alreadyEdited from DB
+                            alreadyEdited.IsDiscarded = true;
+
+                            continue;
+                        }
+                        if (newlyEdited.PropertyOldValue == alreadyEdited.PropertyOldValue && newlyEdited.PropertyNewValue == alreadyEdited.PropertyNewValue)
+                        {                        
+                            //discard in newlyEdited or remove it from the list 
+                            newEditedPropertiesList.Remove(newlyEdited);
+
+                            continue;
+                        }
+                        if (newlyEdited.PropertyOldValue != alreadyEdited.PropertyOldValue)
+                        {
+                            throw new InvalidOperationException("Checking Ticket Edited Proprties (PropertyOldValue Inconsistency) Invalid Operation");
+                        }
+                    }
+                }
+            }
+        }
 
         private List<TicketHistoryDetail> ExtractEditedHistoryDetails(Ticket oryginalTicket, Ticket editedTicket, int historyEntryId)
         {
