@@ -35,6 +35,8 @@ namespace TicketTracker.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync(); //nie wiem dlaczego to zakomentowałem 
         }
 
+
+
         public async Task CreateHistoryEntry(TicketHistory historyEntry)
         {
             _dbContext.Add(historyEntry);
@@ -104,7 +106,7 @@ namespace TicketTracker.Infrastructure.Repositories
             => await _dbContext.TicketHistory
                         .Include(th => th.Ticket)
                         .Where(th => th.TicketId == ticketId) 
-                        .Where(th => th.TicketId == th.Ticket.Id && th.EditLockId == th.Ticket.EditLockId)
+                        .Where(th => th.TicketId == th.Ticket.Id && th.EditLockId == th.Ticket.EditLockId)                        
                         .Select(th => new TicketHistory {
                                         Id =  th.Id,
                                         EditLockId = th.EditLockId,
@@ -113,8 +115,8 @@ namespace TicketTracker.Infrastructure.Repositories
                                         DateEdited = th.DateEdited,
                                         UserId = th.UserId,
                                         SummaryComment = th.SummaryComment,
-                                        HistoryDetails = th.HistoryDetails.ToList()
-                                    })
+                                        HistoryDetails = th.HistoryDetails.Where(det => det.IsDiscarded == false).ToList()
+                        })
                         .FirstOrDefaultAsync();
 
 
@@ -161,7 +163,27 @@ namespace TicketTracker.Infrastructure.Repositories
                       })
                  ).ToListAsync();
 
+        public async Task<List<TicketHistoryDetail>> GetUnsavedTicketProperties(int ticketHistoryId)
+        {
+            return await (from thd in _dbContext.TicketHistoryDetails 
+                          join th in _dbContext.TicketHistory on thd.TicketHistoryId equals th.Id
+                          where thd.TicketHistoryId == ticketHistoryId && th.IsApproved == false
+                          select ( new TicketHistoryDetail
+                          {
+                              Id = thd.Id,
+                              TicketHistoryId = thd.TicketHistoryId,
+                              TicketPropertyName = thd.TicketPropertyName,
+                              PropertyNewValue = thd.PropertyNewValue,
+                              PropertyOldValue = thd.PropertyOldValue,
+                              Comment = thd.Comment
+                          })).ToListAsync();
 
+        }
+        public async Task SaveChangesToAlredyEditedHistoryDetails(IEnumerable<TicketHistoryDetail> DiscardedPropertyChangesInEditSession)
+        {
+            _dbContext.UpdateRange(DiscardedPropertyChangesInEditSession);
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task SaveToDb()
             => await _dbContext.SaveChangesAsync();
 

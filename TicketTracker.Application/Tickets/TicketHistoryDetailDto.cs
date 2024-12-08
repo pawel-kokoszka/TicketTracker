@@ -10,6 +10,7 @@ namespace TicketTracker.Application.Tickets
     {
         public int Id { get; set; }
         public int TicketHistoryId { get; set; }
+        public bool IsDiscarded { get; set; }
         public string? TicketPropertyName { get; set; }
         public string? TicketPropertyDisplayName { get; set; }
 
