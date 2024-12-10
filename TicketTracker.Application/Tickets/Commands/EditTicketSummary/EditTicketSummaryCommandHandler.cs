@@ -80,11 +80,11 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                         if (propertyToChangeType !=  changedProperty.PropertyNewValue!.GetType()) //czyli nie równa się string bo PropertyNewValue to string
                         {                        
 
-                            int liczba;
+                            int intValue;
  
-                            if (int.TryParse(changedProperty.PropertyNewValue, out liczba))
+                            if (int.TryParse(changedProperty.PropertyNewValue, out intValue))
                             {
-                                propertyToChange.SetValue(ticketOryginalData, liczba, null);
+                                propertyToChange.SetValue(ticketOryginalData, intValue, null);
                             }
                             else
                             {
