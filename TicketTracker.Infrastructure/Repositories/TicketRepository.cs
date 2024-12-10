@@ -142,7 +142,7 @@ namespace TicketTracker.Infrastructure.Repositories
                  )
                 .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<TicketHistory>>GetHistoryByTicketId(int ticketId)
+        public async Task<IEnumerable<TicketHistory>>GetHistoryEventsByTicketId(int ticketId)
         => await(from t in _dbContext.Tickets
                  join th in _dbContext.TicketHistory on t.Id equals th.TicketId
 
@@ -158,7 +158,7 @@ namespace TicketTracker.Infrastructure.Repositories
                           DateEdited = th.DateEdited,
                           UserId = th.UserId,                          
                           SummaryComment = th.SummaryComment,
-                          HistoryDetails = th.HistoryDetails,
+                          HistoryDetails = th.HistoryDetails!.Where(det => det.IsDiscarded == false).ToList(),
                           User = th.User
                       })
                  ).ToListAsync();

@@ -33,7 +33,7 @@ namespace TicketTracker.Domain.Interfaces
 
         void MapTicketProperties(Ticket newTicketData, Ticket oldTicketData);
 
-        Task<IEnumerable<TicketHistory>>GetHistoryByTicketId(int ticketId);
+        Task<IEnumerable<TicketHistory>>GetHistoryEventsByTicketId(int ticketId);
         Task SaveChangesToAlredyEditedHistoryDetails(IEnumerable<TicketHistoryDetail> DiscardedPropertyChangesInEditSession);
     }
 }

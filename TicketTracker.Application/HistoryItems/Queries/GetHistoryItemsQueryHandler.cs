@@ -29,7 +29,7 @@ namespace TicketTracker.Application.HistoryItems.Queries
             var historyItemsCombined = new List<HistoryItemDto>();
 
             var comments = await _commentRepository.GetCommmentsByTicketId(request.TicketId);
-            var historyEvents = await _ticketRepository.GetHistoryByTicketId(request.TicketId);
+            var historyEvents = await _ticketRepository.GetHistoryEventsByTicketId(request.TicketId);
 
 
             var historyItemComments = _mapper.Map<IEnumerable<HistoryItemDto>>(comments);
