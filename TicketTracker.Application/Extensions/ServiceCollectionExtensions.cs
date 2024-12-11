@@ -5,6 +5,7 @@ using TicketTracker.Application.Tickets.Commands.CreateTicket;
 using TicketTracker.Application.Mappings;
 using MediatR;
 using TicketTracker.Application.ApplicationUser;
+using TicketTracker.Application.TicketDisplayNames;
 
 namespace TicketTracker.Application.Extensions
 {
@@ -13,6 +14,8 @@ namespace TicketTracker.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IUserContext, UserContext>();
+
+            services.AddScoped<ITicketDisplayNames, TicketDisplayNames.TicketDisplayNames>();
 
             services.AddMediatR(typeof(CreateTicketCommand)); //registerd type acts for registration for entire assmebly
 
