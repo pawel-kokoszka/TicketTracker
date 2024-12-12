@@ -56,7 +56,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketWithHistoryById
             var timeLeft = resolutionDate - currentDate;
 
 
-            ticketDetailsDto.TicketSlaResolutionDate = resolutionDate.ToString("yyyy-MM-dd HH:mm"); ;
+            ticketDetailsDto.TicketSlaResolutionDate = resolutionDate.ToString("yyyy-MM-dd HH:mm");
 
             ticketDetailsDto.TicketSlaTimeLeft = $"{timeLeft.Days} days, {timeLeft.Hours} hours, {timeLeft.Minutes} minutes";
 
