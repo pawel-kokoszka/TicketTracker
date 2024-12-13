@@ -46,5 +46,7 @@ namespace TicketTracker.Domain.Interfaces
         Task<List<TeamRoleType>> GetUserRolesRelatedToTicketId(int ticketId, string? userId);
 
         Task<IEnumerable<int>> GetUserTeamsIds(string userId);
+
+        Task<List<TeamRoleType>> GetUserRolesForUserByTicketTypeConfigurationId(int ticketTypeConfigurationId, string? userId);
     }
 }

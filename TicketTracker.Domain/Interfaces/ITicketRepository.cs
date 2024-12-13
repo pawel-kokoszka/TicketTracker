@@ -35,5 +35,7 @@ namespace TicketTracker.Domain.Interfaces
 
         Task<IEnumerable<TicketHistory>>GetHistoryEventsByTicketId(int ticketId);
         Task SaveChangesToAlredyEditedHistoryDetails(IEnumerable<TicketHistoryDetail> DiscardedPropertyChangesInEditSession);
+
+        Task<int> GetTicketTypeConfigurationIdByTicketId(int ticketId);
     }
 }

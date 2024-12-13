@@ -13,17 +13,25 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserRolesRelatedToTicketI
     internal class GetUserRolesRelatedToTicketIdQueryHandler : IRequestHandler<GetUserRolesRelatedToTicketIdQuery, UserRolesDto>
     {
         private readonly IProjectConfigurationRepository _projConfRepository;
+        private readonly ITicketRepository _ticketRepository;        
         private readonly IMapper _mapper;
 
-        public GetUserRolesRelatedToTicketIdQueryHandler(IProjectConfigurationRepository projConfRepository, IMapper mapper)
+
+        public GetUserRolesRelatedToTicketIdQueryHandler(IProjectConfigurationRepository projConfRepository, ITicketRepository ticketRepository, IMapper mapper)
         {
             _projConfRepository = projConfRepository;
+            _ticketRepository = ticketRepository;
             _mapper = mapper;
         }
 
         public async Task<UserRolesDto> Handle(GetUserRolesRelatedToTicketIdQuery request, CancellationToken cancellationToken)
         {
-            var foundRoles = await _projConfRepository.GetUserRolesRelatedToTicketId(request.TicketId, request.UserId);
+            var ticketTypeConfigurationId = _ticketRepository.GetTicketTypeConfigurationIdByTicketId(request.TicketId).Result;
+
+            //var foundRoles = await _projConfRepository.GetUserRolesRelatedToTicketId(request.TicketId, request.UserId);
+
+            var foundRoles = await _projConfRepository.GetUserRolesForUserByTicketTypeConfigurationId(ticketTypeConfigurationId, request.UserId);
+
 
             var userRolesDto = _mapper.Map<UserRolesDto>(foundRoles);
                         

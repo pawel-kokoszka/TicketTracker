@@ -415,6 +415,30 @@ namespace TicketTracker.Infrastructure.Repositories
             return roles;
         }
 
+        public async Task<List<TeamRoleType>> GetUserRolesForUserByTicketTypeConfigurationId(int ticketTypeConfigurationId, string? userId)
+        {
+            var roles = await (                            
+                            from ttc in _dbContext.TicketTypeConfigurations 
+                            join tr in _dbContext.TeamsRoles on ttc.Id equals tr.TicketTypeConfigurationId
+                            join tu in _dbContext.TeamsUsers on tr.TeamId equals tu.TeamId
+                            join trt in _dbContext.TeamRoleTypes on tr.RoleId equals trt.Id
+                            where
+                                ttc.Id == ticketTypeConfigurationId && tu.UserId == userId
+
+                            select (
+                                new TeamRoleType()
+                                {
+                                    Id = trt.Id,
+                                    Name = trt.Name,
+                                    Description = trt.Description
+                                })
+                            )
+                            .Distinct()
+                            .ToListAsync();
+
+            return roles;
+        }
+
         public async Task<IEnumerable<int>> GetUserTeamsIds(string userId)//todo - move to UserRpository 
             => await _dbContext.TeamsUsers
                         .Where(team => team.UserId == userId)

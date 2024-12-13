@@ -100,6 +100,10 @@ namespace TicketTracker.Infrastructure.Repositories
                          )
                         .FirstOrDefaultAsync();
 
+        public async Task<int> GetTicketTypeConfigurationIdByTicketId(int ticketId)
+            => await (from t in _dbContext.Tickets where t.Id == ticketId
+                      select ( t.TicketTypeConfigurationId ))
+                      .FirstOrDefaultAsync();
 
         //nie używane do refactoru 
         public async Task<TicketHistory> GetTicketHistoryEntryByLockIdAndTicketId(int ticketId)
