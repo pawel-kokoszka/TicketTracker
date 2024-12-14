@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TicketTracker.Application.Comments;
+using TicketTracker.Application.TicketDisplayNames;
+using TicketTracker.Application.Tickets;
 using TicketTracker.Domain.Entities;
 using TicketTracker.Domain.Interfaces;
 
@@ -16,12 +18,14 @@ namespace TicketTracker.Application.HistoryItems.Queries
         private readonly ICommentRepository _commentRepository;
         private readonly IMapper _mapper;
         private readonly ITicketRepository _ticketRepository;
+        private readonly ITicketDisplayNames _ticketDisplayNames;
 
-        public GetHistoryItemsQueryHandler(ICommentRepository commentRepository, ITicketRepository ticketRepository, IMapper mapper)
+        public GetHistoryItemsQueryHandler(ICommentRepository commentRepository, ITicketRepository ticketRepository, IMapper mapper, ITicketDisplayNames ticketDisplayNames)
         {
             _commentRepository = commentRepository;
             _ticketRepository = ticketRepository;
             _mapper = mapper;
+            _ticketDisplayNames = ticketDisplayNames;
         }
 
         public async Task<IEnumerable<HistoryItemDto>> Handle(GetHistoryItemsQuery request, CancellationToken cancellationToken)
@@ -73,6 +77,10 @@ namespace TicketTracker.Application.HistoryItems.Queries
 
                     foreach (var detail in historyEvent.HistoryDetails!)
                     {
+                        var historyDetailDto = _mapper.Map<TicketHistoryDetailDto>(detail);
+
+                        _ticketDisplayNames.AddDisplayNamesToHistoryDetail(historyDetailDto);
+
                         message += $"Propery: {detail.TicketPropertyName} changed to {detail.PropertyNewValue} from {detail.PropertyOldValue}.\n";
                     }
 

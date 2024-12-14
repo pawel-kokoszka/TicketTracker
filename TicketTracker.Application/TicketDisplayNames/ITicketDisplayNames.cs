@@ -10,5 +10,7 @@ namespace TicketTracker.Application.TicketDisplayNames
     public interface ITicketDisplayNames
     {
         void AddDisplayNamesToHistoryDetails(List<TicketHistoryDetailDto> historyPropertyDetails);
+        void AddDisplayNamesToHistoryDetail(TicketHistoryDetailDto historyPropertyDetail);
+        //Task AddDisplayNamesToHistoryDetail(TicketHistoryDetailDto historyPropertyDetail);
     }
 }
