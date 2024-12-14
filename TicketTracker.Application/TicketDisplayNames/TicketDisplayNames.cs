@@ -101,6 +101,91 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
                 }
             }
-        }    
+        }
+
+        public void AddDisplayNamesToHistoryDetail(TicketHistoryDetailDto historyPropertyDetail)
+        {
+            
+                switch (historyPropertyDetail.TicketPropertyName)
+                {
+                    case "TicketSlaConfigurationId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Priority Level:";
+
+                        var slaPair = _projectConfigurationRepository.GetTicketSlaForSlaList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
+
+                        historyPropertyDetail.PropertyOldDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(historyPropertyDetail.PropertyOldValue!))!.Name;
+                        historyPropertyDetail.PropertyNewDisplayValue = slaPair.Find(sla => sla.Id == int.Parse(historyPropertyDetail.PropertyNewValue!))!.Name;
+                        break;
+
+                    case "Description":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Description";
+
+                        historyPropertyDetail.PropertyOldDisplayValue = historyPropertyDetail.PropertyOldValue!.ToString();
+                        historyPropertyDetail.PropertyNewDisplayValue = historyPropertyDetail.PropertyNewValue!.ToString();
+                        break;
+
+                    case "ShortDescription":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Short Description";
+
+                        historyPropertyDetail.PropertyOldDisplayValue = historyPropertyDetail.PropertyOldValue!.ToString();
+                        historyPropertyDetail.PropertyNewDisplayValue = historyPropertyDetail.PropertyNewValue!.ToString();
+                        break;
+
+                    case "TicketStatusId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Ticket Status:";
+
+                        var statusPair =  _projectConfigurationRepository.GetTicketStatusesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
+
+                        historyPropertyDetail.PropertyOldDisplayValue = statusPair.Find(status => status.Id == int.Parse(historyPropertyDetail.PropertyOldValue!))!.Name;
+                        historyPropertyDetail.PropertyNewDisplayValue = statusPair.Find(status => status.Id == int.Parse(historyPropertyDetail.PropertyNewValue!))!.Name;
+                        break;
+
+                    case "TicketServiceId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Service:";
+
+                        var servicePair =  _projectConfigurationRepository.GetTicketServicesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
+
+                        historyPropertyDetail.PropertyOldDisplayValue = servicePair.Find(service => service.Id == int.Parse(historyPropertyDetail.PropertyOldValue!))!.ServiceName;
+                        historyPropertyDetail.PropertyNewDisplayValue = servicePair.Find(service => service.Id == int.Parse(historyPropertyDetail.PropertyNewValue!))!.ServiceName;
+                        break;
+
+                    case "TicketSubServiceId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Sub Service:";
+
+                        var subServicePair =  _projectConfigurationRepository.GetTicketSubServicesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
+
+                        historyPropertyDetail.PropertyOldDisplayValue = subServicePair.Find(subService => subService.Id == int.Parse(historyPropertyDetail.PropertyOldValue!))!.SubServiceName;
+                        historyPropertyDetail.PropertyNewDisplayValue = subServicePair.Find(subService => subService.Id == int.Parse(historyPropertyDetail.PropertyNewValue!))!.SubServiceName;
+                        break;
+
+                    case "AssignedTeamId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Team:";
+
+                        var teamPair = _projectConfigurationRepository.GetTeamsForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
+
+                        historyPropertyDetail.PropertyOldDisplayValue = teamPair.Find(team => team.Id == int.Parse(historyPropertyDetail.PropertyOldValue!))!.Name;
+                        historyPropertyDetail.PropertyNewDisplayValue = teamPair.Find(team => team.Id == int.Parse(historyPropertyDetail.PropertyNewValue!))!.Name;
+                        break;
+
+                    case "AssignedUserId":
+                        historyPropertyDetail.TicketPropertyDisplayName = "Assigned User:";
+
+                        var userPair = _projectConfigurationRepository.GetUsersForIdList(new List<string>() { historyPropertyDetail.PropertyOldValue!, historyPropertyDetail.PropertyNewValue! }).Result; 
+
+                        if (historyPropertyDetail.PropertyOldValue == null)
+                        {
+                            historyPropertyDetail.PropertyOldDisplayValue = "Ticket Manager";
+                        }
+                        else
+                        {
+                            historyPropertyDetail.PropertyOldDisplayValue = userPair.Find(user => user.Id == (historyPropertyDetail.PropertyOldValue))!.Email;
+
+                        }
+
+                        historyPropertyDetail.PropertyNewDisplayValue = userPair.Find(user => user.Id == (historyPropertyDetail.PropertyNewValue))!.Email;
+                        break;
+                }
+            
+        }
     }
 }
