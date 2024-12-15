@@ -26,7 +26,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetUserRolesRelatedToTicketI
 
         public async Task<UserRolesDto> Handle(GetUserRolesRelatedToTicketIdQuery request, CancellationToken cancellationToken)
         {
-            var ticketTypeConfigurationId = _ticketRepository.GetTicketTypeConfigurationIdByTicketId(request.TicketId).Result;
+            var ticketTypeConfigurationId = await _ticketRepository.GetTicketTypeConfigurationIdByTicketId(request.TicketId);
 
             //var foundRoles = await _projConfRepository.GetUserRolesRelatedToTicketId(request.TicketId, request.UserId);
 
