@@ -33,14 +33,14 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "Description":
-                        property.TicketPropertyDisplayName = "Description";
+                        property.TicketPropertyDisplayName = "Description:";
 
                         property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();
                         property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString();
                         break;
 
                     case "ShortDescription":
-                        property.TicketPropertyDisplayName = "Short Description";
+                        property.TicketPropertyDisplayName = "Short Description:";
 
                         property.PropertyOldDisplayValue = property.PropertyOldValue!.ToString();
                         property.PropertyNewDisplayValue = property.PropertyNewValue!.ToString();
@@ -89,7 +89,7 @@ namespace TicketTracker.Application.TicketDisplayNames
 
                         if (property.PropertyOldValue == null)
                         {
-                            property.PropertyOldDisplayValue = "Ticket Manager";
+                            property.PropertyOldDisplayValue = "Ticket Manager:";
                         }
                         else
                         {
@@ -109,7 +109,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                 switch (historyPropertyDetail.TicketPropertyName)
                 {
                     case "TicketSlaConfigurationId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Priority Level:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Priority Level";
 
                         var slaPair = _projectConfigurationRepository.GetTicketSlaForSlaList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
 
@@ -132,7 +132,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "TicketStatusId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Ticket Status:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Ticket Status";
 
                         var statusPair =  _projectConfigurationRepository.GetTicketStatusesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
 
@@ -141,7 +141,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "TicketServiceId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Service:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Service";
 
                         var servicePair =  _projectConfigurationRepository.GetTicketServicesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
 
@@ -150,7 +150,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "TicketSubServiceId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Sub Service:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Sub Service";
 
                         var subServicePair =  _projectConfigurationRepository.GetTicketSubServicesForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
 
@@ -159,7 +159,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "AssignedTeamId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Team:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Team";
 
                         var teamPair = _projectConfigurationRepository.GetTeamsForIdList(new List<int>() { int.Parse(historyPropertyDetail.PropertyOldValue!), int.Parse(historyPropertyDetail.PropertyNewValue!) }).Result;
 
@@ -168,7 +168,7 @@ namespace TicketTracker.Application.TicketDisplayNames
                         break;
 
                     case "AssignedUserId":
-                        historyPropertyDetail.TicketPropertyDisplayName = "Assigned User:";
+                        historyPropertyDetail.TicketPropertyDisplayName = "Assigned User";
 
                         var userPair = _projectConfigurationRepository.GetUsersForIdList(new List<string>() { historyPropertyDetail.PropertyOldValue!, historyPropertyDetail.PropertyNewValue! }).Result; 
 
