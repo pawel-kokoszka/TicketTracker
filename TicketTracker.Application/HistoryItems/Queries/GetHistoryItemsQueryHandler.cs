@@ -80,8 +80,8 @@ namespace TicketTracker.Application.HistoryItems.Queries
                         var historyDetailDto = _mapper.Map<TicketHistoryDetailDto>(detail);
 
                         _ticketDisplayNames.AddDisplayNamesToHistoryDetail(historyDetailDto);
-
-                        message += $"Propery: {detail.TicketPropertyName} changed to {detail.PropertyNewValue} from {detail.PropertyOldValue}.\n";
+                        
+                        message += $"{historyDetailDto.TicketPropertyDisplayName!.ToUpper()} changed to {historyDetailDto.PropertyNewDisplayValue!.ToUpper()} from {historyDetailDto.PropertyOldDisplayValue!.ToUpper()}.\n";
                     }
 
                     var historyItem = _mapper.Map<HistoryItemDto>(historyEvent);
