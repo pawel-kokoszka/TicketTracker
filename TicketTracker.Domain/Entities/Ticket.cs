@@ -11,6 +11,9 @@
 
         public DateTime DateCreated { get; set; }
         public DateTime DateEdited { get; set; }
+        public DateTime? DateStarted { get; set; }
+        public DateTime? DateSolved { get; set; }
+        public DateTime? DateCompleted { get; set; }
 
         public string? CreatedByUserId { get; set; }
 
