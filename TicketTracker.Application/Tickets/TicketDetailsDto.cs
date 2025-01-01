@@ -11,6 +11,9 @@
         
         public string? DateCreated { get; set; } 
         public string? DateEdited { get; set; }
+        public string? DateStarted { get; set; }
+        public string? DateSolved { get; set; }
+        public string? DateCompleted { get; set; }
 
         public Guid? EditLockId { get; set; }
 
