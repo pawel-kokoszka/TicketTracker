@@ -33,7 +33,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             var ticketEditedData = request.TicketHistory;
 
 
-            var numberOfChangedProperties = WriteChangedProperiesToTicket(ticketOryginalData, ticketEditedData.HistoryDetails!);
+            var numberOfChangedProperties = WriteChangedProperiesToTicket(ticketOryginalData, ticketEditedData!.HistoryDetails!);
             if (numberOfChangedProperties == 0)
             {
                 return Unit.Value;
@@ -41,7 +41,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
 
 
             var currentHistoryEntry = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.Id);
-            currentHistoryEntry.SummaryComment = request.TicketHistory.SummaryComment;
+            currentHistoryEntry.SummaryComment = request.TicketHistory!.SummaryComment;
             currentHistoryEntry.IsApproved = true;
 
             await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry); 
