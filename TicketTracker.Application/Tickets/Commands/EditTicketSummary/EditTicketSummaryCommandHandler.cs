@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using System.Collections.Generic;
 using System.Reflection;
 using TicketTracker.Application.ApplicationUser;
 using TicketTracker.Domain.Entities;
@@ -39,12 +40,39 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                 return Unit.Value;
             }
 
-
             var currentHistoryEntry = await _ticketRepository.GetTicketHistoryEntryByLockIdAndTicketId(request.Id);
             currentHistoryEntry.SummaryComment = request.TicketHistory!.SummaryComment;
             currentHistoryEntry.IsApproved = true;
+            
+            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);
+                        
 
-            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry); 
+            if (currentHistoryEntry.HistoryDetails!.Any(historyDetail => historyDetail.TicketPropertyName == "TicketStatusId") )
+            {
+                var historyDetailElement = currentHistoryEntry.HistoryDetails!.Where(historyDetail => historyDetail.TicketPropertyName == "TicketStatusId").FirstOrDefault();
+
+                if (historyDetailElement == null)
+                {
+                    throw new NullReferenceException("Ticket History Detail with Status ID was unexpected null reference!!!");
+                }
+                else
+                {
+                    //check for resolved status
+                    if (int.Parse(historyDetailElement.PropertyNewValue!) == 3)
+                    {
+                        //jesli newValue == resolved to uzupelniam dateSolved
+                        ticketOryginalData.DateSolved = DateTime.UtcNow;
+
+                    }
+                    //check for completed status
+                    if (int.Parse(historyDetailElement.PropertyNewValue!) == 5)
+                    {
+                        //jesli newValue == completed to uzupelniam dateCompleted 
+                        ticketOryginalData.DateCompleted = DateTime.UtcNow;
+
+                    }
+                }
+            }
 
             await _ticketRepository.SaveToDb();
 
