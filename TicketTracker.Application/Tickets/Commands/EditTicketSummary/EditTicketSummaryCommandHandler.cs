@@ -34,7 +34,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             var ticketEditedData = request.TicketHistory;
 
 
-            var numberOfChangedProperties = WriteChangedProperiesToTicket(ticketOryginalData, ticketEditedData!.HistoryDetails!);
+            var numberOfChangedProperties = WriteChangedProperitesToTicket(ticketOryginalData, ticketEditedData!.HistoryDetails!);
             if (numberOfChangedProperties == 0)
             {
                 return Unit.Value;
@@ -79,7 +79,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             return Unit.Value;
         }
 
-        private int WriteChangedProperiesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetailDto> changedProperties)
+        private int WriteChangedProperitesToTicket(Ticket ticketOryginalData, List<TicketHistoryDetailDto> changedProperties)
         {
             int numberOfChanges = 0;
 
