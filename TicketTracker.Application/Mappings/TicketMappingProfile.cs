@@ -18,13 +18,14 @@ namespace TicketTracker.Application.Mappings
 
             //For passing Command to View with user group/team 
             CreateMap<TicketCreateDto, CreateTicketCommand>();
-           
-
+                        
             CreateMap<Domain.Entities.Ticket, TicketDetailsDto>()
                 .ForMember(dto => dto.DateCreated, opt => opt.MapFrom(src => src.DateCreated.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm:ss")))
+                .ForMember(dto => dto.DateResolved, opt => opt.MapFrom(src => src.DateSolved.HasValue ? src.DateSolved.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A"))
+                .ForMember(dto => dto.DateCompleted, opt => opt.MapFrom(src => src.DateCompleted.HasValue ? src.DateCompleted.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A"))
                 .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName))
-                .ForMember(dto => dto.TicketSlaConfigurationName, opt => opt.MapFrom(src => src.TicketSlaConfigurations.Name))
+                .ForMember(dto => dto.TicketSlaConfigurationName, opt => opt.MapFrom(src => src.TicketSlaConfigurations!.Name))
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.ProjectConfiguration.Project.Name))
                 .ForMember(dto => dto.EnvironmentType, opt => opt.MapFrom(src => src.ProjectConfiguration.Environment.EnvironmentType.Name))
                 .ForMember(dto => dto.EnvironmentName, opt => opt.MapFrom(src => src.ProjectConfiguration.Environment.Name))
