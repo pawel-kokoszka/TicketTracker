@@ -12,8 +12,12 @@
         public string? DateCreated { get; set; } 
         public string? DateEdited { get; set; }
         public string? DateStarted { get; set; }
-        public string? DateSolved { get; set; }
+        
+        public string? DateResolved { get; set; }
+        public bool ShowResolvedDate { get; set; }
+
         public string? DateCompleted { get; set; }
+        public bool ShowCompletedDate { get; set; }
 
         public Guid? EditLockId { get; set; }
 
@@ -48,9 +52,12 @@
         public int TicketSlaConfigurationId { get; set; }
         public string? TicketSlaConfigurationName { get; set; }
         public string? TicketSlaTimeLeft { get; set; }
+        public bool ShowTicketSlaTimeLeft { get; set; }
         public string? TicketSlaResolutionDate { get; set; }
+        public bool ShowTicketSlaResolutionDate { get; set; }
 
         public bool IsOverdue { get; set; }
+        public bool ShowIsOverdue { get; set; }
 
         
 
