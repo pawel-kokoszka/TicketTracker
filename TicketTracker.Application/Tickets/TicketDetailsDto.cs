@@ -12,7 +12,8 @@
         public string? DateCreated { get; set; } 
         public string? DateEdited { get; set; }
         public string? DateStarted { get; set; }
-        
+        public string? DateAssigned { get; set; }
+                
         public string? DateResolved { get; set; }
         public bool ShowResolvedDate { get; set; }
 
