@@ -130,7 +130,7 @@ namespace TicketTracker.Application.Tickets.Queries.GetTicketById
             // display TicketSlaResolutionDate = false
             // display IsOverdue = false
             
-            ticketDetailsDto.TicketSlaResolutionDate = resolutionDate.ToString("yyyy-MM-dd HH:mm"); ;
+            ticketDetailsDto.TicketSlaResolutionDate = resolutionDate.ToString("yyyy-MM-dd HH:mm");
 
             ticketDetailsDto.TicketSlaTimeLeft = $"{timeLeft.Days} days, {timeLeft.Hours} hours, {timeLeft.Minutes} minutes";
 
