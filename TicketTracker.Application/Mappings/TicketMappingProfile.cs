@@ -24,6 +24,7 @@ namespace TicketTracker.Application.Mappings
                 .ForMember(dto => dto.DateEdited, opt => opt.MapFrom(src => src.DateEdited.ToString("yyyy-MM-dd HH:mm:ss")))
                 .ForMember(dto => dto.DateResolved, opt => opt.MapFrom(src => src.DateSolved.HasValue ? src.DateSolved.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A"))
                 .ForMember(dto => dto.DateCompleted, opt => opt.MapFrom(src => src.DateCompleted.HasValue ? src.DateCompleted.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A"))
+                .ForMember(dto => dto.DateAssigned, opt => opt.MapFrom(src => src.DateAssigned.HasValue ? src.DateAssigned.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Ticket not assigned"))
                 .ForMember(dto => dto.TicketTypeName, opt => opt.MapFrom(src => src.TicketType.TypeName))
                 .ForMember(dto => dto.TicketSlaConfigurationName, opt => opt.MapFrom(src => src.TicketSlaConfigurations!.Name))
                 .ForMember(dto => dto.ProjectName, opt => opt.MapFrom(src => src.ProjectConfiguration.Project.Name))
