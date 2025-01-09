@@ -47,7 +47,27 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);
                         
 
-            if (currentHistoryEntry.HistoryDetails!.Any(historyDetail => historyDetail.TicketPropertyName == "TicketStatusId") )
+            if (currentHistoryEntry.HistoryDetails!.Any(historyDetail => historyDetail.TicketPropertyName == "AssignedUserId") )
+            {
+                var historyDetailElement = currentHistoryEntry.HistoryDetails!.Where(historyDetail => historyDetail.TicketPropertyName == "AssignedUserId").FirstOrDefault();
+
+                if (historyDetailElement == null)
+                {
+                    throw new NullReferenceException("Ticket History Detail with AssignedUserId was unexpected null reference!!!");
+                }
+                else
+                {
+                    //check for resolved status
+                    if (historyDetailElement.PropertyOldValue == null && historyDetailElement.PropertyNewValue != null )
+                    {
+                        //user został przypisany i trzeba zapisać nową datę przypisania 
+                        ticketOryginalData.DateAssigned = DateTime.UtcNow;
+
+                    }                    
+                }
+            }
+
+            if (currentHistoryEntry.HistoryDetails!.Any(historyDetail => historyDetail.TicketPropertyName == "TicketStatusId"))
             {
                 var historyDetailElement = currentHistoryEntry.HistoryDetails!.Where(historyDetail => historyDetail.TicketPropertyName == "TicketStatusId").FirstOrDefault();
 
@@ -73,6 +93,8 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                     }
                 }
             }
+
+
 
             await _ticketRepository.SaveToDb();
 
