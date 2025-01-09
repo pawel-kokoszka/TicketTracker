@@ -57,12 +57,11 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                 }
                 else
                 {
-                    //check for resolved status
-                    if (historyDetailElement.PropertyOldValue == null && historyDetailElement.PropertyNewValue != null )
-                    {
-                        //user został przypisany i trzeba zapisać nową datę przypisania 
+                    //check if new user was assigned
+                    if ( (historyDetailElement.PropertyOldValue == null && historyDetailElement.PropertyNewValue != null) 
+                          || (historyDetailElement.PropertyOldValue != null && historyDetailElement.PropertyOldValue != historyDetailElement.PropertyNewValue) )
+                    {                        
                         ticketOryginalData.DateAssigned = DateTime.UtcNow;
-
                     }                    
                 }
             }
