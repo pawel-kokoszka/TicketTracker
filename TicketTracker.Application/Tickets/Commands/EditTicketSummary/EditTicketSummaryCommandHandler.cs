@@ -33,7 +33,6 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
 
             var ticketEditedData = request.TicketHistory;
 
-
             var numberOfChangedProperties = WriteChangedPropertiesToTicket(ticketOryginalData, ticketEditedData!.HistoryDetails!);
             if (numberOfChangedProperties == 0)
             {
@@ -44,8 +43,8 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
             currentHistoryEntry.SummaryComment = request.TicketHistory!.SummaryComment;
             currentHistoryEntry.IsApproved = true;
             
-            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);
-                        
+            await _ticketRepository.UpdateHistoryEntry(currentHistoryEntry);                        
+
 
             if (currentHistoryEntry.HistoryDetails!.Any(historyDetail => historyDetail.TicketPropertyName == "AssignedUserId") )
             {
@@ -56,8 +55,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                     throw new NullReferenceException("Ticket History Detail with AssignedUserId was unexpected null reference!!!");
                 }
                 else
-                {
-                    //check if new user was assigned
+                {                    
                     if ( (historyDetailElement.PropertyOldValue == null && historyDetailElement.PropertyNewValue != null) 
                           || (historyDetailElement.PropertyOldValue != null && historyDetailElement.PropertyOldValue != historyDetailElement.PropertyNewValue) )
                     {                        
@@ -75,25 +73,17 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
                     throw new NullReferenceException("Ticket History Detail with Status ID was unexpected null reference!!!");
                 }
                 else
-                {
-                    //check for resolved status
+                {                   
                     if (int.Parse(historyDetailElement.PropertyNewValue!) == 3)
                     {
-                        //jesli newValue == resolved to uzupelniam dateSolved
                         ticketOryginalData.DateSolved = DateTime.UtcNow;
-
-                    }
-                    //check for completed status
+                    }                    
                     if (int.Parse(historyDetailElement.PropertyNewValue!) == 5)
                     {
-                        //jesli newValue == completed to uzupelniam dateCompleted 
                         ticketOryginalData.DateCompleted = DateTime.UtcNow;
-
                     }
                 }
             }
-
-
 
             await _ticketRepository.SaveToDb();
 
@@ -126,7 +116,7 @@ namespace TicketTracker.Application.Tickets.Commands.EditTicketSummary
 
                         var propertyToChangeType = propertyToChange!.PropertyType;
 
-                        if (propertyToChangeType !=  changedProperty.PropertyNewValue!.GetType()) //czyli nie równa się string bo PropertyNewValue to string
+                        if (propertyToChangeType !=  changedProperty.PropertyNewValue!.GetType()) 
                         {                        
 
                             int intValue;
