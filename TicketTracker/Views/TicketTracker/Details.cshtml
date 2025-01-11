@@ -163,40 +163,48 @@
                                                             </div>  
 
 
-                                                                <div class="col">
-                                                                    @if (Model.ShowTicketSlaResolutionDate == true)
-                                                                    {                                        
-                                                                        <div class="form-floating mb-3">
-                                                                            @if (Model.IsOverdue == true)
-                                                                            {
-                                                                                <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
-                                                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />                                    
-                                                                                <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
-                                                                            }
-                                                                        </div>
-                                                                    }
+                                                            <div class="col">
+                                                                @if (Model.ShowTicketSlaResolutionDate == true)
+                                                                {                                        
+                                                                    <div class="form-floating mb-3">
+                                                                        @if (Model.IsOverdue == true)
+                                                                        {
+                                                                            <input asp-for="TicketSlaResolutionDate" class="form-control is-invalid" readonly />
+                                                                            <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input asp-for="TicketSlaResolutionDate" class="form-control" readonly />                                    
+                                                                            <label asp-for="TicketSlaResolutionDate">Resolution date:</label>                                 
+                                                                        }
+                                                                    </div>
+                                                                }
 
-                                                                    @if (Model.ShowTicketSlaTimeLeft == true)
-                                                                    {
-                                                                        <div class="form-floating mb-3">
-                                                                            @if (Model.IsOverdue == true)
-                                                                            {
-                                                                                <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
-                                                                                <label asp-for="TicketSlaTimeLeft" >Time overdue:</label>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
-                                                                                <label asp-for="TicketSlaTimeLeft">Time left:</label>                                    
-                                                                            }
-                                                                        </div>
-                                                                    }
+                                                                @if (Model.ShowTicketSlaTimeLeft == true)
+                                                                {
+                                                                    <div class="form-floating mb-3">
+                                                                        @if (Model.IsOverdue == true)
+                                                                        {
+                                                                            <input asp-for="TicketSlaTimeLeft" class="form-control is-invalid" readonly />
+                                                                            <label asp-for="TicketSlaTimeLeft" >Time overdue:</label>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input asp-for="TicketSlaTimeLeft" class="form-control" readonly />
+                                                                            <label asp-for="TicketSlaTimeLeft">Time left:</label>                                    
+                                                                        }
+                                                                    </div>
+                                                                }
 
-                                                                </div>
+                                                                @if (Model.ShowResolvedDate == true)
+                                                                {
+                                                                    <div class="form-floating mb-3">
+                                                                        <input asp-for="DateResolved" class="form-control" readonly />
+                                                                        <label asp-for="DateResolved">Resolved Date:</label>                                                                        
+                                                                    </div>
+                                                                }
+
+                                                            </div>
 
 
                                                             <div class="row">
