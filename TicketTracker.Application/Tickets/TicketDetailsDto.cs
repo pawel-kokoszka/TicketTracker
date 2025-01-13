@@ -56,6 +56,10 @@
         public bool ShowTicketSlaTimeLeft { get; set; }
         public string? TicketSlaResolutionDate { get; set; }
         public bool ShowTicketSlaResolutionDate { get; set; }
+        public string? TicketTimeWorked { get; set; }
+        public bool ShowTicketTimeWorked { get; set; }
+
+
 
         public bool IsOverdue { get; set; }
         public bool ShowIsOverdue { get; set; }
