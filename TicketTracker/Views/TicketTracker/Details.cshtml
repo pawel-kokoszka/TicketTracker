@@ -204,6 +204,14 @@
                                                                     </div>
                                                                 }
 
+                                                                @if (Model.ShowTicketTimeWorked == true)
+                                                                {
+                                                                    <div class="form-floating mb-3">
+                                                                        <input asp-for="TicketTimeWorked" class="form-control" readonly />
+                                                                        <label asp-for="TicketTimeWorked">Time Worked:</label>                                                                        
+                                                                    </div>
+                                                                }
+
                                                             </div>
 
 
