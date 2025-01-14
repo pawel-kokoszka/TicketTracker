@@ -24,3 +24,6 @@ ToDo:
 WiP:
 - deployment on Azure
 - CI/CD setup with Azure devops
+
+Current DB Diagaram:
+![Entity diagram v6](https://github.com/user-attachments/assets/cd23f9e6-d415-444e-8d96-2ba28a497233)
