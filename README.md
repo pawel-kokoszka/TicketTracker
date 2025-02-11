@@ -1,7 +1,7 @@
 Hi, this is my pet project used as learning platform for developing ASP.net Core web application.
 
 Ticket Tracker will be simple application for managing tickets used usually by teams working as IT operations support lines.
-I worked in 2nd line support team for over 6 years, so topic of managing tickets is bery close to my heart.
+I worked in 2nd line support team for over 6 years (it felt more like 66 years), so topic of managing tickets is very close to my heart.
 
 Tech stack used in this project so far:
 - ASP.NET CORE MFC Template
